@@ -1,0 +1,1434 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>האקדמיה המיסטית</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Noto+Serif+Hebrew:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f0e8;
+  --cream2:#ede7da;
+  --cream3:#e4dcd0;
+  --warm:#d4c4a8;
+  --earth:#8a6a40;
+  --earth2:#6a4e28;
+  --dark:#2d1e10;
+  --dark2:#1e1208;
+  --text:#3d2c18;
+  --muted:#8a7060;
+  --muted2:#b8a090;
+  --sage:#7a8a6a;
+  --border:rgba(138,106,64,.14);
+  --border2:rgba(138,106,64,.22);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--text);
+  font-family:'Noto Serif Hebrew',serif;
+  direction:rtl;
+  min-height:100vh;
+  font-weight:300;
+}
+
+/* ── GRAIN TEXTURE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.028;
+  pointer-events:none;
+  z-index:1000;
+}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(245,240,232,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:.5px solid var(--border);
+  padding:.9rem 0;
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  padding:0 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.95rem;color:var(--dark);
+  letter-spacing:.28em;text-transform:uppercase;
+  cursor:pointer;font-weight:400;
+}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{
+  font-family:'Jost',sans-serif;font-size:.52rem;
+  color:var(--muted);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:300;cursor:pointer;transition:color .22s;
+  background:none;border:none;
+}
+.nav-link:hover,.nav-link.active{color:var(--dark)}
+.nav-link.active{border-bottom:.5px solid var(--earth);padding-bottom:.1rem}
+
+/* ── SECTIONS ── */
+.section{display:none;animation:fadeUp .5s ease}
+.section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(160deg,
+      #c4b090 0%,
+      #d4c4a0 20%,
+      #b8a880 40%,
+      #c8b898 60%,
+      #d0c0a0 80%,
+      #b8a878 100%
+    );
+}
+/* Subtle dune-like texture */
+.hero-dunes{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 30% 60%,rgba(90,60,20,.18),transparent),
+    radial-gradient(ellipse 60% 40% at 70% 40%,rgba(180,150,100,.12),transparent),
+    radial-gradient(ellipse 40% 60% at 15% 80%,rgba(60,40,10,.15),transparent);
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(30,18,8,.72) 0%,
+    rgba(30,18,8,.38) 40%,
+    rgba(30,18,8,.08) 75%,
+    transparent 100%
+  );
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1200px;margin:0 auto;
+  padding:0 2.5rem 5rem;
+  width:100%;
+}
+.hero-eyebrow{
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  color:rgba(245,240,232,.55);letter-spacing:.38em;
+  text-transform:uppercase;font-weight:200;
+  margin-bottom:.9rem;
+}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,5.5rem);
+  color:rgba(245,240,232,.93);
+  font-weight:300;line-height:1.08;
+  letter-spacing:.01em;
+  margin-bottom:1.4rem;
+  max-width:800px;
+}
+.hero-h1 em{font-style:italic;font-weight:300;color:rgba(245,240,232,.72)}
+.hero-rule{
+  width:48px;height:.5px;
+  background:rgba(245,240,232,.35);
+  margin-bottom:1.4rem;
+}
+.hero-sub{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.82rem;color:rgba(245,240,232,.48);
+  line-height:2;font-weight:300;
+  max-width:500px;
+  margin-bottom:2.5rem;
+}
+.hero-cta-row{display:flex;gap:1.2rem;align-items:center}
+.btn-primary{
+  font-family:'Jost',sans-serif;font-size:.56rem;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:300;
+  background:rgba(245,240,232,.12);
+  border:1px solid rgba(245,240,232,.35);
+  color:rgba(245,240,232,.85);
+  padding:.75rem 2rem;cursor:pointer;
+  transition:all .28s;
+}
+.btn-primary:hover{background:rgba(245,240,232,.22);border-color:rgba(245,240,232,.6)}
+.btn-ghost{
+  font-family:'Jost',sans-serif;font-size:.52rem;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:200;
+  background:none;border:none;
+  color:rgba(245,240,232,.45);
+  cursor:pointer;transition:color .22s;
+}
+.btn-ghost:hover{color:rgba(245,240,232,.7)}
+/* scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;
+}
+.hero-scroll span{
+  font-family:'Jost',sans-serif;font-size:.42rem;
+  color:rgba(245,240,232,.3);letter-spacing:.22em;text-transform:uppercase;font-weight:200;
+}
+.scroll-line{width:.5px;height:32px;background:linear-gradient(to bottom,rgba(245,240,232,.25),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.4;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ── INTRO STRIP ── */
+.intro-strip{
+  display:grid;grid-template-columns:2fr 1fr;
+  border-bottom:.5px solid var(--border);
+  max-width:100%;
+}
+.intro-text{
+  padding:4rem 2.5rem 4rem;
+  max-width:1200px;
+  border-left:.5px solid var(--border);
+}
+.intro-label{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;
+  font-weight:300;margin-bottom:1.2rem;
+}
+.intro-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  color:var(--dark);font-weight:300;line-height:1.35;
+  margin-bottom:1.2rem;
+}
+.intro-headline em{font-style:italic;color:var(--earth)}
+.intro-body{
+  font-size:.82rem;color:var(--muted);
+  line-height:2.1;font-weight:300;max-width:580px;
+}
+.intro-aside{
+  padding:4rem 2.5rem;background:var(--cream2);
+  border-right:.5px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;gap:1.6rem;
+}
+.aside-stat{}
+.aside-stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;color:var(--earth);
+  font-weight:300;line-height:1;
+}
+.aside-stat-label{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:200;margin-top:.3rem;
+}
+.aside-rule{height:.5px;background:var(--border)}
+
+/* ── TOOLS SECTION ── */
+.tools-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.section-header{margin-bottom:3.5rem}
+.section-label{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;
+  font-weight:300;margin-bottom:.8rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.section-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,2.2rem);
+  color:var(--dark);font-weight:300;line-height:1.3;
+}
+.section-title em{font-style:italic;color:var(--earth)}
+
+/* TOOL TABS */
+.tool-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:3rem}
+.ttab{
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:300;
+  background:none;border:none;border-bottom:1.5px solid transparent;
+  padding:.7rem 1.6rem;color:var(--muted2);cursor:pointer;
+  transition:all .22s;margin-bottom:-.5px;
+}
+.ttab:hover{color:var(--dark)}
+.ttab.active{color:var(--dark);border-bottom-color:var(--earth)}
+.tpanel{display:none}.tpanel.active{display:block;animation:fadeUp .35s ease}
+
+/* TAROT */
+.tarot-layout-row{display:flex;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.lbtn{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  letter-spacing:.16em;text-transform:uppercase;font-weight:300;
+  background:none;border:.5px solid var(--border2);
+  padding:.45rem 1rem;color:var(--muted);cursor:pointer;
+  transition:all .2s;
+}
+.lbtn:hover{border-color:var(--earth);color:var(--earth)}
+.lbtn.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
+
+.tarot-note{font-family:'Jost',sans-serif;font-size:.48rem;color:var(--muted2);letter-spacing:.1em;margin-bottom:1.2rem}
+.tarot-note strong{color:var(--earth);font-weight:400}
+
+/* CARD GRID */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(78px,1fr));
+  gap:.65rem;
+  max-height:400px;overflow-y:auto;
+  padding:.25rem .1rem;
+  margin-bottom:1.4rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--warm) var(--cream2);
+}
+.card-grid::-webkit-scrollbar{width:3px}
+.card-grid::-webkit-scrollbar-thumb{background:var(--warm);border-radius:2px}
+
+/* THE CARD */
+.tc{
+  width:78px;height:128px;
+  cursor:pointer;position:relative;
+  transition:transform .22s;
+  flex-shrink:0;
+}
+.tc:hover{transform:translateY(-6px)}
+.tc.selected{transform:translateY(-9px)}
+
+.tc-inner{
+  width:100%;height:100%;
+  border-radius:5px;overflow:hidden;
+  position:relative;
+  box-shadow:0 3px 12px rgba(30,18,8,.25);
+}
+/* White RW border */
+.tc-outer{position:absolute;inset:0;border:2.5px solid #f5f0e8;border-radius:5px;z-index:5;pointer-events:none}
+/* Gold inner border */
+.tc-frame{position:absolute;inset:5px;border:1px solid rgba(180,140,60,.7);border-radius:3px;z-index:5;pointer-events:none}
+.tc-frame2{position:absolute;inset:8px;border:.5px solid rgba(180,140,60,.35);border-radius:2px;z-index:5;pointer-events:none}
+.tc-bg{position:absolute;inset:0}
+.tc-art{position:absolute;inset:10px 8px 22px;display:flex;align-items:center;justify-content:center;z-index:3}
+.tc-art svg{width:100%;height:100%;max-width:56px;max-height:80px}
+.tc-name{
+  position:absolute;bottom:0;left:2.5px;right:2.5px;height:20px;
+  display:flex;align-items:center;justify-content:center;z-index:4;
+}
+.tc-name span{
+  font-family:'Jost',sans-serif;font-size:.32rem;
+  letter-spacing:.06em;text-align:center;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;max-width:68px;
+  text-transform:uppercase;font-weight:300;
+}
+.tc.selected .tc-outer{border-color:var(--earth);box-shadow:0 0 10px rgba(138,106,64,.35)}
+
+/* Card backgrounds */
+.bg-m0{background:linear-gradient(155deg,#e8d060,#c09818,#7a5808)}
+.bg-m1{background:linear-gradient(155deg,#e0d888,#b89018,#7a5808)}
+.bg-m2{background:linear-gradient(155deg,#1a2040,#2a3870,#0d1428)}
+.bg-m3{background:linear-gradient(155deg,#284010,#487820,#162808)}
+.bg-m4{background:linear-gradient(155deg,#601010,#901818,#380808)}
+.bg-m5{background:linear-gradient(155deg,#381860,#603898,#200830)}
+.bg-m6{background:linear-gradient(155deg,#d8b848,#b08818,#785808)}
+.bg-m7{background:linear-gradient(155deg,#183868,#286098,#0d1e38)}
+.bg-m8{background:linear-gradient(155deg,#e0d870,#b8a028,#786008)}
+.bg-m9{background:linear-gradient(155deg,#181c28,#282c40,#0a0e18)}
+.bg-m10{background:linear-gradient(155deg,#401870,#703098,#220838)}
+.bg-m11{background:linear-gradient(155deg,#d8c860,#b09820,#705808)}
+.bg-m12{background:linear-gradient(155deg,#182838,#284858,#0d1820)}
+.bg-m13{background:linear-gradient(155deg,#080810,#181820,#040408)}
+.bg-m14{background:linear-gradient(155deg,#2858a0,#4888d0,#143058)}
+.bg-m15{background:linear-gradient(155deg,#180808,#380808,#080404)}
+.bg-m16{background:linear-gradient(155deg,#181208,#302010,#080804)}
+.bg-m17{background:linear-gradient(155deg,#080c18,#0c1828,#040608)}
+.bg-m18{background:linear-gradient(155deg,#08080e,#0c0c18,#040406)}
+.bg-m19{background:linear-gradient(155deg,#f0c828,#d09018,#885808)}
+.bg-m20{background:linear-gradient(155deg,#283850,#405870,#141e2a)}
+.bg-m21{background:linear-gradient(155deg,#380e60,#602090,#1e0830)}
+.bg-wands{background:linear-gradient(155deg,#b83808,#d85818,#781808)}
+.bg-cups{background:linear-gradient(155deg,#162888,#2848c0,#0c1650)}
+.bg-swords{background:linear-gradient(155deg,#c8d8e0,#98b8c8,#586878)}
+.bg-pents{background:linear-gradient(155deg,#204808,#3c7818,#102408)}
+
+/* SELECTED CHIPS */
+.sel-chips{display:flex;gap:.5rem;flex-wrap:wrap;min-height:32px;margin-bottom:1.2rem}
+.sel-chip{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  letter-spacing:.1em;text-transform:uppercase;font-weight:300;
+  background:rgba(138,106,64,.08);
+  border:.5px solid rgba(138,106,64,.3);
+  padding:.3rem .7rem;color:var(--earth);
+}
+
+/* ZODIAC */
+.zodiac-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:.7rem;margin-bottom:1.6rem;
+}
+.zc{
+  background:var(--cream2);border:.5px solid var(--border);
+  padding:.9rem .6rem;text-align:center;cursor:pointer;
+  transition:all .22s;
+}
+.zc:hover,.zc.sel{border-color:var(--earth);background:rgba(138,106,64,.07)}
+.ze{font-size:1.5rem;margin-bottom:.3rem}
+.zn{font-family:'Cormorant Garamond',serif;font-size:.76rem;color:var(--dark);font-weight:400}
+.zd{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted2);letter-spacing:.1em;margin-top:.2rem;font-weight:200}
+
+.mini-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:1.8rem}
+.mtab{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  letter-spacing:.18em;text-transform:uppercase;font-weight:300;
+  background:none;border:none;border-bottom:1.5px solid transparent;
+  padding:.6rem 1.4rem;color:var(--muted2);cursor:pointer;
+  transition:all .2s;margin-bottom:-.5px;
+}
+.mtab.active{color:var(--dark);border-bottom-color:var(--earth)}
+
+/* FORM ELEMENTS */
+.field{margin-bottom:1.1rem}
+.field label{
+  display:block;font-family:'Jost',sans-serif;font-size:.46rem;
+  letter-spacing:.18em;text-transform:uppercase;font-weight:300;
+  color:var(--muted2);margin-bottom:.4rem;
+}
+.field input,.field textarea,.field select{
+  width:100%;background:var(--cream2);
+  border:.5px solid var(--border2);
+  padding:.65rem 1rem;
+  font-family:'Noto Serif Hebrew',serif;font-size:.85rem;
+  color:var(--dark);font-weight:300;outline:none;
+  transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--earth)}
+.field textarea{min-height:120px;resize:vertical;line-height:1.8}
+.field select option{background:var(--cream)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:520px}
+.form-note{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  letter-spacing:.1em;color:var(--muted2);
+  background:rgba(138,106,64,.05);
+  border-right:2px solid rgba(138,106,64,.25);
+  padding:.6rem .9rem;margin-bottom:1rem;
+  line-height:1.7;font-weight:300;
+}
+
+/* NUM CARDS */
+.num-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.4rem}
+.nc{
+  background:var(--cream2);border:.5px solid var(--border);
+  padding:1rem;text-align:center;
+}
+.nv{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;color:var(--earth);font-weight:300;line-height:1;
+}
+.nl{
+  font-family:'Jost',sans-serif;font-size:.42rem;
+  color:var(--muted2);letter-spacing:.16em;text-transform:uppercase;
+  margin-top:.3rem;font-weight:200;
+}
+.master-num{color:#7a4a9a !important}
+
+/* CHIPS */
+.chips-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 1.1rem}
+.chip{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:300;
+  background:none;border:.5px solid var(--border2);
+  padding:.38rem .8rem;color:var(--muted);cursor:pointer;
+  transition:all .2s;
+}
+.chip:hover{border-color:var(--earth);color:var(--earth)}
+.chip.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
+.school-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 1.4rem}
+.schip{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:300;
+  background:none;border:.5px solid var(--border2);
+  padding:.42rem 1rem;color:var(--muted);cursor:pointer;
+  transition:all .2s;
+}
+.schip:hover,.schip.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
+
+/* AI RESULT */
+.ai-result{
+  display:none;
+  margin-top:2rem;
+  border-top:.5px solid var(--border);
+  padding-top:2rem;
+}
+.ai-result-label{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:300;
+  color:var(--muted2);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.ai-result-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.ai-result-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.02rem;color:var(--dark);
+  line-height:1.95;font-weight:300;
+  white-space:pre-wrap;
+}
+.ldots{display:flex;gap:5px;padding:.5rem 0}
+.ld{width:5px;height:5px;background:var(--earth);animation:ld 1.3s ease-in-out infinite}
+.ld:nth-child(2){animation-delay:.22s}.ld:nth-child(3){animation-delay:.44s}
+@keyframes ld{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+
+/* ── ACADEMY ── */
+.academy-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.filter-row{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2.5rem}
+.fbtn{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  letter-spacing:.18em;text-transform:uppercase;font-weight:300;
+  background:none;border:none;border-bottom:1.5px solid transparent;
+  padding:.6rem 1.4rem;color:var(--muted2);cursor:pointer;
+  transition:all .2s;margin-bottom:-.5px;
+}
+.fbtn.active{color:var(--dark);border-bottom-color:var(--earth)}
+.courses-list{display:flex;flex-direction:column;gap:0}
+.ccard{
+  border-bottom:.5px solid var(--border);
+  padding:1.8rem 0;cursor:pointer;
+  transition:background .2s;
+  display:grid;grid-template-columns:120px 1fr 80px;
+  gap:2rem;align-items:start;
+}
+.ccard:hover{background:rgba(138,106,64,.03)}
+.ccard.open{background:rgba(138,106,64,.04)}
+.cc-lv{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  letter-spacing:.18em;text-transform:uppercase;font-weight:300;
+  color:var(--muted2);padding-top:.15rem;
+}
+.cc-lv-badge{
+  display:inline-block;
+  font-size:.4rem;padding:.18rem .5rem;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:300;
+  margin-bottom:.3rem;
+}
+.lv-b{background:rgba(90,130,80,.1);color:#5a8250}
+.lv-i{background:rgba(100,80,160,.1);color:#7060a0}
+.lv-a{background:rgba(138,106,64,.12);color:var(--earth)}
+.cc-main h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;color:var(--dark);font-weight:400;
+  margin-bottom:.35rem;letter-spacing:.01em;
+}
+.cc-src{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  color:var(--muted2);letter-spacing:.12em;font-weight:200;
+}
+.cc-desc{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.75rem;color:var(--muted);
+  line-height:1.85;font-weight:300;
+  margin-top:.5rem;
+}
+.cc-arrow{
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  color:var(--muted2);letter-spacing:.1em;
+  text-align:left;padding-top:.2rem;
+  transition:transform .2s;font-weight:300;
+}
+.ccard.open .cc-arrow{transform:rotate(45deg)}
+.cc-modules{
+  grid-column:2;display:none;
+  padding:.8rem 0 .5rem;
+  border-top:.5px solid var(--border);
+  margin-top:1rem;
+}
+.ccard.open .cc-modules{display:block}
+.mod-list{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.2rem}
+.mod-item{
+  display:flex;gap:.8rem;
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  color:var(--muted);letter-spacing:.08em;font-weight:300;
+  padding:.28rem 0;border-bottom:.5px solid rgba(138,106,64,.07);
+}
+.mod-n{color:var(--muted2);font-size:.42rem;min-width:16px;font-weight:200}
+
+/* ── RESEARCH ── */
+.research-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.res-list{display:flex;flex-direction:column;gap:0}
+.rc{
+  display:grid;grid-template-columns:60px 1fr 100px;
+  gap:2rem;align-items:center;
+  padding:1.4rem 0;border-bottom:.5px solid var(--border);
+  cursor:pointer;transition:background .22s;
+}
+.rc:hover{background:rgba(138,106,64,.03)}
+.rc-idx{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;color:rgba(138,106,64,.2);
+  font-weight:300;line-height:1;
+}
+.rc-main{}
+.rc-topic{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;color:var(--dark);font-weight:400;
+  margin-bottom:.2rem;
+}
+.rc-region{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  color:var(--muted2);letter-spacing:.12em;font-weight:200;
+}
+.rc-bar-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem}
+.rc-pct{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;color:var(--earth);font-weight:300;
+}
+.rc-bar{height:2px;background:rgba(138,106,64,.15);position:relative;overflow:hidden}
+.rc-bar-fill{position:absolute;top:0;right:0;height:100%;background:var(--earth);opacity:.5}
+
+/* ── KNOWLEDGE ── */
+.knowledge-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.art-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+.art-card{
+  padding:2rem;border-bottom:.5px solid var(--border);
+  border-left:.5px solid var(--border);
+  cursor:pointer;transition:background .22s;
+}
+.art-card:nth-child(odd){border-left:none}
+.art-card:hover{background:rgba(138,106,64,.04)}
+.art-cat{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  color:var(--earth);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:300;margin-bottom:.6rem;
+}
+.art-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;color:var(--dark);font-weight:400;
+  line-height:1.4;margin-bottom:.5rem;
+}
+.art-desc{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.72rem;color:var(--muted);line-height:1.85;font-weight:300;
+}
+.art-read{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  color:var(--earth);letter-spacing:.16em;text-transform:uppercase;
+  font-weight:300;margin-top:.8rem;display:block;
+}
+
+/* ── ABOUT ── */
+.about-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text-label{
+  font-family:'Jost',sans-serif;font-size:.48rem;
+  color:var(--muted2);letter-spacing:.22em;text-transform:uppercase;
+  font-weight:300;margin-bottom:1.2rem;
+}
+.about-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  color:var(--dark);font-weight:300;line-height:1.3;
+  margin-bottom:1.4rem;
+}
+.about-headline em{font-style:italic;color:var(--earth)}
+.about-body{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.78rem;color:var(--muted);
+  line-height:2.1;font-weight:300;
+}
+.about-body p{margin-bottom:1rem}
+.val-list{display:flex;flex-direction:column;gap:0;margin-top:2rem}
+.val-item{
+  padding:1.4rem 0;border-bottom:.5px solid var(--border);
+  display:grid;grid-template-columns:40px 1fr;gap:1rem;align-items:start;
+}
+.val-icon{font-size:1.1rem;padding-top:.1rem;filter:saturate(0.7)}
+.val-content h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.92rem;color:var(--dark);font-weight:400;
+  margin-bottom:.3rem;
+}
+.val-content p{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.72rem;color:var(--muted);line-height:1.8;font-weight:300;
+}
+.sources-box{
+  background:var(--cream2);padding:2rem;
+  border:.5px solid var(--border);
+  margin-top:2rem;
+}
+.sources-label{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;
+  font-weight:300;margin-bottom:1.2rem;
+  border-bottom:.5px solid var(--border);padding-bottom:.8rem;
+}
+.source-item{
+  padding:.7rem 0;border-bottom:.5px solid rgba(138,106,64,.08);
+  font-family:'Noto Serif Hebrew',serif;font-size:.74rem;
+  color:var(--muted);line-height:1.7;font-weight:300;
+}
+.source-item:last-child{border-bottom:none}
+.source-item strong{font-weight:400;color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:.82rem}
+
+/* ── CONTACT ── */
+.contact-section{max-width:1200px;margin:0 auto;padding:5rem 2.5rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-info h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;color:var(--dark);font-weight:300;
+  margin-bottom:1rem;
+}
+.contact-info p{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.78rem;color:var(--muted);line-height:2;font-weight:300;
+  margin-bottom:2rem;
+}
+.contact-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:1.05rem;color:var(--earth2);
+  line-height:1.7;font-weight:300;
+  padding-right:1.2rem;border-right:2px solid rgba(138,106,64,.25);
+  margin-top:2rem;
+}
+.form-success{
+  background:rgba(90,130,80,.07);border:.5px solid rgba(90,130,80,.25);
+  padding:1rem 1.2rem;
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  letter-spacing:.14em;color:#5a8250;
+  display:none;margin-top:1rem;font-weight:300;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark2);
+  border-top:.5px solid rgba(245,240,232,.06);
+  padding:4rem 0 2.5rem;
+  margin-top:5rem;
+}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 2.5rem}
+.foot-top{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+  padding-bottom:3rem;border-bottom:.5px solid rgba(245,240,232,.07);
+}
+.foot-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;color:rgba(245,240,232,.7);
+  letter-spacing:.2em;text-transform:uppercase;
+  font-weight:300;margin-bottom:.8rem;
+}
+.foot-tagline{
+  font-family:'Noto Serif Hebrew',serif;
+  font-size:.68rem;color:rgba(245,240,232,.3);
+  line-height:1.8;font-weight:300;
+}
+.foot-col-title{
+  font-family:'Jost',sans-serif;font-size:.44rem;
+  color:rgba(245,240,232,.3);letter-spacing:.22em;
+  text-transform:uppercase;font-weight:200;margin-bottom:.9rem;
+}
+.foot-links{display:flex;flex-direction:column;gap:.5rem}
+.foot-link{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.8rem;color:rgba(245,240,232,.45);
+  cursor:pointer;transition:color .2s;font-weight:300;
+  background:none;border:none;text-align:right;
+}
+.foot-link:hover{color:rgba(245,240,232,.8)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center}
+.foot-copy{
+  font-family:'Jost',sans-serif;font-size:.42rem;
+  color:rgba(245,240,232,.2);letter-spacing:.14em;font-weight:200;
+}
+
+/* BTN */
+.btn-submit{
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  letter-spacing:.22em;text-transform:uppercase;font-weight:300;
+  background:var(--dark);border:none;
+  color:rgba(245,240,232,.8);
+  padding:.75rem 2rem;cursor:pointer;
+  transition:all .28s;margin-top:.5rem;
+}
+.btn-submit:hover{background:var(--dark2)}
+.btn-tool{
+  font-family:'Jost',sans-serif;font-size:.5rem;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:300;
+  background:none;border:.5px solid var(--border2);
+  color:var(--earth);padding:.68rem 1.8rem;
+  cursor:pointer;transition:all .25s;
+}
+.btn-tool:hover{background:rgba(138,106,64,.07);border-color:var(--earth)}
+.btn-tool:disabled{opacity:.35;cursor:default}
+
+/* QUOTE SECTION */
+.quote-section{
+  background:var(--cream2);
+  padding:4rem 2.5rem;
+  text-align:center;
+  border-top:.5px solid var(--border);
+  border-bottom:.5px solid var(--border);
+}
+.big-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:clamp(1.4rem,3vw,2rem);
+  color:var(--earth2);font-weight:300;line-height:1.6;
+  max-width:700px;margin:0 auto .8rem;
+}
+.quote-attr{
+  font-family:'Jost',sans-serif;font-size:.46rem;
+  color:var(--muted2);letter-spacing:.22em;text-transform:uppercase;font-weight:200;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="showSec('home')">האקדמיה המיסטית</div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showSec('home')">בית</button>
+      <button class="nav-link" onclick="showSec('tools')">כלים</button>
+      <button class="nav-link" onclick="showSec('academy')">אקדמיה</button>
+      <button class="nav-link" onclick="showSec('research')">מחקר</button>
+      <button class="nav-link" onclick="showSec('knowledge')">ידע</button>
+      <button class="nav-link" onclick="showSec('about')">אודות</button>
+      <button class="nav-link" onclick="showSec('contact')">צור קשר</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="section active" id="sec-home">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-dunes"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Ancient Wisdom · Modern Tools · מבוסס על המסורות המובילות בעולם</div>
+      <div class="hero-h1">מה שאתה<br>מחפש — <em>כבר<br>נמצא בך</em></div>
+      <div class="hero-rule"></div>
+      <div class="hero-sub">טארוט · אסטרולוגיה · נומרולוגיה · תקשור<br>כלי AI חיים בזמן אמת</div>
+      <div class="hero-cta-row">
+        <button class="btn-primary" onclick="showSec('tools')">התחל לחקור</button>
+        <button class="btn-ghost" onclick="showSec('academy')">הקורסים שלנו ↓</button>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <div class="intro-strip">
+    <div class="intro-text">
+      <div class="intro-label">על האקדמיה</div>
+      <div class="intro-headline">חוכמה עתיקה,<br><em>כלים של היום</em></div>
+      <div class="intro-body">האקדמיה המיסטית היא מרחב חינוכי המאחד ידע מן המסורות הגדולות ביותר בעולם — Rider-Waite-Smith, Kepler College, Arthur Findlay College — עם כלי AI חיים בזמן אמת. כל שיטה נבחרה בקפידה, כל כלי מבוסס על מקורות אמיתיים ומוכחים.</div>
+    </div>
+    <div class="intro-aside">
+      <div class="aside-stat">
+        <div class="aside-stat-num">78</div>
+        <div class="aside-stat-label">קלפי טארוט</div>
+      </div>
+      <div class="aside-rule"></div>
+      <div class="aside-stat">
+        <div class="aside-stat-num">7</div>
+        <div class="aside-stat-label">קורסים מלאים</div>
+      </div>
+      <div class="aside-rule"></div>
+      <div class="aside-stat">
+        <div class="aside-stat-num">100+</div>
+        <div class="aside-stat-label">שנות מסורת</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-section">
+    <div class="big-quote">"הכוכבים לא מכתיבים גורל — הם מציעים מפה לאלה שיודעים לקרוא"</div>
+    <div class="quote-attr">האקדמיה המיסטית</div>
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:4rem 2.5rem">
+    <div class="section-label">הכלים שלנו</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:.5px solid var(--border)">
+      <div onclick="goTool('tarot')" style="padding:1.8rem 1.2rem;border-left:.5px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(138,106,64,.04)'" onmouseout="this.style.background='transparent'">
+        <div style="font-size:1.4rem;margin-bottom:.7rem;filter:saturate(0.7)">🃏</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.3rem">טארוט</div>
+        <div style="font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200">Rider-Waite · 78 קלפים</div>
+      </div>
+      <div onclick="goTool('astro')" style="padding:1.8rem 1.2rem;border-left:.5px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(138,106,64,.04)'" onmouseout="this.style.background='transparent'">
+        <div style="font-size:1.4rem;margin-bottom:.7rem;filter:saturate(0.7)">⭐</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.3rem">אסטרולוגיה</div>
+        <div style="font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200">Kepler College · NCGR</div>
+      </div>
+      <div onclick="goTool('numerology')" style="padding:1.8rem 1.2rem;border-left:.5px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(138,106,64,.04)'" onmouseout="this.style.background='transparent'">
+        <div style="font-size:1.4rem;margin-bottom:.7rem">∞</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.3rem">נומרולוגיה</div>
+        <div style="font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200">פיתגוראי · 5 מספרי ליבה</div>
+      </div>
+      <div onclick="goTool('dreams')" style="padding:1.8rem 1.2rem;border-left:.5px solid var(--border);cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(138,106,64,.04)'" onmouseout="this.style.background='transparent'">
+        <div style="font-size:1.4rem;margin-bottom:.7rem;filter:saturate(0.7)">🌙</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.3rem">חלומות</div>
+        <div style="font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200">Jung · Freud · Hall/Domhoff</div>
+      </div>
+      <div onclick="showSec('academy')" style="padding:1.8rem 1.2rem;border-left:none;cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(138,106,64,.04)'" onmouseout="this.style.background='transparent'">
+        <div style="font-size:1.4rem;margin-bottom:.7rem;filter:saturate(0.7)">🌀</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.3rem">אקדמיה</div>
+        <div style="font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200">Arthur Findlay · Biddy Tarot</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TOOLS ══ -->
+<div class="section" id="sec-tools">
+<div class="tools-section">
+  <div class="section-header">
+    <div class="section-label">כלים אינטראקטיביים</div>
+    <div class="section-title">עבוד עם <em>AI מיסטי</em> בזמן אמת</div>
+  </div>
+  <div class="tool-tabs">
+    <button class="ttab active" onclick="showTool('tarot')">טארוט</button>
+    <button class="ttab" onclick="showTool('astro')">אסטרולוגיה</button>
+    <button class="ttab" onclick="showTool('numerology')">נומרולוגיה</button>
+    <button class="ttab" onclick="showTool('dreams')">חלומות</button>
+  </div>
+
+  <!-- TAROT -->
+  <div class="tpanel active" id="tp-tarot">
+    <div class="tarot-layout-row" id="layout-row"></div>
+    <div class="tarot-note">בחר <strong id="needed-n">1</strong> קלף מתוך 78</div>
+    <div class="card-grid" id="card-grid"></div>
+    <div class="sel-chips" id="sel-chips"></div>
+    <button class="btn-tool" id="tarot-btn" onclick="doTarot()" disabled>קרא את הקלפים →</button>
+    <div class="ai-result" id="tarot-res">
+      <div class="ai-result-label">פרשנות הקלפים</div>
+      <div class="ai-result-text" id="tarot-out"></div>
+    </div>
+  </div>
+
+  <!-- ASTRO -->
+  <div class="tpanel" id="tp-astro">
+    <div class="mini-tabs">
+      <button class="mtab active" onclick="setATab(this,'daily')">הורוסקופ יומי</button>
+      <button class="mtab" onclick="setATab(this,'natal')">מפה נטאלית</button>
+    </div>
+    <div id="at-daily">
+      <div class="zodiac-grid" id="zodiac-grid"></div>
+      <button class="btn-tool" id="horo-btn" onclick="doHoro()" disabled>קבל הורוסקופ →</button>
+      <div class="ai-result" id="horo-res">
+        <div class="ai-result-label">הורוסקופ יומי</div>
+        <div class="ai-result-text" id="horo-out"></div>
+      </div>
+    </div>
+    <div id="at-natal" style="display:none">
+      <div class="form-grid">
+        <div class="field"><label>תאריך לידה</label><input type="date" id="nd"></div>
+        <div class="field"><label>שעת לידה</label><input type="time" id="nt"></div>
+        <div class="field" style="grid-column:span 2"><label>עיר לידה</label><input type="text" id="nc" placeholder="לדוגמה: תל אביב"></div>
+      </div>
+      <div class="form-note">מפה נטאלית מלאה דורשת Swiss Ephemeris API. הניתוח מבוסס על סימן השמש ומאפיינים כלליים.</div>
+      <button class="btn-tool" onclick="doNatal()">נתח מפה נטאלית →</button>
+      <div class="ai-result" id="natal-res">
+        <div class="ai-result-label">ניתוח נטאלי</div>
+        <div class="ai-result-text" id="natal-out"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUMEROLOGY -->
+  <div class="tpanel" id="tp-numerology">
+    <div class="form-grid">
+      <div class="field"><label>שם מלא — אותיות לטיניות</label><input type="text" id="nname" placeholder="e.g. David Cohen" oninput="calcN()"></div>
+      <div class="field"><label>תאריך לידה</label><input type="date" id="ndate" oninput="calcN()"></div>
+    </div>
+    <div class="form-note">חישוב לפי השיטה הפיתגוראית — הנפוצה ביותר במערב. נדרשות אותיות לטיניות.</div>
+    <div class="num-cards-row" id="num-cards" style="display:none">
+      <div class="nc"><div class="nv" id="nv-life">—</div><div class="nl">מסלול חיים</div></div>
+      <div class="nc"><div class="nv" id="nv-expr">—</div><div class="nl">ביטוי</div></div>
+      <div class="nc"><div class="nv" id="nv-soul">—</div><div class="nl">דחף הנשמה</div></div>
+      <div class="nc"><div class="nv" id="nv-pers">—</div><div class="nl">אישיות</div></div>
+      <div class="nc"><div class="nv" id="nv-bday">—</div><div class="nl">יום הולדת</div></div>
+      <div class="nc"><div class="nv" id="nv-mat">—</div><div class="nl">מטריצה</div></div>
+    </div>
+    <div class="field" style="max-width:520px"><label>שאלה אישית (אופציונלי)</label><textarea id="nq" placeholder="מה ברצונך לברר?" style="min-height:70px"></textarea></div>
+    <button class="btn-tool" onclick="doNum()">פרש את המספרים →</button>
+    <div class="ai-result" id="num-res">
+      <div class="ai-result-label">פרשנות נומרולוגית</div>
+      <div class="ai-result-text" id="num-out"></div>
+    </div>
+  </div>
+
+  <!-- DREAMS -->
+  <div class="tpanel" id="tp-dreams">
+    <div class="field"><label>תאר את החלום בפירוט</label>
+      <textarea id="dream-in" placeholder="ספר את החלום כפי שאתה זוכר — אנשים, מקומות, תחושות, צבעים, סמלים..."></textarea>
+    </div>
+    <div class="field" style="margin-bottom:.3rem"><label>מצב רוח עם ההתעוררות</label></div>
+    <div class="chips-row">
+      <button class="chip" onclick="pickC(this,'mood')">שלווה</button>
+      <button class="chip" onclick="pickC(this,'mood')">חרדה</button>
+      <button class="chip" onclick="pickC(this,'mood')">שמחה</button>
+      <button class="chip" onclick="pickC(this,'mood')">עצב</button>
+      <button class="chip" onclick="pickC(this,'mood')">בלבול</button>
+      <button class="chip" onclick="pickC(this,'mood')">השראה</button>
+    </div>
+    <div class="field" style="margin-bottom:.3rem"><label>אסכולת פרשנות</label></div>
+    <div class="school-row">
+      <button class="schip active" onclick="pickS(this,'jung')">יונג — ארכיטיפים</button>
+      <button class="schip" onclick="pickS(this,'freud')">פרויד — לא-מודע</button>
+      <button class="schip" onclick="pickS(this,'hall')">Hall/Domhoff — אמפירי</button>
+    </div>
+    <button class="btn-tool" onclick="doDream()">פרש את החלום →</button>
+    <div class="ai-result" id="dream-res">
+      <div class="ai-result-label">פרשנות החלום</div>
+      <div class="ai-result-text" id="dream-out"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ ACADEMY ══ -->
+<div class="section" id="sec-academy">
+<div class="academy-section">
+  <div class="section-header">
+    <div class="section-label">האקדמיה</div>
+    <div class="section-title">קורסים מבוססי <em>מוסדות מובילים</em></div>
+  </div>
+  <div class="filter-row">
+    <button class="fbtn active" onclick="filterC(this,'all')">הכל</button>
+    <button class="fbtn" onclick="filterC(this,'b')">מתחיל</button>
+    <button class="fbtn" onclick="filterC(this,'i')">ביניים</button>
+    <button class="fbtn" onclick="filterC(this,'a')">מתקדם</button>
+  </div>
+  <div class="courses-list" id="courses-list"></div>
+  <div class="ai-result" id="course-res" style="margin-top:3rem">
+    <div class="ai-result-label" id="course-res-label">מדריך AI</div>
+    <div class="ai-result-text" id="course-out"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ RESEARCH ══ -->
+<div class="section" id="sec-research">
+<div class="research-section">
+  <div class="section-header">
+    <div class="section-label">מחקר עולמי</div>
+    <div class="section-title">מגמות <em>2025</em> — הנושאים הצומחים</div>
+  </div>
+  <div class="res-list" id="res-list"></div>
+  <div class="ai-result" id="res-result" style="margin-top:3rem">
+    <div class="ai-result-label" id="res-label">ניתוח מעמיק</div>
+    <div class="ai-result-text" id="res-out"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ KNOWLEDGE ══ -->
+<div class="section" id="sec-knowledge">
+<div class="knowledge-section">
+  <div class="section-header">
+    <div class="section-label">ספריית ידע</div>
+    <div class="section-title">מאמרים — <em>AI כותב בזמן אמת</em></div>
+  </div>
+  <div class="art-grid" id="art-grid"></div>
+  <div class="ai-result" id="art-result" style="margin-top:3rem">
+    <div class="ai-result-label" id="art-label">מאמר</div>
+    <div class="ai-result-text" id="art-out"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="section" id="sec-about">
+<div class="about-section">
+  <div class="about-grid">
+    <div>
+      <div class="about-text-label">אודות האקדמיה</div>
+      <div class="about-headline">מרחב של <em>חוכמה</em><br>ושקיפות</div>
+      <div class="about-body">
+        <p>האקדמיה המיסטית היא מרחב חינוכי שנבנה על עיקרון אחד: ידע אמיתי, מוצג בשקיפות מלאה. כל כלי מבוסס על שיטה מוכרת ומתועדת. כל מה שניתן לחשוב — מחושב. כל מה שהוא פרשנות — מוצג ככזה.</p>
+        <p>אנחנו מאמינים שהמיסטיקה הטובה ביותר היא זו שאינה מסתירה דבר — לא את מקורותיה, לא את גבולותיה, ולא את מה שנותר לא ידוע.</p>
+      </div>
+      <div class="val-list">
+        <div class="val-item"><div class="val-icon">🔬</div><div class="val-content"><h4>בסיס אמיתי</h4><p>כל שיטה נבחרה בקפידה על פי מקורות מוכחים ומוסדות מובילים בעולם</p></div></div>
+        <div class="val-item"><div class="val-icon">⚖️</div><div class="val-content"><h4>שקיפות מלאה</h4><p>מה שמחושב — מחושב מדויק. מה שפרשנות — מוצג בבירור ככזה</p></div></div>
+        <div class="val-item"><div class="val-icon">🌍</div><div class="val-content"><h4>ידע עולמי</h4><p>Arthur Findlay College, Biddy Tarot, Kepler College, Linda Howe, Hall & Domhoff</p></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sources-box">
+        <div class="sources-label">הבסיס המוסדי</div>
+        <div class="source-item"><strong>טארוט</strong><br>Rider-Waite-Smith (1909) · Biddy Tarot של Brigit Esselmont — המקור הגדול ביותר בעולם</div>
+        <div class="source-item"><strong>אסטרולוגיה</strong><br>Kepler College (וושינגטון) · NCGR — הסטנדרטים האקדמיים</div>
+        <div class="source-item"><strong>תקשור</strong><br>Arthur Findlay College (סטנסטד, 1964) — מעל 100 שנות הכשרה מדיומיסטית</div>
+        <div class="source-item"><strong>נומרולוגיה</strong><br>השיטה הפיתגוראית — הנפוצה ביותר במערב, 5 מספרי ליבה</div>
+        <div class="source-item"><strong>חלומות</strong><br>Carl Jung (1875–1961) · Sigmund Freud (1856–1939) · Hall & Van de Castle Coding System</div>
+        <div class="source-item"><strong>רשומות אקאשיות</strong><br>Linda Howe · Pathway Prayer Process</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="section" id="sec-contact">
+<div class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div style="font-family:'Jost',sans-serif;font-size:.48rem;color:var(--muted2);letter-spacing:.22em;text-transform:uppercase;font-weight:300;margin-bottom:1rem">צור קשר</div>
+      <h3>נשמח<br>לשמוע ממך</h3>
+      <p>שלח הודעה ונחזור אליך. לשאלות על קורסים, כלים, או כל נושא אחר.</p>
+      <div class="contact-quote">"כל שאלה היא תחילתה של תשובה"</div>
+    </div>
+    <div>
+      <div class="field"><label>שם מלא</label><input type="text" id="cn" placeholder="השם שלך"></div>
+      <div class="field"><label>אימייל</label><input type="email" id="ce" placeholder="your@email.com" dir="ltr"></div>
+      <div class="field"><label>תחום עניין</label>
+        <select id="cs">
+          <option value="">בחר נושא...</option>
+          <option>טארוט</option><option>אסטרולוגיה</option><option>נומרולוגיה</option>
+          <option>תקשור</option><option>רשומות אקאשיות</option><option>חלומות</option><option>אחר</option>
+        </select>
+      </div>
+      <div class="field"><label>הודעה</label><textarea id="cm" placeholder="כתוב את הודעתך..."></textarea></div>
+      <button class="btn-submit" onclick="submitContact()">שלח הודעה</button>
+      <div class="form-success" id="con-suc">✓ ההודעה נשלחה בהצלחה</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo">האקדמיה המיסטית</div>
+        <div class="foot-tagline">מרחב חינוכי המאחד חוכמה עתיקה עם כלים דיגיטליים — על בסיס מחקר אמיתי ושקיפות מלאה</div>
+      </div>
+      <div>
+        <div class="foot-col-title">ניווט</div>
+        <div class="foot-links">
+          <button class="foot-link" onclick="showSec('home')">בית</button>
+          <button class="foot-link" onclick="showSec('tools')">כלים</button>
+          <button class="foot-link" onclick="showSec('academy')">אקדמיה</button>
+          <button class="foot-link" onclick="showSec('research')">מחקר עולמי</button>
+          <button class="foot-link" onclick="showSec('knowledge')">ספריית ידע</button>
+          <button class="foot-link" onclick="showSec('about')">אודות</button>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title">מקורות</div>
+        <div class="foot-links">
+          <span class="foot-link" style="cursor:default;opacity:.5">Rider-Waite-Smith</span>
+          <span class="foot-link" style="cursor:default;opacity:.5">Kepler College</span>
+          <span class="foot-link" style="cursor:default;opacity:.5">Arthur Findlay College</span>
+          <span class="foot-link" style="cursor:default;opacity:.5">Linda Howe</span>
+          <span class="foot-link" style="cursor:default;opacity:.5">Hall & Van de Castle</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2025 האקדמיה המיסטית · כל הזכויות שמורות</div>
+      <div class="foot-copy">תוכן AI בזמן אמת · מבוסס על שיטות מוכחות</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV
+const SECS=['home','tools','academy','research','knowledge','about','contact'];
+function showSec(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  const i=SECS.indexOf(id);if(i>-1)document.querySelectorAll('.nav-link')[i].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goTool(t){showSec('tools');showTool(t);}
+
+// TOOL TABS
+function showTool(t){
+  document.querySelectorAll('.tpanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ttab').forEach(tb=>tb.classList.remove('active'));
+  document.getElementById('tp-'+t).classList.add('active');
+  ['tarot','astro','numerology','dreams'].forEach((n,i)=>{if(n===t)document.querySelectorAll('.ttab')[i].classList.add('active');});
+}
+
+// TAROT DATA
+const MAJOR=[
+  {n:'The Fool',bg:'bg-m0',tc:'#7a5010'},{n:'The Magician',bg:'bg-m1',tc:'#5a3808'},
+  {n:'High Priestess',bg:'bg-m2',tc:'#c0d0ff'},{n:'The Empress',bg:'bg-m3',tc:'#c0e8a0'},
+  {n:'The Emperor',bg:'bg-m4',tc:'#ffc0c0'},{n:'Hierophant',bg:'bg-m5',tc:'#d0b0ff'},
+  {n:'The Lovers',bg:'bg-m6',tc:'#806000'},{n:'The Chariot',bg:'bg-m7',tc:'#c0d8ff'},
+  {n:'Strength',bg:'bg-m8',tc:'#706000'},{n:'The Hermit',bg:'bg-m9',tc:'#b0b8d0'},
+  {n:'Wheel',bg:'bg-m10',tc:'#c0a0ff'},{n:'Justice',bg:'bg-m11',tc:'#706800'},
+  {n:'Hanged Man',bg:'bg-m12',tc:'#90b8d0'},{n:'Death',bg:'bg-m13',tc:'#d0d8ff'},
+  {n:'Temperance',bg:'bg-m14',tc:'#ffffff'},{n:'The Devil',bg:'bg-m15',tc:'#ff9090'},
+  {n:'The Tower',bg:'bg-m16',tc:'#d8c080'},{n:'The Star',bg:'bg-m17',tc:'#b0d0ff'},
+  {n:'The Moon',bg:'bg-m18',tc:'#a0b0e0'},{n:'The Sun',bg:'bg-m19',tc:'#4a2800'},
+  {n:'Judgement',bg:'bg-m20',tc:'#b0c8e8'},{n:'The World',bg:'bg-m21',tc:'#c0a0e8'}
+];
+const SUITS=[
+  {n:'Wands',bg:'bg-wands',tc:'#c08060'},
+  {n:'Cups',bg:'bg-cups',tc:'#90b0ff'},
+  {n:'Swords',bg:'bg-swords',tc:'#304850'},
+  {n:'Pentacles',bg:'bg-pents',tc:'#90c060'}
+];
+const COURT=['Page','Knight','Queen','King'];
+const ARTS={
+  major:[
+    `<circle cx="30" cy="14" r="10" fill="#f8d040" opacity=".85"/><line x1="30" y1="0" x2="30" y2="4" stroke="#f8d040" stroke-width="2"/><line x1="44" y1="14" x2="48" y2="14" stroke="#f8d040" stroke-width="2"/><line x1="16" y1="14" x2="12" y2="14" stroke="#f8d040" stroke-width="2"/><line x1="41" y1="5" x2="44" y2="2" stroke="#f8d040" stroke-width="2"/><line x1="19" y1="23" x2="16" y2="26" stroke="#f8d040" stroke-width="2"/><circle cx="30" cy="14" r="5" fill="#fff" opacity=".7"/><rect x="20" y="32" width="20" height="22" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".5"/>`,
+    `<circle cx="30" cy="10" r="7" fill="none" stroke="#fff" stroke-width="1.5" opacity=".8"/><line x1="18" y1="10" x2="42" y2="10" stroke="#c09010" stroke-width="2"/><rect x="20" y="18" width="20" height="18" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".6"/><circle cx="14" cy="42" r="4" fill="#c8a030" opacity=".7"/><polygon points="28,36 32,36 34,44 26,44" fill="#fff" opacity=".5"/>`,
+    `<circle cx="30" cy="10" r="8" fill="none" stroke="#c0c8ff" stroke-width="1.2" opacity=".7"/><rect x="22" y="20" width="16" height="26" rx="2" fill="none" stroke="#c0c8ff" stroke-width="1" opacity=".5"/><line x1="14" y1="18" x2="14" y2="50" stroke="#c0c8ff" stroke-width="1.5" opacity=".6"/><line x1="46" y1="18" x2="46" y2="50" stroke="#c0c8ff" stroke-width="1.5" opacity=".6"/><ellipse cx="30" cy="8" rx="10" ry="3" fill="none" stroke="#f0e8c0" stroke-width=".8" opacity=".6"/>`,
+    `<circle cx="30" cy="12" r="9" fill="#f0d840" opacity=".7"/><path d="M16 28 Q30 20 44 28 L44 52 Q30 58 16 52Z" fill="#fff" opacity=".15"/><circle cx="30" cy="12" r="5" fill="#c8a820" opacity=".8"/><ellipse cx="30" cy="48" rx="10" ry="6" fill="#80c040" opacity=".3"/>`,
+    `<rect x="18" y="8" width="24" height="30" rx="2" fill="none" stroke="#ffc0c0" stroke-width="1.5" opacity=".7"/><circle cx="30" cy="14" r="5" fill="#f0d040" opacity=".8"/><polygon points="26,0 30,4 34,0" fill="#f0d040" opacity=".8"/>`,
+    `<line x1="18" y1="6" x2="18" y2="52" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><line x1="42" y1="6" x2="42" y2="52" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><rect x="20" y="8" width="20" height="14" rx="2" fill="none" stroke="#d0b0ff" stroke-width="1" opacity=".5"/><line x1="24" y1="30" x2="36" y2="30" stroke="#f0d040" stroke-width="2" opacity=".7"/>`,
+    `<circle cx="30" cy="8" r="7" fill="#f0d040" opacity=".9"/><circle cx="20" cy="28" r="6" fill="#fff" opacity=".4"/><circle cx="40" cy="28" r="6" fill="#fff" opacity=".4"/><path d="M22 24 Q30 18 38 24" stroke="#f0d040" stroke-width="1.5" fill="none" opacity=".7"/>`,
+    `<rect x="14" y="20" width="32" height="22" rx="1" fill="none" stroke="#d0e8ff" stroke-width="1.5" opacity=".6"/><circle cx="30" cy="14" r="7" fill="none" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><ellipse cx="20" cy="46" rx="6" ry="4" fill="#fff" opacity=".5"/><ellipse cx="40" cy="46" rx="6" ry="4" fill="#fff" opacity=".5"/>`,
+    `<circle cx="30" cy="14" r="10" fill="#f0d840" opacity=".6"/><ellipse cx="30" cy="16" rx="8" ry="5" fill="none" stroke="#f0d040" stroke-width="1" opacity=".5"/><path d="M18 30 Q14 40 18 48 Q22 52 30 54 Q38 52 42 48 Q46 40 42 30" fill="none" stroke="#f0d040" stroke-width="1.2" opacity=".6"/>`,
+    `<line x1="30" y1="2" x2="30" y2="60" stroke="#c0c8e0" stroke-width="1" opacity=".3"/><circle cx="30" cy="10" r="7" fill="none" stroke="#c0c8e0" stroke-width="1" opacity=".5"/><polygon points="30,6 33,10 30,14 27,10" fill="#f0e080" opacity=".7"/>`,
+    `<circle cx="30" cy="30" r="22" fill="none" stroke="#d0a8ff" stroke-width="1.5" opacity=".6"/><circle cx="30" cy="30" r="14" fill="none" stroke="#d0a8ff" stroke-width="1" opacity=".4"/><line x1="30" y1="8" x2="30" y2="52" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/><line x1="8" y1="30" x2="52" y2="30" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/><line x1="14" y1="14" x2="46" y2="46" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/><line x1="46" y1="14" x2="14" y2="46" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/>`,
+    `<line x1="30" y1="2" x2="30" y2="60" stroke="#f0d040" stroke-width="1.5" opacity=".6"/><line x1="10" y1="22" x2="50" y2="22" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><circle cx="20" cy="22" r="6" fill="none" stroke="#f0d040" stroke-width="1" opacity=".6"/><circle cx="40" cy="22" r="6" fill="none" stroke="#f0d040" stroke-width="1" opacity=".6"/>`,
+    `<line x1="14" y1="8" x2="46" y2="8" stroke="#a0c8e0" stroke-width="2" opacity=".7"/><line x1="14" y1="4" x2="14" y2="52" stroke="#6a8a00" stroke-width="3" opacity=".6"/><line x1="46" y1="4" x2="46" y2="52" stroke="#6a8a00" stroke-width="3" opacity=".6"/><circle cx="30" cy="26" r="8" fill="none" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><circle cx="30" cy="26" r="4" fill="#f0d040" opacity=".6"/>`,
+    `<rect x="16" y="10" width="28" height="36" rx="2" fill="none" stroke="#e0e8ff" stroke-width="1" opacity=".4"/><polygon points="30,14 26,22 34,22" fill="#fff" opacity=".3"/><line x1="30" y1="22" x2="30" y2="40" stroke="#fff" stroke-width="1" opacity=".3"/><circle cx="30" cy="8" r="4" fill="#f0e060" opacity=".5"/>`,
+    `<circle cx="20" cy="20" r="8" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><circle cx="40" cy="20" r="8" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><path d="M28 16 Q30 26 32 16" stroke="#f0d040" stroke-width="2" fill="none" opacity=".8"/><circle cx="30" cy="8" r="5" fill="#f0d040" opacity=".7"/>`,
+    `<polygon points="30,4 40,20 20,20" fill="#c03030" opacity=".6"/><circle cx="30" cy="30" r="14" fill="none" stroke="#c03030" stroke-width="1.5" opacity=".5"/><ellipse cx="22" cy="46" rx="5" ry="7" fill="#a03030" opacity=".4"/><ellipse cx="38" cy="46" rx="5" ry="7" fill="#a03030" opacity=".4"/>`,
+    `<rect x="22" y="12" width="16" height="36" rx="1" fill="none" stroke="#e0c890" stroke-width="1.5" opacity=".6"/><polygon points="22,12 38,12 30,4" fill="#c09020" opacity=".6"/><circle cx="16" cy="18" r="4" fill="#f0c030" opacity=".7"/><circle cx="44" cy="30" r="3" fill="#f0c030" opacity=".6"/>`,
+    `<polygon points="30,4 32,12 40,12 34,17 36,25 30,20 24,25 26,17 20,12 28,12" fill="#f0e040" opacity=".85"/><circle cx="14" cy="10" r="3" fill="#f0e040" opacity=".6"/><circle cx="46" cy="8" r="2.5" fill="#f0e040" opacity=".5"/><ellipse cx="30" cy="50" rx="14" ry="4" fill="#4080b0" opacity=".3"/>`,
+    `<circle cx="30" cy="14" r="11" fill="none" stroke="#d0d8ff" stroke-width="1.5" opacity=".7"/><circle cx="34" cy="14" r="8" fill="#08080e" opacity=".8"/><path d="M14 38 Q14 50 22 52" stroke="#a0b0d0" stroke-width="1.5" fill="none" opacity=".5"/><path d="M46 38 Q46 50 38 52" stroke="#a0b0d0" stroke-width="1.5" fill="none" opacity=".5"/>`,
+    `<circle cx="30" cy="18" r="13" fill="#fff" opacity=".85"/><circle cx="30" cy="18" r="9" fill="#f8d040" opacity=".9"/><line x1="30" y1="0" x2="30" y2="5" stroke="#f8d040" stroke-width="2"/><line x1="30" y1="31" x2="30" y2="36" stroke="#f8d040" stroke-width="2"/><line x1="12" y1="18" x2="7" y2="18" stroke="#f8d040" stroke-width="2"/><line x1="48" y1="18" x2="53" y2="18" stroke="#f8d040" stroke-width="2"/><rect x="18" y="38" width="24" height="18" rx="3" fill="#fff" opacity=".5"/>`,
+    `<ellipse cx="30" cy="12" rx="12" ry="8" fill="none" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><line x1="30" y1="4" x2="30" y2="20" stroke="#f0d040" stroke-width="2" opacity=".7"/><circle cx="22" cy="44" r="5" fill="#c0d8ff" opacity=".4"/><circle cx="38" cy="44" r="5" fill="#c0d8ff" opacity=".4"/><circle cx="30" cy="30" r="6" fill="#c0d8ff" opacity=".4"/>`,
+    `<ellipse cx="30" cy="30" rx="18" ry="26" fill="none" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><ellipse cx="30" cy="30" rx="10" ry="18" fill="none" stroke="#d0b0ff" stroke-width="1" opacity=".4"/><circle cx="30" cy="30" r="6" fill="#a070d0" opacity=".5"/><circle cx="14" cy="14" r="4" fill="#f0d040" opacity=".6"/><circle cx="46" cy="14" r="4" fill="#f0d040" opacity=".6"/><circle cx="14" cy="46" r="4" fill="#f0d040" opacity=".6"/><circle cx="46" cy="46" r="4" fill="#f0d040" opacity=".6"/>`
+  ],
+  suit:`<line x1="30" y1="4" x2="30" y2="56" stroke="currentColor" stroke-width="2.5" opacity=".7"/><circle cx="30" cy="8" r="4" fill="currentColor" opacity=".8"/>`,
+  court:`<circle cx="30" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".7"/><rect x="18" y="26" width="24" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/><polygon points="24,8 30,2 36,8" fill="currentColor" opacity=".7"/>`
+};
+
+let ALL_CARDS=[];
+MAJOR.forEach((c,i)=>ALL_CARDS.push({name:c.n,bg:c.bg,tc:c.tc,art:ARTS.major[i],type:'major'}));
+SUITS.forEach(s=>{
+  for(let n=1;n<=10;n++)ALL_CARDS.push({name:`${n===1?'Ace':n} of ${s.n}`,bg:s.bg,tc:s.tc,art:ARTS.suit,type:'minor',suit:s.n});
+  COURT.forEach(c=>ALL_CARDS.push({name:`${c} of ${s.n}`,bg:s.bg,tc:s.tc,art:ARTS.court,type:'minor',suit:s.n}));
+});
+
+const LAYOUTS=[{n:'קלף יחיד',c:1},{n:'שלישיה',c:3},{n:'חמישה קלפים',c:5},{n:'הצלב הקלטי',c:10}];
+(function(){
+  const r=document.getElementById('layout-row');
+  LAYOUTS.forEach((l,i)=>{
+    const b=document.createElement('button');b.className='lbtn'+(i===0?' active':'');
+    b.textContent=l.n;b.onclick=()=>{document.querySelectorAll('.lbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');setLayout(l.c);};
+    r.appendChild(b);
+  });
+})();
+
+let selCards=[],layoutN=1;
+function setLayout(n){layoutN=n;document.getElementById('needed-n').textContent=n;selCards=[];document.querySelectorAll('.tc').forEach(c=>c.classList.remove('selected'));updateSel();updateBtn();}
+function buildCards(){
+  const g=document.getElementById('card-grid');g.innerHTML='';
+  ALL_CARDS.forEach((card,i)=>{
+    const d=document.createElement('div');d.className='tc';
+    const artColor=card.type==='minor'?card.tc:'';
+    d.innerHTML=`<div class="tc-inner">
+      <div class="tc-bg ${card.bg}"></div>
+      <div class="tc-outer"></div><div class="tc-frame"></div><div class="tc-frame2"></div>
+      <div class="tc-art"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="color:${artColor}">${card.art}</svg></div>
+      <div class="tc-name"><span style="color:${card.tc}">${card.name.toUpperCase()}</span></div>
+    </div>`;
+    d.onclick=()=>toggleCard(i,d);g.appendChild(d);
+  });
+}
+function toggleCard(i,el){
+  const idx=selCards.indexOf(i);
+  if(idx>-1){selCards.splice(idx,1);el.classList.remove('selected');}
+  else if(selCards.length<layoutN){selCards.push(i);el.classList.add('selected');}
+  updateSel();updateBtn();
+}
+function updateSel(){document.getElementById('sel-chips').innerHTML=selCards.map(i=>`<div class="sel-chip">${ALL_CARDS[i].name}</div>`).join('');}
+function updateBtn(){document.getElementById('tarot-btn').disabled=selCards.length!==layoutN;}
+buildCards();
+
+async function doTarot(){
+  if(selCards.length!==layoutN)return;
+  const names=selCards.map(i=>ALL_CARDS[i].name).join(', ');
+  const lmap={1:'קלף יחיד',3:'שלישיה עבר/הווה/עתיד',5:'חמישה קלפים',10:'הצלב הקלטי המלא'};
+  await stream(`קורא טארוט מנוסה מאסכולת Rider-Waite-Smith. פריסה: ${lmap[layoutN]}. קלפים: ${names}.
+פרשנות מעמיקה בעברית — כל קלף, סמליות, מיקום ומסר כולל. כ-320 מילה. סגנון חם.`,'tarot-out','tarot-res');
+}
+
+// ZODIAC
+const ZOD=[
+  {n:'טלה',e:'♈',d:'21/3–19/4'},{n:'שור',e:'♉',d:'20/4–20/5'},{n:'תאומים',e:'♊',d:'21/5–20/6'},
+  {n:'סרטן',e:'♋',d:'21/6–22/7'},{n:'אריה',e:'♌',d:'23/7–22/8'},{n:'בתולה',e:'♍',d:'23/8–22/9'},
+  {n:'מאזניים',e:'♎',d:'23/9–22/10'},{n:'עקרב',e:'♏',d:'23/10–21/11'},{n:'קשת',e:'♐',d:'22/11–21/12'},
+  {n:'גדי',e:'♑',d:'22/12–19/1'},{n:'דלי',e:'♒',d:'20/1–18/2'},{n:'דגים',e:'♓',d:'19/2–20/3'}
+];
+let selSign='';
+(function(){
+  const g=document.getElementById('zodiac-grid');
+  ZOD.forEach(z=>{
+    const d=document.createElement('div');d.className='zc';
+    d.innerHTML=`<div class="ze">${z.e}</div><div class="zn">${z.n}</div><div class="zd">${z.d}</div>`;
+    d.onclick=()=>{document.querySelectorAll('.zc').forEach(c=>c.classList.remove('sel'));d.classList.add('sel');selSign=z.n;document.getElementById('horo-btn').disabled=false;};
+    g.appendChild(d);
+  });
+})();
+function setATab(btn,tab){
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('at-daily').style.display=tab==='daily'?'block':'none';
+  document.getElementById('at-natal').style.display=tab==='natal'?'block':'none';
+}
+async function doHoro(){
+  if(!selSign)return;
+  await stream(`אסטרולוג מנוסה. הורוסקופ יומי לסימן ${selSign} לתאריך ${new Date().toLocaleDateString('he-IL')}.
+אהבה, קריירה, בריאות, מסר כללי. כ-260 מילה בעברית. סגנון חם וספציפי.`,'horo-out','horo-res');
+}
+async function doNatal(){
+  const d=document.getElementById('nd').value,t=document.getElementById('nt').value,c=document.getElementById('nc').value;
+  if(!d||!c){alert('נא למלא תאריך ועיר');return;}
+  await stream(`אסטרולוג לפי Kepler College. לידה: ${d}${t?', '+t:''}, ${c}. סימן שמש, ניתוח נטאלי כללי, מאפיינים, כוחות, אתגרים. הבהר שמיקום מדויק דורש Swiss Ephemeris. כ-280 מילה.`,'natal-out','natal-res');
+}
+
+// NUMEROLOGY
+const PY={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
+const VOW=new Set([...'AEIOU']);
+function red(n){if([11,22,33].includes(n))return n;while(n>9){let s=0;(''+n).split('').forEach(d=>s+=+d);n=s;if([11,22,33].includes(n))break;}return n;}
+function calcN(){
+  const nm=document.getElementById('nname').value,dt=document.getElementById('ndate').value;
+  if(!nm&&!dt){document.getElementById('num-cards').style.display='none';return;}
+  document.getElementById('num-cards').style.display='grid';
+  const sv=id=>document.getElementById(id);
+  if(nm){
+    const up=nm.toUpperCase();
+    const se=v=>[...up].reduce((a,c)=>a+(v.has(c)?(PY[c]||0):0),0);
+    const sc=v=>[...up].reduce((a,c)=>a+(!v.has(c)&&PY[c]?(PY[c]||0):0),0);
+    setNV('nv-expr',red([...up].reduce((a,c)=>a+(PY[c]||0),0)));
+ 
+    setNV('nv-soul',red(se(VOW)));setNV('nv-pers',red(sc(VOW)));
+  }
+  if(dt){
+    const p=dt.split('-');
+    const y=red(p[0].split('').reduce((a,c)=>a+ +c,0));
+    const m=red(+p[1]);const dv=red(+p[2]);
+    setNV('nv-life',red(y+m+dv));setNV('nv-bday',red(+p[2]));setNV('nv-mat',red(y+m));
+  }
+}
+function setNV(id,v){
+  const el=document.getElementById(id);
+  if(!v){el.textContent='—';el.classList.remove('master-num');return;}
+  el.textContent=v;el.classList.toggle('master-num',[11,22,33].includes(v));
+}
+async function doNum(){
+  const nm=document.getElementById('nname').value,dt=document.getElementById('ndate').value,q=document.getElementById('nq').value;
+  if(!nm&&!dt){alert('נא למלא שם או תאריך');return;}
+  const lf=document.getElementById('nv-life').textContent;
+  await stream(`נומרולוג פיתגוראי.${nm?'\nשם: '+nm:''}${dt?'\nתאריך: '+dt:''}\nמסלול חיים: ${lf}${[11,22,33].includes(+lf)?' (מאסטר!)':''}\n${q?'שאלה: '+q:''}\nפרשנות מעמיקה בעברית, כ-280 מילה.`,'num-out','num-res');
+}
+
+let selMood='',selSchool='jung';
+function pickC(btn,t){btn.closest('.chips-row').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selMood=btn.textContent;}
+function pickS(btn,s){document.querySelectorAll('.schip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selSchool=s;}
+async function doDream(){
+  const dream=document.getElementById('dream-in').value.trim();if(!dream){alert('נא לתאר את החלום');return;}
+  const sc={jung:'Carl Jung — ארכיטיפים, לא-מודע קולקטיבי.',freud:'Sigmund Freud — תוכן גלוי/סמוי, משאלות.',hall:'Hall & Domhoff — רציפות הגרה אמפירית.'};
+  await stream(`פרשן חלומות מאסכולת ${sc[selSchool]}\nחלום: "${dream}"${selMood?'\nמצב רוח: '+selMood:''}\nפרשנות עמוקה, 280-320 מילה בעברית. ניתוח סמלים, מסר פסיכולוגי.`,'dream-out','dream-res');
+}
+
+const COURSES=[
+  {lv:'b',icon:'🌀',title:'יסודות התקשור',src:'Arthur Findlay College',desc:'מבוא למדיומיות ותקשור לפי Arthur Findlay College — מעל 100 שנות הכשרה',mods:['מהי מדיומיות?','ה-Clairs','פתיחת ערוצי קבלה','הגנה אנרגטית','תרגול ראשון','אתיקה']},
+  {lv:'b',icon:'🃏',title:'טארוט למתחיל',src:'Biddy Tarot',desc:'78 קלפים מאפס — Major, Minor Arcana, פריסות ואתיקה',mods:['היסטוריה וסמליות','Major Arcana','Minor Arcana','פריסות','קריאה לאחרים','אתיקה']},
+  {lv:'b',icon:'∞',title:'נומרולוגיה בסיסית',src:'השיטה הפיתגוראית',desc:'5 מספרי ליבה, מספרי מאסטר, חישוב ופרשנות',mods:['מפיתגורס למודרנה','מסלול חיים','ביטוי ונשמה','אישיות','מאסטר 11/22/33','תרגול']},
+  {lv:'i',icon:'⭐',title:'אסטרולוגיה מתקדמת',src:'Kepler College + NCGR',desc:'מפה נטאלית, טרנזיטים, יחסים',mods:['מפה נטאלית','היבטים','טרנזיטים','סינסטרי','Rectification','ניתוח מקרה']},
+  {lv:'i',icon:'🌀',title:'תקשור מתקדם',src:'Arthur Findlay College',desc:'פגישה עם מדריכים, רשומות, טראנס',mods:['פגישה עם מדריך','רשומות — מבוא','טראנס','קריאה לאחרים','הגנה','אתיקה']},
+  {lv:'a',icon:'📜',title:'רשומות אקאשיות',src:'Linda Howe',desc:'גישה מלאה לרשומות לפי Linda Howe',mods:['מהן הרשומות?','Pathway Prayer','פתיחה וסגירה','קריאה לעצמך','קריאה לאחרים','מתקדם']},
+  {lv:'a',icon:'🧬',title:'חיים קודמים',src:'Brian Weiss + Michael Newton',desc:'רגרסיה לחיים קודמים',mods:['יסודות','היפנוזה','Weiss','Newton','אינטגרציה','אתיקה']}
+];
+const LVH={b:'מתחיל',i:'ביניים',a:'מתקדם'};
+function buildCourses(f='all'){
+  const g=document.getElementById('courses-list');g.innerHTML='';
+  COURSES.filter(c=>f==='all'||c.lv===f).forEach((c,i)=>{
+    const d=document.createElement('div');d.className='ccard';
+    d.innerHTML=`<div class="cc-lv"><span class="cc-lv-badge lv-${c.lv}">${LVH[c.lv]}</span></div>
+      <div class="cc-main"><h3>${c.icon} ${c.title}</h3><div class="cc-src">${c.src}</div><div class="cc-desc">${c.desc}</div>
+      <div class="cc-modules"><div class="mod-list">${c.mods.map((m,j)=>`<div class="mod-item"><span class="mod-n">${j+1}.</span><span>${m}</span></div>`).join('')}</div>
+      <button class="btn-tool" style="font-size:.46rem;padding:.55rem 1.4rem" onclick="learnC(${COURSES.indexOf(c)},event)">למד עם AI →</button></div></div>
+      <div class="cc-arrow">+ פרטים</div>`;
+    d.onclick=(e)=>{if(e.target.tagName==='BUTTON')return;d.classList.toggle('open');d.querySelector('.cc-modules').style.display=d.classList.contains('open')?'block':'none';};
+    g.appendChild(d);
+  });
+}
+buildCourses();
+function filterC(btn,f){document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildCourses(f);}
+async function learnC(i,e){
+  e.stopPropagation();const c=COURSES[i];
+  document.getElementById('course-res-label').textContent=c.title;
+  await stream(`מדריך מיסטי. מבוא לקורס "${c.title}" (${c.src}). מהות, היסטוריה, למה ללמוד, מה לצפות, תרגיל. כ-300 מילה בעברית.`,'course-out','course-res');
+  document.getElementById('course-res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+const RESEARCH=[
+  {t:'קריסטלים',p:'+410%',r:'TikTok & Instagram',w:.96},{t:'טארוט',p:'+340%',r:'ארה"ב, בריטניה',w:.88},
+  {t:'אסטרולוגיה',p:'+290%',r:'עולמי',w:.78},{t:'תקשור',p:'+220%',r:'בריטניה, אירלנד',w:.65},
+  {t:'חיים קודמים',p:'+200%',r:'ברזיל, הודו',w:.60},{t:'רשומות אקאשיות',p:'+180%',r:'ארה"ב, קנדה',w:.55},
+  {t:'נומרולוגיה',p:'+155%',r:'הודו, ישראל',w:.48},{t:'כתיבה אוטומטית',p:'+130%',r:'אירופה',w:.42}
+];
+(function(){
+  const g=document.getElementById('res-list');
+  RESEARCH.forEach((r,i)=>{
+    const d=document.createElement('div');d.className='rc';
+    d.innerHTML=`<div class="rc-idx">0${i+1}</div>
+      <div class="rc-main"><div class="rc-topic">${r.t}</div><div class="rc-region">🌍 ${r.r}</div></div>
+      <div class="rc-bar-wrap"><div class="rc-pct">${r.p}</div><div class="rc-bar" style="width:80px"><div class="rc-bar-fill" style="width:${r.w*100}%"></div></div></div>`;
+    d.onclick=()=>{document.getElementById('res-label').textContent=r.t;stream(`חוקר מיסטיקה. הסבר צמיחת ${r.t} ב-${r.p}, ${r.r}. מסורת, גורמים, מוסדות. כ-300 מילה.`,'res-out','res-result');};
+    g.appendChild(d);
+  });
+})();
+
+const ARTICLES=[
+  {cat:'טארוט',t:'הסמליות הנסתרת ב-Major Arcana',d:'22 ארכיטיפים ומשמעותם'},
+  {cat:'אסטרולוגיה',t:'12 הבתים האסטרולוגיים',d:'מה כל בית מייצג'},
+  {cat:'נומרולוגיה',t:'מספרי מאסטר: 11, 22, 33',d:'מה מיוחד בהם'},
+  {cat:'תקשור',t:'ארבעת ה-Clairs',d:'ערוצי הקבלה המרכזיים'},
+  {cat:'חלומות',t:'יונג מול פרויד',d:'שתי אסכולות לפרשנות חלומות'},
+  {cat:'רשומות',t:'הרשומות האקאשיות',d:'מהן וכיצד ניגשים אליהן'}
+];
+(function(){
+  const g=document.getElementById('art-grid');
+  ARTICLES.forEach(a=>{
+    const d=document.createElement('div');d.className='art-card';
+    d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">קרא מאמר →</span>`;
+    d.onclick=()=>{document.getElementById('art-label').textContent=a.t;stream(`מאמר מקיף על "${a.t}" (${a.cat}). ${a.d}. מבוא, היסטוריה, עקרונות, יישומים. כ-400 מילה.`,'art-out','art-result');document.getElementById('art-result').scrollIntoView({behavior:'smooth'});};
+    g.appendChild(d);
+  });
+})();
+
+function submitContact(){
+  const n=document.getElementById('cn').value,e=document.getElementById('ce').value;
+  if(!n||!e){alert('נא למלא שם ואימייל');return;}
+  document.getElementById('con-suc').style.display='block';
+}
+
+async function stream(prompt,outId,boxId){
+  const box=document.getElementById(boxId),out=document.getElementById(outId);
+  box.style.display='block';
+  out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,stream:true,messages:[{role:'user',content:prompt}]})});
+    if(!res.ok){out.textContent='שגיאת חיבור.';return;}
+    const reader=res.body.getReader(),dec=new TextDecoder();
+    let text='';out.innerHTML='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      dec.decode(value).split('\n').forEach(line=>{
+        if(!line.startsWith('data: '))return;const data=line.slice(6);if(data==='[DONE]')return;
+        try{const j=JSON.parse(data);if(j.type==='content_block_delta'&&j.delta?.text){text+=j.delta.text;out.textContent=text;}}catch(_){}
+      });
+    }
+  }catch(e){out.textContent='אירעה שגיאה. נסה שוב.';}
+}
+</script>
+</body>
+</html>
