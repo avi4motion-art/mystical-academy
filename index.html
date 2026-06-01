@@ -900,7 +900,7 @@ async function learnC(i,e){
   e.stopPropagation();const c=COURSES[i];
   document.getElementById('clbl').textContent=c.t;
   await ai(`מדריך מיסטי. מבוא לקורס "${c.t}" (${c.s}). מהות, היסטוריה, למה ללמוד, מה לצפות, תרגיל. כ-300 מילה בעברית.`,'cout','cres');
-  document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});
+  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
 
 // RESEARCH
@@ -921,7 +921,7 @@ const ARTS=[
   {cat:'חלומות',t:'יונג מול פרויד',d:'שתי אסכולות לפרשנות חלומות'},
   {cat:'רשומות',t:'הרשומות האקאשיות',d:'מהן וכיצד ניגשים אליהן'}
 ];
-try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=document.createElement('div');d.className='art';d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">קרא מאמר →</span>`;d.onclick=()=>{document.getElementById('arlbl').textContent=a.t;ai(`מאמר מקיף על "${a.t}" (${a.cat}). ${a.d}. מבוא, היסטוריה, עקרונות, יישומים. כ-400 מילה.`,'arout','arres');document.getElementById('arres').scrollIntoView({behavior:'smooth'});};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=document.createElement('div');d.className='art';d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">קרא מאמר →</span>`;d.onclick=()=>{document.getElementById('arlbl').textContent=a.t;ai(`מאמר מקיף על "${a.t}" (${a.cat}). ${a.d}. מבוא, היסטוריה, עקרונות, יישומים. כ-400 מילה.`,'arout','arres');try{document.getElementById('arres').scrollIntoView({behavior:'smooth'})}catch(_){};};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
 
 // CONTACT
 function submitC(){const n=document.getElementById('cn').value,e=document.getElementById('ce').value;if(!n||!e){alert('נא למלא שם ואימייל');return;}document.getElementById('csuc').style.display='block';}
@@ -929,21 +929,26 @@ function submitC(){const n=document.getElementById('cn').value,e=document.getEle
 // AI STREAM
 async function ai(prompt,outId,boxId){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
-  box.style.display='block';out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
-  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(!box||!out)return;
+  box.style.display='block';
+  out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
+  try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(_){}
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,stream:true,messages:[{role:'user',content:prompt}]})});
-    if(!res.ok){out.textContent='שגיאת חיבור.';return;}
-    const reader=res.body.getReader(),dec=new TextDecoder();
-    let text='';out.innerHTML='';
-    while(true){
-      const{done,value}=await reader.read();if(done)break;
-      dec.decode(value).split('\n').forEach(line=>{
-        if(!line.startsWith('data: '))return;const data=line.slice(6);if(data==='[DONE]')return;
-        try{const j=JSON.parse(data);if(j.type==='content_block_delta'&&j.delta?.text){text+=j.delta.text;out.textContent=text;}}catch(_){}
-      });
+    const res=await fetch('/api/claude',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:1000})
+    });
+    if(!res.ok){
+      out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">השירות אינו זמין כעת. נסה שוב בעוד רגע.</div>';
+      return;
     }
-  }catch(e){out.textContent='אירעה שגיאה. נסה שוב.';}
+    const data=await res.json();
+    const text=(data.content||[]).map(b=>b.text||'').join('').trim();
+    out.textContent=text||'לא התקבלה תשובה. נסה שוב.';
+  }catch(e){
+    out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">אירעה שגיאה בחיבור. אנא נסה שוב.</div>';
+  }
 }
 </script>
 </body>
