@@ -61,7 +61,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .stat-l{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;font-weight:200;margin-top:.3rem}
 
 /* 4-PHOTO GRID */
-.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);height:360px;overflow:hidden}
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;overflow:hidden}
+.pg-item{min-height:200px}
 .pg-item{position:relative;overflow:hidden;cursor:pointer}
 .pg-item img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease;display:block}
 .pg-item:hover img{transform:scale(1.06)}
@@ -341,6 +342,23 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
   content:'';position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;
   background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.3;
 }
+
+/* CHAKRAS */
+.chakra-grid{display:flex;flex-direction:column;gap:.5rem;max-width:600px}
+.chakra-item{display:grid;grid-template-columns:48px 1fr auto;gap:1rem;align-items:center;padding:.8rem 1rem;border:.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .25s;background:var(--cream2)}
+.chakra-item:hover{border-color:var(--earth);transform:translateX(-4px)}
+.chakra-item.sel{border-color:var(--earth);background:rgba(138,106,64,.06)}
+.chakra-dot{width:34px;height:34px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.15);position:relative}
+.chakra-dot::after{content:'';position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.5),transparent)}
+.chakra-info h4{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--dark);font-weight:500;margin-bottom:.1rem}
+.chakra-info p{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.08em}
+.chakra-sanskrit{font-family:'Cormorant Garamond',serif;font-size:.8rem;color:var(--earth);font-style:italic}
+
+.mod-clickable{cursor:pointer;transition:all .2s;padding-right:.5rem;border-radius:5px}
+.mod-clickable:hover{background:rgba(138,106,64,.07);padding-right:.7rem}
+.mod-arrow{margin-right:auto;font-family:'Jost',sans-serif;font-size:.4rem;color:var(--earth);letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .2s}
+.mod-clickable:hover .mod-arrow{opacity:1}
+.mod{display:flex;align-items:center;gap:.6rem}
 </style>
 </head>
 <body>
@@ -457,6 +475,21 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Jung · Freud · Hall</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>פרשנות חלומות</div></div>
     </div>
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')">
+      <img src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?w=500&q=80&auto=format&fit=crop" alt="צ'אקרות" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
+      <div class="pg-ov"></div>
+      <div class="pg-label"><div class="pg-sub">מסורת וודית-יוגית</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-spiral"/></svg>צ'אקרות</div></div>
+    </div>
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')">
+      <img src="https://images.unsplash.com/photo-1518972559570-7cc1309f3229?w=500&q=80&auto=format&fit=crop" alt="קריסטלים" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-tarot')">
+      <div class="pg-ov"></div>
+      <div class="pg-label"><div class="pg-sub">Crystal Academy</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>קריסטלים</div></div>
+    </div>
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&q=80&auto=format&fit=crop" alt="מדיטציה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
+      <div class="pg-ov"></div>
+      <div class="pg-label"><div class="pg-sub">מדיטציה מודרכת AI</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>מדיטציה</div></div>
+    </div>
   </div>
 
   <!-- QUOTE -->
@@ -499,6 +532,9 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     <button class="ttab" onclick="showTool('astro')">אסטרולוגיה</button>
     <button class="ttab" onclick="showTool('numerology')">נומרולוגיה</button>
     <button class="ttab" onclick="showTool('dreams')">חלומות</button>
+    <button class="ttab" onclick="showTool('chakras')">צ'אקרות</button>
+    <button class="ttab" onclick="showTool('crystals')">קריסטלים</button>
+    <button class="ttab" onclick="showTool('meditation')">מדיטציה</button>
   </div>
 
   <!-- TAROT -->
@@ -575,6 +611,54 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     <button class="btn" onclick="doDream()">פרש את החלום →</button>
     <div class="ai-res" role="region" aria-live="polite" id="dres"><div class="ai-label">פרשנות החלום</div><div class="ai-text" id="dout"></div></div>
   </div>
+
+  <!-- CHAKRAS -->
+  <div class="tpanel" id="tp-chakras">
+    <div class="fnote">מבוסס על המסורת הוודית-יוגית האותנטית. בחר צ'אקרה לאבחון ותרגיל איזון.</div>
+    <div class="chakra-grid" id="chakra-grid"></div>
+    <div class="fg" style="max-width:500px;margin-top:1.2rem"><label>איך אתה מרגיש כיום? (אופציונלי)</label><textarea id="chakra-q" placeholder="תאר מצב גופני/רגשי/אנרגטי..." style="min-height:70px"></textarea></div>
+    <button class="btn" onclick="doChakra()">קבל אבחון ותרגיל →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="chakra-res"><div class="ai-label" id="chakra-label">אבחון צ'אקרות</div><div class="ai-text" id="chakra-out"></div></div>
+  </div>
+
+  <!-- CRYSTALS -->
+  <div class="tpanel" id="tp-crystals">
+    <div class="fnote">ריפוי בגבישים מבוסס על מסורת Crystal Academy of Advanced Healing Arts (Katrina Raphaell). בחר מטרה וקבל המלצת גבישים.</div>
+    <div class="fg" style="margin-bottom:.3rem"><label>מה מטרת הריפוי?</label></div>
+    <div class="chips">
+      <button class="chip" onclick="pcr(this)">הגנה ואיזון</button>
+      <button class="chip" onclick="pcr(this)">אהבה וריפוי רגשי</button>
+      <button class="chip" onclick="pcr(this)">שפע והגשמה</button>
+      <button class="chip" onclick="pcr(this)">בהירות ואינטואיציה</button>
+      <button class="chip" onclick="pcr(this)">שלווה והרגעה</button>
+      <button class="chip" onclick="pcr(this)">אנרגיה וחיוניות</button>
+    </div>
+    <div class="fg" style="max-width:500px"><label>שאלה אישית (אופציונלי)</label><textarea id="crystal-q" placeholder="מה ברצונך לאזן או לרפא?" style="min-height:70px"></textarea></div>
+    <button class="btn" onclick="doCrystal()">המלץ על גבישים →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="crystal-res"><div class="ai-label">המלצת גבישים</div><div class="ai-text" id="crystal-out"></div></div>
+  </div>
+
+  <!-- MEDITATION -->
+  <div class="tpanel" id="tp-meditation">
+    <div class="fnote">AI יוצר עבורך מדיטציה מודרכת אישית לפי הכוונה והזמן שלך.</div>
+    <div class="fg" style="margin-bottom:.3rem"><label>מה הכוונה?</label></div>
+    <div class="chips">
+      <button class="chip" onclick="pmed(this,'intent')">הרגעה והפגת מתח</button>
+      <button class="chip" onclick="pmed(this,'intent')">התמקדות ובהירות</button>
+      <button class="chip" onclick="pmed(this,'intent')">ריפוי רגשי</button>
+      <button class="chip" onclick="pmed(this,'intent')">שינה עמוקה</button>
+      <button class="chip" onclick="pmed(this,'intent')">חיבור רוחני</button>
+      <button class="chip" onclick="pmed(this,'intent')">ביטחון עצמי</button>
+    </div>
+    <div class="fg" style="margin-bottom:.3rem"><label>משך זמן</label></div>
+    <div class="chips">
+      <button class="chip active" onclick="pmed(this,'time')">5 דקות</button>
+      <button class="chip" onclick="pmed(this,'time')">10 דקות</button>
+      <button class="chip" onclick="pmed(this,'time')">15 דקות</button>
+    </div>
+    <button class="btn" onclick="doMeditation()">צור מדיטציה מודרכת →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="med-res"><div class="ai-label">המדיטציה שלך</div><div class="ai-text" id="med-out"></div></div>
+  </div>
 </div>
 </div>
 
@@ -583,6 +667,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 <div class="academy-wrap">
   <div class="sec-label">האקדמיה</div>
   <div class="sec-title">קורסים מבוססי <em>מוסדות מובילים</em></div>
+  <div style="font-family:'Noto Serif Hebrew',serif;font-size:.72rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:680px;margin:-1.5rem 0 2.5rem;padding:.9rem 1.1rem;background:rgba(138,106,64,.05);border-right:2px solid rgba(138,106,64,.25)">הקורסים מבוססים על המתודולוגיות של המוסדות המובילים בעולם ונכתבים בעזרת AI כחומר לימוד והשראה. אינם קורסים רשמיים מטעם המוסדות המוזכרים.</div>
   <div class="filter-tabs">
     <button class="ftab active" onclick="fc(this,'all')">הכל</button>
     <button class="ftab" onclick="fc(this,'b')">מתחיל</button>
@@ -727,7 +812,7 @@ function showTool(t){
   document.querySelectorAll('.ttab').forEach(b=>b.classList.remove('active'));
   panel.classList.add('active');
   const tabs=document.querySelectorAll('.ttab');
-  ['tarot','astro','numerology','dreams'].forEach((n,i)=>{if(n===t&&tabs[i])tabs[i].classList.add('active');});
+  ['tarot','astro','numerology','dreams','chakras','crystals','meditation'].forEach((n,i)=>{if(n===t&&tabs[i])tabs[i].classList.add('active');});
 }
 
 // TAROT
@@ -886,7 +971,7 @@ function buildC(f='all'){
       </div>
       <div class="cc-toggle">פרטי הקורס <svg aria-hidden="true"><use href="#icon-chevron-down"/></svg></div>
       <div class="cc-mods">
-        <div>${c.m.map((m,j)=>`<div class="mod"><span class="mn">${j+1}.</span><span>${m}</span></div>`).join('')}</div>
+        <div>${c.m.map((m,j)=>`<div class="mod mod-clickable" onclick="learnModule(${COURSES.indexOf(c)},${j});event.stopPropagation()"><span class="mn">${j+1}.</span><span>${m}</span><span class="mod-arrow">למד →</span></div>`).join('')}</div>
         <button class="btn" style="margin-top:1rem;font-size:.44rem;padding:.55rem 1.3rem" onclick="learnC(${COURSES.indexOf(c)},event)">למד עם AI →</button>
       </div>`;
     d.onclick=(e)=>{if(e.target.tagName==='BUTTON'||e.target.closest('button'))return;d.classList.toggle('open');d.querySelector('.cc-mods').style.display=d.classList.contains('open')?'block':'none';};
@@ -898,8 +983,21 @@ try{buildC();}catch(e){console.warn(e);}
 function fc(btn,f){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildC(f);}
 async function learnC(i,e){
   e.stopPropagation();const c=COURSES[i];
-  document.getElementById('clbl').textContent=c.t;
-  await ai(`מדריך מיסטי. מבוא לקורס "${c.t}" (${c.s}). מהות, היסטוריה, למה ללמוד, מה לצפות, תרגיל. כ-300 מילה בעברית.`,'cout','cres');
+  document.getElementById('clbl').textContent=c.t+' — שיעור מבוא';
+  const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join('\n');
+  await ai(`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. כתוב שיעור מבוא מקיף ומרתק בעברית לקורס.
+מבנה הקורס:
+${modList}
+
+השיעור צריך לכלול: (1) פתיחה מעוררת השראה על מהות התחום; (2) רקע היסטורי קצר על ${c.s}; (3) הסבר מה התלמיד ילמד וירכוש; (4) תרגיל מעשי ראשון שאפשר לעשות כבר היום; (5) המלצה כיצד להמשיך. כ-400 מילה, סגנון חם ומקצועי.`,'cout','cres');
+  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+}
+
+// לימוד מודול ספציפי
+async function learnModule(courseIdx,modIdx){
+  const c=COURSES[courseIdx];const mod=c.m[modIdx];
+  document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
+  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתch, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres');
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
 
@@ -927,6 +1025,65 @@ try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=docum
 function submitC(){const n=document.getElementById('cn').value,e=document.getElementById('ce').value;if(!n||!e){alert('נא למלא שם ואימייל');return;}document.getElementById('csuc').style.display='block';}
 
 // AI STREAM
+
+// ========== CHAKRAS ==========
+const CHAKRAS=[
+  {n:'כתר',s:'Sahasrara',c:'#9b6fd4',loc:'קודקוד הראש',theme:'רוחניות, חיבור עליון, מודעות'},
+  {n:'עין שלישית',s:'Ajna',c:'#4868c0',loc:'מרכז המצח',theme:'אינטואיציה, חוכמה, דמיון'},
+  {n:'גרון',s:'Vishuddha',c:'#3aa0d0',loc:'הגרון',theme:'תקשורת, ביטוי, אמת'},
+  {n:'לב',s:'Anahata',c:'#5cb85c',loc:'מרכז החזה',theme:'אהבה, חמלה, ריפוי'},
+  {n:'מקלעת השמש',s:'Manipura',c:'#f0c040',loc:'הבטן העליונה',theme:'כוח אישי, ביטחון, רצון'},
+  {n:'סקרל',s:'Svadhisthana',c:'#e08038',loc:'מתחת לטבור',theme:'יצירתיות, רגש, תשוקה'},
+  {n:'בסיס',s:'Muladhara',c:'#c0392b',loc:'בסיס עמוד השדרה',theme:'הישרדות, ביטחון, השתרשות'}
+];
+let selChakra='';
+function buildChakras(){
+  const g=document.getElementById('chakra-grid');if(!g)return;g.innerHTML='';
+  CHAKRAS.forEach(ch=>{
+    const d=document.createElement('div');d.className='chakra-item';d.tabIndex=0;
+    d.innerHTML=`<div class="chakra-dot" style="background:${ch.c}"></div>
+      <div class="chakra-info"><h4>צ'אקרת ה${ch.n}</h4><p>${ch.loc} · ${ch.theme}</p></div>
+      <div class="chakra-sanskrit">${ch.s}</div>`;
+    d.onclick=()=>{document.querySelectorAll('.chakra-item').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');selChakra=ch.n;};
+    d.onkeypress=(e)=>{if(e.key==='Enter')d.click();};
+    g.appendChild(d);
+  });
+}
+try{buildChakras();}catch(e){console.warn(e);}
+async function doChakra(){
+  const q=document.getElementById('chakra-q').value;
+  const label=selChakra?`צ'אקרת ה${selChakra}`:'מערכת הצ\'אקרות';
+  document.getElementById('chakra-label').textContent=label;
+  const prompt=selChakra
+    ? `מומחה לצ'אקרות במסורת הוודית-יוגית האותנטית. נתח את צ'אקרת ה${selChakra}.${q?' המצב הנוכחי: '+q:''} כלול: משמעות הצ'אקרה, סימני איזון וחוסר איזון, ותרגיל מעשי אחד לאיזון (נשימה/מדיטציה/תנועה). הדגש שזו מסורת רוחנית ולא תחליף לטיפול רפואי. כ-300 מילה בעברית.`
+    : `מומחה לצ'אקרות במסורת הוודית-יוגית. תן סקירה של מערכת 7 הצ'אקרות.${q?' המצב הנוכחי: '+q:''} לכל צ'אקרה: שם, מיקום, תחום. סיים בהמלצה לתרגיל איזון כללי. כ-350 מילה בעברית.`;
+  await ai(prompt,'chakra-out','chakra-res');
+}
+
+// ========== CRYSTALS ==========
+let selCrystalGoal='';
+function pcr(btn){document.querySelectorAll('#tp-crystals .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selCrystalGoal=btn.textContent;}
+async function doCrystal(){
+  if(!selCrystalGoal){alert('נא לבחור מטרת ריפוי');return;}
+  const q=document.getElementById('crystal-q').value;
+  await ai(`מומחה לריפוי בגבישים במסורת Crystal Academy of Advanced Healing Arts. מטרה: ${selCrystalGoal}.${q?' שאלה: '+q:''} המלץ על 3-4 גבישים מתאימים — לכל אחד: שם, צבע, תכונות, ואיך להשתמש בו. הדגש שזו פרקטיקה רוחנית משלימה. כ-320 מילה בעברית.`,'crystal-out','crystal-res');
+}
+
+// ========== MEDITATION ==========
+let medIntent='',medTime='5 דקות';
+function pmed(btn,type){
+  const row=btn.closest('.chips');
+  row.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='intent')medIntent=btn.textContent;
+  else medTime=btn.textContent;
+}
+async function doMeditation(){
+  if(!medIntent){alert('נא לבחור כוונה');return;}
+  await ai(`מנחה מדיטציה מנוסה. צור מדיטציה מודרכת בעברית. כוונה: ${medIntent}. משך: ${medTime}. כתוב את הסקריפט המלא להקראה — פתיחה, גוף המדיטציה עם הוראות נשימה והדמיה, וסיום עדין. סגנון רגוע, גוף שני. התאם את האורך ל-${medTime}.`,'med-out','med-res');
+}
+
+
 async function ai(prompt,outId,boxId){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
   if(!box||!out)return;
