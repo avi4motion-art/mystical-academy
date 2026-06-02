@@ -1183,7 +1183,8 @@ async function doMeditation(){
 
 
 // ========== FREEMIUM GATE ==========
-const FREE_LIMIT=5;
+const FREE_BEFORE_SIGNUP=1;  // פרשנות אחת חינם ללא הרשמה
+const FREE_TOTAL=5;          // סה"כ חינם אחרי הרשמה
 function getUsage(){
   try{return parseInt(localStorage.getItem('ma_usage')||'0',10);}catch(_){return 0;}
 }
@@ -1191,30 +1192,57 @@ function setUsage(n){
   try{localStorage.setItem('ma_usage',String(n));}catch(_){}
   updateUsagePill();
 }
-function isSubscribed(){
+function isRegistered(){
   try{return localStorage.getItem('ma_lead')==='1';}catch(_){return false;}
 }
+// תאימות לאחור
+function isSubscribed(){return isRegistered();}
 function updateUsagePill(){
   const pill=document.getElementById('usage-pill');
   const cnt=document.getElementById('usage-count');
   if(!pill||!cnt)return;
-  if(isSubscribed()){pill.style.display='none';return;}
-  const used=getUsage();const left=Math.max(0,FREE_LIMIT-used);
+  const used=getUsage();
+  let left;
+  if(!isRegistered()){left=Math.max(0,FREE_BEFORE_SIGNUP-used);}
+  else{left=Math.max(0,FREE_TOTAL-used);}
   cnt.textContent=left;
   pill.style.display='flex';
 }
-function canUse(){
-  if(isSubscribed())return true;
-  return getUsage()<FREE_LIMIT;
+// מצב: 'ok' מותר | 'signup' צריך הרשמה | 'subscribe' צריך מנוי
+function useState(){
+  const used=getUsage();
+  if(!isRegistered()){
+    if(used<FREE_BEFORE_SIGNUP)return 'ok';
+    return 'signup';
+  }
+  if(used<FREE_TOTAL)return 'ok';
+  return 'subscribe';
 }
-function recordUse(){
-  if(isSubscribed())return;
-  setUsage(getUsage()+1);
-}
-function openGate(){
+function canUse(){return useState()==='ok';}
+function recordUse(){setUsage(getUsage()+1);}
+function openSignupGate(){
+  const form=document.getElementById('gate-form-view');
   const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='קיבלת טעימה ראשונה ✦<br>רוצה עוד?';
+    form.querySelector('p').innerHTML='הירשם בחינם וקבל <strong>4 פרשנויות נוספות</strong> בכל הכלים. ללא תשלום, רק אימייל — ונעדכן אותך גם כשייפתח חבר האקדמיה.';
+    form.querySelector('.gate-btn').textContent='הירשם והמשך בחינם';
+    form.querySelector('.gate-small').textContent='ללא ספאם · 4 פרשנויות נוספות מיד אחרי ההרשמה';
+  }
   if(o)o.classList.add('show');
 }
+function openSubscribeGate(){
+  const form=document.getElementById('gate-form-view');
+  const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='ניצלת את 5 הפרשנויות<br>החינמיות שלך';
+    form.querySelector('p').innerHTML='בקרוב נפתח את <strong>חבר האקדמיה</strong> — פרשנויות ללא הגבלה בכל הכלים. השאר אימייל ונעדכן אותך ראשון, עם הטבת השקה מיוחדת.';
+    form.querySelector('.gate-btn').textContent='עדכנו אותי בהשקה';
+    form.querySelector('.gate-small').textContent='ללא ספאם · נשלח עדכון אחד בלבד כשהמנוי ייפתח';
+  }
+  if(o)o.classList.add('show');
+}
+function openGate(){openSubscribeGate();}
 function closeGate(){
   const o=document.getElementById('gate-overlay');
   if(o)o.classList.remove('show');
@@ -1269,7 +1297,9 @@ async function ai(prompt,outId,boxId){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
   if(!box||!out)return;
   // בדיקת מכסה חינמית
-  if(!canUse()){openGate();return;}
+  const st=useState();
+  if(st==='signup'){openSignupGate();return;}
+  if(st==='subscribe'){openSubscribeGate();return;}
   box.style.display='block';
   out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
   try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(_){}
