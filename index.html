@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -45,9 +46,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .hero-star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur,4s) ease-in-out infinite;opacity:0;box-shadow:0 0 var(--glow,4px) var(--glow,4px) rgba(255,245,220,.6)}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:var(--maxop,.95);transform:scale(1.2)}}
 /* shooting stars */
-.shooting-star{position:absolute;width:2px;height:2px;background:linear-gradient(45deg,#fff,transparent);border-radius:50%;box-shadow:0 0 8px 2px rgba(255,245,220,.8);opacity:0;z-index:2}
-.shooting-star::after{content:'';position:absolute;top:0;right:0;width:80px;height:1px;background:linear-gradient(to left,rgba(255,245,220,.8),transparent);transform-origin:right center}
-@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(215deg)}5%{opacity:1}40%{opacity:1}100%{opacity:0;transform:translate(-320px,260px) rotate(215deg)}}
+.shooting-star{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;box-shadow:0 0 10px 3px rgba(255,245,220,.95);opacity:0;z-index:2}
+.shooting-star::after{content:'';position:absolute;top:50%;left:50%;width:110px;height:2px;background:linear-gradient(to right,rgba(255,245,220,.9),rgba(255,245,220,.3) 45%,transparent);transform-origin:left center;transform:translateY(-50%) rotate(-35deg);border-radius:2px}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) scale(.5)}10%{opacity:1;transform:translate(-36px,25px) scale(1)}90%{opacity:1}100%{opacity:0;transform:translate(-360px,252px) scale(.85)}}
 /* floating particles */
 .hero-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,184,112,.6),transparent);animation:float var(--fdur,12s) ease-in-out infinite;opacity:0;z-index:1}
 @keyframes float{0%{opacity:0;transform:translateY(20px) translateX(0)}25%{opacity:.7}50%{opacity:.9;transform:translateY(-30px) translateX(15px)}75%{opacity:.5}100%{opacity:0;transform:translateY(-70px) translateX(-10px)}}
@@ -572,42 +573,42 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- 4 PHOTO GRID -->
   <div class="photo-grid" role="list" aria-label="כלים מיסטיים">
-    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="images/tarot.jpg" alt="tarot" loading="lazy">
+    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="tarot" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Rider-Waite · 78 קלפים</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-tarot"/></svg>קריאת טארוט</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="images/astro.jpg" alt="astro" loading="lazy">
+    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="astro" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Kepler College · NCGR</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>אסטרולוגיה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="images/numerology.jpg" alt="numerology" loading="lazy">
+    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="numerology" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">השיטה הפיתגוראית</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-infinity"/></svg>נומרולוגיה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="images/dreams.jpg" alt="dreams" loading="lazy">
+    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="dreams" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Jung · Freud · Hall</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>פרשנות חלומות</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="images/chakras.jpg" alt="chakras" loading="lazy">
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="chakras" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">מסורת וודית-יוגית</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-spiral"/></svg>צ'אקרות</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="images/crystals.jpg" alt="crystals" loading="lazy">
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="crystals" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Crystal Academy</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>קריסטלים</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="images/meditation.jpg" alt="meditation" loading="lazy">
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="meditation" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">מדיטציה מודרכת AI</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>מדיטציה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="images/soulmap.jpg" alt="soulmap" loading="lazy">
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="soulmap" loading="lazy">
       
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">פרופיל רוחני אישי</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>מפת הנשמה</div></div>
@@ -673,7 +674,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- TAROT -->
   <div class="tpanel active" id="tp-tarot">
-    <div class="tool-banner"><img src="images/tarot.jpg" alt="tarot" loading="lazy"></div>
+    <div class="tool-banner"><img src="tarot.jpg" alt="tarot" loading="lazy"></div>
     <div class="lrow" id="lrow"></div>
     <div class="tnote">בחר <strong id="nn">1</strong> קלף מתוך 78</div>
     <div class="card-grid" id="cg"></div>
@@ -684,7 +685,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- ASTRO -->
   <div class="tpanel" id="tp-astro">
-    <div class="tool-banner"><img src="images/astro.jpg" alt="astro" loading="lazy"></div>
+    <div class="tool-banner"><img src="astro.jpg" alt="astro" loading="lazy"></div>
     <div class="mtabs">
       <button class="mtab active" onclick="setAT(this,'daily')">הורוסקופ יומי</button>
       <button class="mtab" onclick="setAT(this,'natal')">מפה נטאלית</button>
@@ -708,7 +709,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- NUMEROLOGY -->
   <div class="tpanel" id="tp-numerology">
-    <div class="tool-banner"><img src="images/numerology.jpg" alt="numerology" loading="lazy"></div>
+    <div class="tool-banner"><img src="numerology.jpg" alt="numerology" loading="lazy"></div>
     <div class="fgrid">
       <div class="fg"><label>שם מלא — Latin letters</label><input type="text" id="nname" placeholder="e.g. David Cohen" oninput="calcN()"></div>
       <div class="fg"><label>תאריך לידה</label><input type="date" id="ndate" oninput="calcN()"></div>
@@ -729,7 +730,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- DREAMS -->
   <div class="tpanel" id="tp-dreams">
-    <div class="tool-banner"><img src="images/dreams.jpg" alt="dreams" loading="lazy"></div>
+    <div class="tool-banner"><img src="dreams.jpg" alt="dreams" loading="lazy"></div>
     <div class="fg"><label>תאר את החלום</label><textarea id="din" placeholder="ספר את החלום — אנשים, מקומות, תחושות, סמלים..."></textarea></div>
     <div class="fg" style="margin-bottom:.2rem"><label>מצב רוח עם ההתעוררות</label></div>
     <div class="chips">
@@ -753,7 +754,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- CHAKRAS -->
   <div class="tpanel" id="tp-chakras">
-    <div class="tool-banner"><img src="images/chakras.jpg" alt="chakras" loading="lazy"></div>
+    <div class="tool-banner"><img src="chakras.jpg" alt="chakras" loading="lazy"></div>
     <div class="fnote">מבוסס על המסורת הוודית-יוגית האותנטית. בחר צ'אקרה לאבחון ותרגיל איזון.</div>
     <div class="chakra-grid" id="chakra-grid"></div>
     <div class="fg" style="max-width:500px;margin-top:1.2rem"><label>איך אתה מרגיש כיום? (אופציונלי)</label><textarea id="chakra-q" placeholder="תאר מצב גופני/רגשי/אנרגטי..." style="min-height:70px"></textarea></div>
@@ -763,7 +764,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- CRYSTALS -->
   <div class="tpanel" id="tp-crystals">
-    <div class="tool-banner"><img src="images/crystals.jpg" alt="crystals" loading="lazy"></div>
+    <div class="tool-banner"><img src="crystals.jpg" alt="crystals" loading="lazy"></div>
     <div class="fnote">ריפוי בגבישים מבוסס על מסורת Crystal Academy of Advanced Healing Arts (Katrina Raphaell). בחר מטרה וקבל המלצת גבישים.</div>
     <div class="fg" style="margin-bottom:.3rem"><label>מה מטרת הריפוי?</label></div>
     <div class="chips">
@@ -781,7 +782,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- MEDITATION -->
   <div class="tpanel" id="tp-meditation">
-    <div class="tool-banner"><img src="images/meditation.jpg" alt="meditation" loading="lazy"></div>
+    <div class="tool-banner"><img src="meditation.jpg" alt="meditation" loading="lazy"></div>
     <div class="fnote">AI יוצר עבורך מדיטציה מודרכת אישית לפי הכוונה והזמן שלך.</div>
     <div class="fg" style="margin-bottom:.3rem"><label>מה הכוונה?</label></div>
     <div class="chips">
@@ -804,7 +805,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- SOUL MAP -->
   <div class="tpanel" id="tp-soulmap">
-    <div class="tool-banner"><img src="images/soulmap.jpg" alt="soulmap" loading="lazy"></div>
+    <div class="tool-banner"><img src="soulmap.jpg" alt="soulmap" loading="lazy"></div>
     <div class="fnote">מפת הנשמה שלך — פרופיל רוחני מלא המשלב אסטרולוגיה, נומרולוגיה, צ'אקרות ואבני מזל. הזן את פרטיך וקבל תמונה אישית עשירה.</div>
     <div class="fgrid">
       <div class="fg"><label>שם מלא (אותיות לטיניות)</label><input type="text" id="sm-name" placeholder="e.g. David Cohen"></div>
@@ -1676,15 +1677,16 @@ function spawnShootingStar(){
   if(!c)return;
   const s=document.createElement('div');
   s.className='shooting-star';
-  const x=(Math.random()*50+40).toFixed(1);
-  const y=(Math.random()*30).toFixed(1);
-  const dur=(Math.random()*1+1.2).toFixed(1);
+  // מתחיל מימין-למעלה, נופל אלכסונית שמאלה-למטה
+  const x=(Math.random()*40+50).toFixed(1);
+  const y=(Math.random()*25+5).toFixed(1);
+  const dur=(Math.random()*0.6+1).toFixed(1);
   s.style.left=x+'%';s.style.top=y+'%';
-  s.style.animation=`shoot ${dur}s ease-in forwards`;
+  s.style.animation=`shoot ${dur}s linear forwards`;
   c.appendChild(s);
-  setTimeout(()=>s.remove(),parseFloat(dur)*1000+200);
-  // הבא בעוד 3-8 שניות
-  setTimeout(spawnShootingStar,(Math.random()*5000+3000));
+  setTimeout(()=>s.remove(),parseFloat(dur)*1000+300);
+  // הבא בעוד 4-9 שניות
+  setTimeout(spawnShootingStar,(Math.random()*5000+4000));
 }
 
 
