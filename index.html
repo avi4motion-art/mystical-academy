@@ -331,10 +331,14 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 /* === photo grid: frame separators + fallbacks === */
 .photo-grid{gap:5px !important;background:var(--earth) !important}
 .pg-item{background:var(--cream)}
-.pg-item.pg-fb-tarot{background:linear-gradient(155deg,#3a2410,#1a1008)}
-.pg-item.pg-fb-astro{background:linear-gradient(155deg,#0d1428,#1a2040)}
-.pg-item.pg-fb-num{background:linear-gradient(155deg,#2a1a30,#160f22)}
-.pg-item.pg-fb-dream{background:linear-gradient(155deg,#1a1828,#0a0e18)}
+.pg-item.pg-fb-tarot{background:linear-gradient(155deg,#5a3a18,#2a1808)}
+.pg-item.pg-fb-astro{background:linear-gradient(155deg,#1a2850,#0d1428)}
+.pg-item.pg-fb-num{background:linear-gradient(155deg,#3a2548,#1a1028)}
+.pg-item.pg-fb-dream{background:linear-gradient(155deg,#2a2848,#12101f)}
+/* כשאין תמונה, הראה את התווית במרכז */
+.pg-item[class*="pg-fb-"] .pg-label{bottom:auto;top:50%;transform:translateY(-50%);text-align:center}
+.pg-item[class*="pg-fb-"] .pg-title{justify-content:center;font-size:1.5rem}
+.pg-item[class*="pg-fb-"] .pg-ov{background:linear-gradient(to top,rgba(12,6,2,.5),rgba(12,6,2,.2))}
 .pg-title{display:flex;align-items:center;gap:.5rem}
 
 /* fallback shows large icon when image missing */
@@ -400,6 +404,35 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .price-features li::before{content:'✦';position:absolute;right:0;color:var(--earth);font-size:.6rem;top:.65rem}
 .price-features li strong{color:var(--dark);font-weight:400}
 @media(max-width:768px){.pricing-grid{grid-template-columns:1fr}}
+
+.gate-code-toggle{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--earth);letter-spacing:.08em;margin-top:1rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;opacity:.8;transition:opacity .2s}
+.gate-code-toggle:hover{opacity:1}
+.gate-code-wrap{display:none;margin-top:.5rem}
+.gate-code-wrap.show{display:block;animation:gfade .3s ease}
+
+/* === MOON PHASE === */
+.moon-strip{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:1200px;margin:0 auto;padding:3rem 2.5rem;border-bottom:.5px solid var(--border)}
+.moon-visual{display:flex;align-items:center;justify-content:center}
+.moon-disc{width:90px;height:90px;border-radius:50%;background:#f5f0e8;box-shadow:inset 0 0 0 1px rgba(138,106,64,.3),0 0 40px rgba(212,184,112,.25);position:relative;overflow:hidden;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 70% 65%,rgba(138,106,64,.08),transparent 30%)}
+.moon-shadow{position:absolute;top:0;height:100%;background:#1a1208;border-radius:50%;transition:all .5s}
+.moon-label{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.5rem}
+.moon-phase{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--dark);font-weight:300;margin-bottom:.5rem}
+.moon-desc{font-family:'Noto Serif Hebrew',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:600px}
+@media(max-width:600px){.moon-strip{grid-template-columns:1fr;text-align:center;gap:1.5rem}.moon-visual{justify-content:center}}
+
+.result-actions{display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap}
+.ra-btn{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);color:var(--earth);padding:.5rem 1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:.45rem;border-radius:6px}
+.ra-btn:hover{background:rgba(138,106,64,.07);border-color:var(--earth)}
+.ra-btn svg{opacity:.7}
+
+/* === JOURNAL === */
+.journal-entry{background:var(--cream2);border:.5px solid var(--border);border-radius:12px;padding:1.5rem 1.7rem;margin-bottom:1rem;position:relative}
+.journal-entry .je-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
+.je-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--dark);font-weight:500}
+.je-date{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.08em}
+.je-text{font-family:'Noto Serif Hebrew',serif;font-size:.76rem;color:var(--muted);line-height:1.85;font-weight:300;white-space:pre-wrap}
+.je-del{position:absolute;top:1.2rem;left:1.2rem;background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.9rem;opacity:.5;transition:opacity .2s}
+.je-del:hover{opacity:1;color:#a04030}
 </style>
 </head>
 <body>
@@ -461,6 +494,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <button class="nl" onclick="show('research')">מחקר</button>
       <button class="nl" onclick="show('knowledge')">ידע</button>
       <button class="nl" onclick="show('about')">אודות</button>
+      <button class="nl" onclick="show('journal')">היומן שלי</button>
       <button class="nl" onclick="show('pricing')">מנוי</button>
       <button class="nl" onclick="show('contact')">צור קשר</button>
     </div>
@@ -503,17 +537,17 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <div class="pg-label"><div class="pg-sub">Rider-Waite · 78 קלפים</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-tarot"/></svg>קריאת טארוט</div></div>
     </div>
     <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')">
-      <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=500&q=80&auto=format&fit=crop" alt="אסטרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-astro')">
+      <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=500&q=80&auto=format&fit=crop" alt="אסטרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-astro')">
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Kepler College · NCGR</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>אסטרולוגיה</div></div>
     </div>
     <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')">
-      <img src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=500&q=80&auto=format&fit=crop" alt="נומרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
+      <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&q=80&auto=format&fit=crop" alt="נומרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">השיטה הפיתגוראית</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-infinity"/></svg>נומרולוגיה</div></div>
     </div>
     <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')">
-      <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?w=500&q=80&auto=format&fit=crop" alt="חלומות" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
+      <img src="https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=500&q=80&auto=format&fit=crop" alt="חלומות" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Jung · Freud · Hall</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>פרשנות חלומות</div></div>
     </div>
@@ -531,6 +565,21 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&q=80&auto=format&fit=crop" alt="מדיטציה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
       <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">מדיטציה מודרכת AI</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>מדיטציה</div></div>
+    </div>
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')">
+      <img src="https://images.unsplash.com/photo-1564399580075-5dfe19c205f3?w=500&q=80&auto=format&fit=crop" alt="מפת הנשמה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
+      <div class="pg-ov"></div>
+      <div class="pg-label"><div class="pg-sub">פרופיל רוחני אישי</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>מפת הנשמה</div></div>
+    </div>
+  </div>
+
+  <!-- MOON PHASE -->
+  <div class="moon-strip">
+    <div class="moon-visual"><div class="moon-disc" id="moon-disc"></div></div>
+    <div class="moon-info">
+      <div class="moon-label">שלב הירח כעת</div>
+      <div class="moon-phase" id="moon-phase">—</div>
+      <div class="moon-desc" id="moon-desc">—</div>
     </div>
   </div>
 
@@ -577,6 +626,9 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     <button class="ttab" onclick="showTool('chakras')">צ'אקרות</button>
     <button class="ttab" onclick="showTool('crystals')">קריסטלים</button>
     <button class="ttab" onclick="showTool('meditation')">מדיטציה</button>
+    <button class="ttab" onclick="showTool('soulmap')">מפת הנשמה</button>
+    <button class="ttab" onclick="showTool('oracle')">האורקל</button>
+    <button class="ttab" onclick="showTool('compat')">תאימות</button>
   </div>
 
   <!-- TAROT -->
@@ -649,6 +701,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <button class="chip active" onclick="ps(this,'jung')">יונג — ארכיטיפים</button>
       <button class="chip" onclick="ps(this,'freud')">פרויד — לא-מודע</button>
       <button class="chip" onclick="ps(this,'hall')">Hall/Domhoff — אמפירי</button>
+      <button class="chip" onclick="ps(this,'spiritual')">רוחני — אינטואיטיבי</button>
     </div>
     <button class="btn" onclick="doDream()">פרש את החלום →</button>
     <div class="ai-res" role="region" aria-live="polite" id="dres"><div class="ai-label">פרשנות החלום</div><div class="ai-text" id="dout"></div></div>
@@ -700,6 +753,44 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     </div>
     <button class="btn" onclick="doMeditation()">צור מדיטציה מודרכת →</button>
     <div class="ai-res" role="region" aria-live="polite" id="med-res"><div class="ai-label">המדיטציה שלך</div><div class="ai-text" id="med-out"></div></div>
+  </div>
+
+  <!-- SOUL MAP -->
+  <div class="tpanel" id="tp-soulmap">
+    <div class="fnote">מפת הנשמה שלך — פרופיל רוחני מלא המשלב אסטרולוגיה, נומרולוגיה, צ'אקרות ואבני מזל. הזן את פרטיך וקבל תמונה אישית עשירה.</div>
+    <div class="fgrid">
+      <div class="fg"><label>שם מלא (אותיות לטיניות)</label><input type="text" id="sm-name" placeholder="e.g. David Cohen"></div>
+      <div class="fg"><label>תאריך לידה</label><input type="date" id="sm-date"></div>
+    </div>
+    <button class="btn" onclick="doSoulMap()">גלה את מפת הנשמה שלי →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="sm-res"><div class="ai-label">מפת הנשמה שלך</div><div class="ai-text" id="sm-out"></div></div>
+  </div>
+
+  <!-- ORACLE -->
+  <div class="tpanel" id="tp-oracle">
+    <div class="fnote">שאל את האורקל שאלה אחת — וקבל מסר מיסטי קצר ומדויק. נשום עמוק, התרכז בשאלתך, ושאל.</div>
+    <div class="fg" style="max-width:600px"><label>שאלתך לאורקל</label><textarea id="oracle-q" placeholder="מה מעסיק אותך כעת?" style="min-height:90px"></textarea></div>
+    <button class="btn" onclick="doOracle()">שאל את האורקל →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="oracle-res"><div class="ai-label">מסר האורקל</div><div class="ai-text" id="oracle-out"></div></div>
+  </div>
+
+  <!-- COMPATIBILITY -->
+  <div class="tpanel" id="tp-compat">
+    <div class="fnote">בדיקת תאימות רוחנית בין שני אנשים — לפי אסטרולוגיה ונומרולוגיה. מתאים לזוגיות, ידידות או שותפות.</div>
+    <div class="fgrid">
+      <div class="fg"><label>שם ראשון</label><input type="text" id="cp-n1" placeholder="שם"></div>
+      <div class="fg"><label>תאריך לידה ראשון</label><input type="date" id="cp-d1"></div>
+      <div class="fg"><label>שם שני</label><input type="text" id="cp-n2" placeholder="שם"></div>
+      <div class="fg"><label>תאריך לידה שני</label><input type="date" id="cp-d2"></div>
+    </div>
+    <div class="fg" style="margin-bottom:.3rem;max-width:500px"><label>סוג הקשר</label></div>
+    <div class="chips">
+      <button class="chip active" onclick="pcompat(this)">זוגיות</button>
+      <button class="chip" onclick="pcompat(this)">ידידות</button>
+      <button class="chip" onclick="pcompat(this)">שותפות עסקית</button>
+    </div>
+    <button class="btn" onclick="doCompat()">בדוק תאימות →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="cp-res"><div class="ai-label">ניתוח תאימות</div><div class="ai-text" id="cp-out"></div></div>
   </div>
 </div>
 </div>
@@ -767,6 +858,19 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
         <div class="src-item"><strong>רשומות אקאשיות</strong> — Linda Howe · Pathway Process</div>
       </div>
     </div>
+  </div>
+</div>
+</div>
+
+<!-- JOURNAL -->
+<div class="sec" id="sec-journal">
+<div class="about-wrap">
+  <div class="sec-label">המסע האישי</div>
+  <div class="sec-title">היומן <em>הרוחני שלי</em></div>
+  <div style="font-family:'Noto Serif Hebrew',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:600px;margin-bottom:2.5rem">כאן נשמרות התובנות, הקריאות והמסרים שבחרת לשמור. המסע שלך, במקום אחד.</div>
+  <div id="journal-list"></div>
+  <div id="journal-empty" style="text-align:center;padding:3rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--muted2);display:none">
+    היומן שלך עדיין ריק.<br>שמור תובנות מהכלים והן יופיעו כאן ✦
   </div>
 </div>
 </div>
@@ -885,7 +989,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
 <script>
 // NAV
-const SECS=['home','tools','academy','research','knowledge','about','pricing','contact'];
+const SECS=['home','tools','academy','research','knowledge','about','journal','pricing','contact'];
 function show(id){
   const target=document.getElementById('sec-'+id);
   if(!target)return;
@@ -896,8 +1000,10 @@ function show(id){
   const navs=document.querySelectorAll('.nl');
   if(i>-1&&navs[i])navs[i].classList.add('active');
   try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+  if(id==='journal')try{renderJournal();}catch(_){}
 }
 function goTool(t){show('tools');showTool(t);}
+function _onShowJournal(){try{renderJournal();}catch(_){}}
 
 // TOOL TABS
 function showTool(t){
@@ -907,7 +1013,7 @@ function showTool(t){
   document.querySelectorAll('.ttab').forEach(b=>b.classList.remove('active'));
   panel.classList.add('active');
   const tabs=document.querySelectorAll('.ttab');
-  ['tarot','astro','numerology','dreams','chakras','crystals','meditation'].forEach((n,i)=>{if(n===t&&tabs[i])tabs[i].classList.add('active');});
+  ['tarot','astro','numerology','dreams','chakras','crystals','meditation','soulmap','oracle','compat'].forEach((n,i)=>{if(n===t&&tabs[i])tabs[i].classList.add('active');});
 }
 
 // TAROT
@@ -993,6 +1099,8 @@ function toggleC(i,el){
 function updSel(){document.getElementById('sc').innerHTML=sel.map(i=>`<div class="sch">${ALL[i].name}</div>`).join('');}
 function updBtn(){document.getElementById('tbtn').disabled=sel.length!==lN;}
 try{buildCards();}catch(e){console.warn(e);}
+try{renderMoon();}catch(e){console.warn(e);}
+try{renderJournal();}catch(e){console.warn(e);}
 async function doTarot(){
   if(sel.length!==lN)return;
   const nm=sel.map(i=>ALL[i].name).join(', ');
@@ -1033,7 +1141,7 @@ function pc(btn,t){btn.closest('.chips').querySelectorAll('.chip').forEach(c=>c.
 function ps(btn,s){document.querySelectorAll('[onclick^="ps"]').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selSchool=s;}
 async function doDream(){
   const dream=document.getElementById('din').value.trim();if(!dream){alert('נא לתאר את החלום');return;}
-  const sc={jung:'Carl Jung — ארכיטיפים, לא-מודע קולקטיבי.',freud:'Sigmund Freud — תוכן גלוי/סמוי, משאלות.',hall:'Hall & Domhoff — רציפות הגרה אמפירית.'};
+  const sc={jung:'Carl Jung — ארכיטיפים, לא-מודע קולקטיבי.',freud:'Sigmund Freud — תוכן גלוי/סמוי, משאלות.',hall:'Hall & Domhoff — רציפות הגרה אמפירית.',spiritual:'פרשנות רוחנית-אינטואיטיבית — החלום כמסר נשמתי, סמלים כהכוונה פנימית, חיבור בין-מודעותי. שלב חוכמה מסורות רוחניות (קבלה, שמאניזם) באופן מכבד ולא דוגמטי.'};
   await ai(`פרשן חלומות מאסכולת ${sc[selSchool]}\nחלום: "${dream}"${selMood?'\nמצב רוח: '+selMood:''}\nפרשנות עמוקה, 280-320 מילה בעברית.`,'dout','dres');
 }
 
@@ -1195,12 +1303,25 @@ function setUsage(n){
 function isRegistered(){
   try{return localStorage.getItem('ma_lead')==='1';}catch(_){return false;}
 }
+function hasFullAccess(){
+  try{return localStorage.getItem('ma_full')==='1';}catch(_){return false;}
+}
+// קוד גישה משפחתי
+const ACCESS_CODE='mistyfree';
+function tryAccessCode(code){
+  if((code||'').trim().toLowerCase()===ACCESS_CODE){
+    try{localStorage.setItem('ma_full','1');localStorage.setItem('ma_lead','1');}catch(_){}
+    return true;
+  }
+  return false;
+}
 // תאימות לאחור
-function isSubscribed(){return isRegistered();}
+function isSubscribed(){return isRegistered()||hasFullAccess();}
 function updateUsagePill(){
   const pill=document.getElementById('usage-pill');
   const cnt=document.getElementById('usage-count');
   if(!pill||!cnt)return;
+  if(hasFullAccess()){pill.style.display='none';return;}
   const used=getUsage();
   let left;
   if(!isRegistered()){left=Math.max(0,FREE_BEFORE_SIGNUP-used);}
@@ -1210,6 +1331,7 @@ function updateUsagePill(){
 }
 // מצב: 'ok' מותר | 'signup' צריך הרשמה | 'subscribe' צריך מנוי
 function useState(){
+  if(hasFullAccess())return 'ok';
   const used=getUsage();
   if(!isRegistered()){
     if(used<FREE_BEFORE_SIGNUP)return 'ok';
@@ -1247,6 +1369,229 @@ function closeGate(){
   const o=document.getElementById('gate-overlay');
   if(o)o.classList.remove('show');
 }
+
+function toggleCodeField(){
+  const w=document.getElementById('gate-code-wrap');
+  if(w)w.classList.toggle('show');
+}
+function submitCode(){
+  const code=document.getElementById('gate-code').value;
+  if(tryAccessCode(code)){
+    document.getElementById('gate-form-view').style.display='none';
+    const suc=document.getElementById('gate-success');
+    suc.innerHTML='✦<br>הגישה הופעלה!<br>נהנה מגישה מלאה לכל התכנים.';
+    suc.style.display='block';
+    updateUsagePill();
+    setTimeout(closeGate,2000);
+  }else{
+    alert('קוד גישה שגוי');
+  }
+}
+
+
+
+// ========== SOUL MAP ==========
+async function doSoulMap(){
+  const name=document.getElementById('sm-name').value.trim();
+  const date=document.getElementById('sm-date').value;
+  if(!date){alert('נא להזין תאריך לידה');return;}
+  await ai(`אתה יוצר "מפת נשמה" רוחנית אישית ומרשימה בעברית.${name?' שם: '+name+'.':''} תאריך לידה: ${date}.
+חשב והצג בצורה יפה ומסודרת:
+1. מזל אסטרולוגי (לפי התאריך) + תכונת ליבה
+2. מספר מסלול החיים (נומרולוגיה פיתגוראית) + משמעותו
+3. הצ'אקרה הדומיננטית המתאימה + מדוע
+4. אבן המזל/קריסטל המומלץ
+5. קלף הטארוט המייצג את הנשמה
+6. מסר אישי מסכם קצר ומעורר השראה
+פתח ב"מפת הנשמה של [שם]" וסדר בבירור. כ-350 מילה.`,'sm-out','sm-res');
+}
+
+// ========== ORACLE ==========
+async function doOracle(){
+  const q=document.getElementById('oracle-q').value.trim();
+  if(!q){alert('נא להזין שאלה');return;}
+  await ai(`אתה אורקל מיסטי עתיק וחכם. מישהו שואל אותך: "${q}"
+השב במסר אורקל קצר, פיוטי ומסתורי — לא תשובה ישירה אלא הכוונה חכמה שמעוררת מחשבה. 2-4 משפטים בלבד, בסגנון נבואי-רוחני בעברית. סיים בשורת חוכמה אחת מודגשת.`,'oracle-out','oracle-res');
+}
+
+// ========== COMPATIBILITY ==========
+let compatType='זוגיות';
+function pcompat(btn){document.querySelectorAll('#tp-compat .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');compatType=btn.textContent;}
+async function doCompat(){
+  const n1=document.getElementById('cp-n1').value.trim();
+  const d1=document.getElementById('cp-d1').value;
+  const n2=document.getElementById('cp-n2').value.trim();
+  const d2=document.getElementById('cp-d2').value;
+  if(!d1||!d2){alert('נא להזין שני תאריכי לידה');return;}
+  await ai(`אתה מומחה לתאימות רוחנית. נתח תאימות ${compatType} בין שני אנשים לפי אסטרולוגיה ונומרולוגיה.
+אדם 1: ${n1||'הראשון'}, נולד ${d1}
+אדם 2: ${n2||'השני'}, נולד ${d2}
+כלול: מזלות שניהם וכיצד הם מתחברים, מספרי מסלול החיים והדינמיקה ביניהם, ציון תאימות כללי (באחוזים), נקודות חוזק, אתגרים אפשריים, וטיפ לחיזוק הקשר. כ-320 מילה בעברית, חיובי ומאוזן.`,'cp-out','cp-res');
+}
+
+
+
+// ========== MOON PHASE (calculated, no AI) ==========
+function calcMoonPhase(){
+  // אלגוריתם חישוב שלב ירח
+  const now=new Date();
+  const lp=2551443; // אורך מחזור ירח בשניות
+  const newMoon=new Date(1970,0,7,20,35,0); // ירח חדש ידוע
+  const phase=((now.getTime()-newMoon.getTime())/1000)%lp;
+  const age=Math.floor(phase/86400); // גיל הירח בימים (0-29)
+  const frac=phase/lp; // 0-1 במחזור
+  return {age,frac};
+}
+function moonPhaseName(frac){
+  if(frac<0.03||frac>=0.97)return{n:'ירח חדש',d:'זמן של התחלות חדשות וזריעת כוונות. הירח הנעלם מזמין אותך לפנות מקום למה שמבקש להיוולד.'};
+  if(frac<0.22)return{n:'מילוי מתגבר',d:'אנרגיה עולה — זמן לפעולה, צמיחה ובנייה. מה שזרעת מתחיל להתעורר.'};
+  if(frac<0.28)return{n:'רבע ראשון',d:'נקודת החלטה. אתגרים שמזמינים מחויבות והתמדה. דחוף קדימה.'};
+  if(frac<0.47)return{n:'גיבוס מתגבר',d:'זמן של זיקוק והתכווננות. כוונן את הכיוון לקראת השיא הקרב.'};
+  if(frac<0.53)return{n:'ירח מלא',d:'שיא האנרגיה — הארה, מימוש והודיה. זמן רב-עוצמה לחגוג ולשחרר את מה שאינו משרת עוד.'};
+  if(frac<0.72)return{n:'גיבוס מתמעט',d:'זמן של הכרת תודה ושיתוף. הפץ את מה שלמדת, שחרר בהדרגה.'};
+  if(frac<0.78)return{n:'רבע אחרון',d:'שחרור וסליחה. הרפה ממה שכבד, נקה את הדרך להמשך.'};
+  return{n:'סהר מתמעט',d:'מנוחה והתבוננות. זמן להאט, להרהר ולהתכונן למחזור הבא.'};
+}
+function renderMoon(){
+  const disc=document.getElementById('moon-disc');
+  const phaseEl=document.getElementById('moon-phase');
+  const descEl=document.getElementById('moon-desc');
+  if(!disc||!phaseEl)return;
+  const{frac}=calcMoonPhase();
+  const info=moonPhaseName(frac);
+  phaseEl.textContent=info.n;
+  descEl.textContent=info.d;
+  // ציור הצל על הדיסק
+  let shadow=disc.querySelector('.moon-shadow');
+  if(!shadow){shadow=document.createElement('div');shadow.className='moon-shadow';disc.appendChild(shadow);}
+  // frac 0=חדש (צל מלא), 0.5=מלא (אין צל)
+  const illum=1-Math.abs(1-2*frac); // 0 בחדש, 1 במלא
+  const shadowWidth=(1-illum)*100;
+  if(frac<0.5){shadow.style.right='0';shadow.style.left='';}
+  else{shadow.style.left='0';shadow.style.right='';}
+  shadow.style.width=shadowWidth+'%';
+}
+
+
+
+// ========== SHARE CARD + JOURNAL ==========
+function addResultActions(outEl,boxId,text){
+  // הסר כפתורים קודמים אם יש
+  const existing=outEl.parentElement.querySelector('.result-actions');
+  if(existing)existing.remove();
+  const bar=document.createElement('div');
+  bar.className='result-actions';
+  const labelEl=outEl.parentElement.querySelector('.ai-label');
+  const title=labelEl?labelEl.textContent:'תובנה מיסטית';
+  bar.innerHTML=`
+    <button class="ra-btn" onclick='shareResult(${JSON.stringify(title)},${JSON.stringify(text)})'>
+      <svg width="13" height="13"><use href="#icon-star"/></svg> צור תמונה לשיתוף
+    </button>
+    <button class="ra-btn" onclick='saveToJournal(${JSON.stringify(title)},${JSON.stringify(text)})'>
+      <svg width="13" height="13"><use href="#icon-book"/></svg> שמור ביומן
+    </button>`;
+  outEl.parentElement.appendChild(bar);
+}
+
+function shareResult(title,text){
+  // יצירת תמונה עם canvas
+  const W=1080,H=1080;
+  const canvas=document.createElement('canvas');
+  canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  // רקע
+  const grad=ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#2d1e10');grad.addColorStop(1,'#1a1008');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+  // מסגרת
+  ctx.strokeStyle='rgba(200,160,70,.5)';ctx.lineWidth=2;
+  ctx.strokeRect(50,50,W-100,H-100);
+  ctx.strokeStyle='rgba(200,160,70,.25)';ctx.lineWidth=1;
+  ctx.strokeRect(65,65,W-130,H-130);
+  // לוגו עליון
+  ctx.fillStyle='rgba(212,184,112,.85)';
+  ctx.font='28px Georgia';ctx.textAlign='center';
+  ctx.fillText('האקדמיה המיסטית',W/2,140);
+  // כוכב מפריד
+  ctx.font='32px Georgia';ctx.fillText('✦',W/2,200);
+  // כותרת
+  ctx.fillStyle='#f0e8d8';
+  ctx.font='italic 56px Georgia';
+  wrapText(ctx,title,W/2,300,W-200,64);
+  // טקסט תוכן (מקוצר)
+  ctx.fillStyle='rgba(245,240,232,.82)';
+  ctx.font='34px Georgia';
+  let short=text.length>340?text.slice(0,340).trim()+'...':text;
+  wrapText(ctx,short,W/2,420,W-220,52);
+  // כתובת תחתונה
+  ctx.fillStyle='rgba(212,184,112,.6)';
+  ctx.font='26px Georgia';
+  ctx.fillText('mystical-academy.vercel.app',W/2,H-90);
+  // הורדה
+  canvas.toBlob(blob=>{
+    try{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download='mystical-card.png';a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch(e){alert('לא ניתן ליצור תמונה בדפדפן זה');}
+  });
+}
+
+function wrapText(ctx,text,x,y,maxW,lh){
+  const words=text.split(/\s+/);let line='';let yy=y;let lines=0;
+  for(const w of words){
+    const test=line+w+' ';
+    if(ctx.measureText(test).width>maxW&&line){
+      ctx.fillText(line.trim(),x,yy);line=w+' ';yy+=lh;lines++;
+      if(lines>9){ctx.fillText('...',x,yy);return;}
+    }else line=test;
+  }
+  ctx.fillText(line.trim(),x,yy);
+}
+
+function saveToJournal(title,text){
+  try{
+    const journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');
+    journal.unshift({title,text,date:new Date().toISOString()});
+    if(journal.length>50)journal.length=50; // שמור עד 50
+    localStorage.setItem('ma_journal',JSON.stringify(journal));
+    renderJournal();
+    // משוב ויזואלי
+    alert('✦ נשמר ביומן הרוחני שלך');
+  }catch(_){alert('לא ניתן לשמור כעת');}
+}
+
+
+
+function renderJournal(){
+  const list=document.getElementById('journal-list');
+  const empty=document.getElementById('journal-empty');
+  if(!list)return;
+  let journal=[];
+  try{journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');}catch(_){}
+  if(!journal.length){list.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  list.innerHTML=journal.map((e,i)=>{
+    const d=new Date(e.date);
+    const ds=d.toLocaleDateString('he-IL')+' · '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="journal-entry">
+      <button class="je-del" onclick="deleteJournalEntry(${i})" aria-label="מחק">×</button>
+      <div class="je-head"><div class="je-title">${e.title}</div><div class="je-date">${ds}</div></div>
+      <div class="je-text">${e.text}</div>
+    </div>`;
+  }).join('');
+}
+function deleteJournalEntry(i){
+  try{
+    const journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');
+    journal.splice(i,1);
+    localStorage.setItem('ma_journal',JSON.stringify(journal));
+    renderJournal();
+  }catch(_){}
+}
+
+
 async function submitLead(){
   const email=document.getElementById('gate-email').value.trim();
   if(!email||!email.includes('@')){alert('נא להזין אימייל תקין');return;}
@@ -1316,7 +1661,7 @@ async function ai(prompt,outId,boxId){
     const data=await res.json();
     const text=(data.content||[]).map(b=>b.text||'').join('').trim();
     out.textContent=text||'לא התקבלה תשובה. נסה שוב.';
-    if(text)recordUse();
+    if(text){recordUse();addResultActions(out,boxId,text);}
   }catch(e){
     out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">אירעה שגיאה בחיבור. אנא נסה שוב.</div>';
   }
@@ -1340,6 +1685,11 @@ async function ai(prompt,outId,boxId){
       <input type="email" class="gate-input" id="gate-email" placeholder="האימייל שלך" dir="ltr">
       <button class="gate-btn" onclick="submitLead()">עדכנו אותי בהשקה</button>
       <div class="gate-small">ללא ספאם · נשלח עדכון אחד בלבד כשהמנוי ייפתח</div>
+      <div class="gate-code-toggle" onclick="toggleCodeField()">יש לך קוד גישה?</div>
+      <div class="gate-code-wrap" id="gate-code-wrap">
+        <input type="text" class="gate-input" id="gate-code" placeholder="הזן קוד גישה" style="margin-top:.6rem">
+        <button class="gate-btn" onclick="submitCode()" style="background:var(--earth)">הפעל גישה</button>
+      </div>
     </div>
     <div class="gate-success" id="gate-success">
       ✦<br>תודה! נהיה בקשר בקרוב<br>עם הטבת השקה מיוחדת.
