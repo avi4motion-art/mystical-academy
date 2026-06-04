@@ -35,9 +35,25 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
-.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1800&q=80&auto=format&fit=crop') center/cover no-repeat}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,10,4,.82) 0%,rgba(18,10,4,.42) 40%,rgba(18,10,4,.1) 75%,transparent 100%)}
-.hero-cnt{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 2.5rem 4.5rem;width:100%}
+.hero-img{position:absolute;inset:0;background:#0a0612;background-image:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(70,45,110,.55),transparent 60%),radial-gradient(ellipse 70% 50% at 80% 70%,rgba(130,90,160,.4),transparent 55%),radial-gradient(ellipse 90% 70% at 50% 100%,rgba(40,30,80,.6),transparent 65%),radial-gradient(circle at 65% 35%,rgba(180,140,90,.25),transparent 40%),linear-gradient(160deg,#1a0f2e 0%,#0a0612 50%,#120a1f 100%);animation:heroDrift 24s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.08) translate(-2%,1%)}}
+/* dynamic mystical gradient that breathes underneath */
+.hero::before{content:'';position:absolute;inset:-30%;z-index:1;background:radial-gradient(ellipse 55% 45% at 30% 40%,rgba(150,90,220,.55),transparent 50%),radial-gradient(ellipse 50% 40% at 72% 58%,rgba(230,170,110,.35),transparent 48%),radial-gradient(ellipse 65% 50% at 55% 85%,rgba(80,50,160,.5),transparent 55%),radial-gradient(ellipse 40% 35% at 85% 25%,rgba(120,160,220,.3),transparent 50%);animation:nebula 18s ease-in-out infinite alternate;pointer-events:none;mix-blend-mode:screen}
+@keyframes nebula{0%{opacity:.6;transform:scale(1) rotate(0deg) translate(0,0)}50%{opacity:1;transform:scale(1.18) rotate(4deg) translate(-3%,2%)}100%{opacity:.7;transform:scale(1.06) rotate(-3deg) translate(2%,-1%)}}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle 2px at 15% 25%,rgba(255,245,220,.8),transparent),radial-gradient(circle 1.5px at 85% 15%,rgba(220,200,255,.7),transparent),radial-gradient(circle 2px at 60% 85%,rgba(255,245,220,.6),transparent);pointer-events:none}
+/* twinkling stars layer */
+.hero-stars{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur,4s) ease-in-out infinite;opacity:0;box-shadow:0 0 var(--glow,4px) var(--glow,4px) rgba(255,245,220,.6)}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:var(--maxop,.95);transform:scale(1.2)}}
+/* shooting stars */
+.shooting-star{position:absolute;width:2px;height:2px;background:linear-gradient(45deg,#fff,transparent);border-radius:50%;box-shadow:0 0 8px 2px rgba(255,245,220,.8);opacity:0;z-index:2}
+.shooting-star::after{content:'';position:absolute;top:0;right:0;width:80px;height:1px;background:linear-gradient(to left,rgba(255,245,220,.8),transparent);transform-origin:right center}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(215deg)}5%{opacity:1}40%{opacity:1}100%{opacity:0;transform:translate(-320px,260px) rotate(215deg)}}
+/* floating particles */
+.hero-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,184,112,.6),transparent);animation:float var(--fdur,12s) ease-in-out infinite;opacity:0;z-index:1}
+@keyframes float{0%{opacity:0;transform:translateY(20px) translateX(0)}25%{opacity:.7}50%{opacity:.9;transform:translateY(-30px) translateX(15px)}75%{opacity:.5}100%{opacity:0;transform:translateY(-70px) translateX(-10px)}}
+.hero-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(18,10,4,.82) 0%,rgba(18,10,4,.42) 40%,rgba(18,10,4,.1) 75%,transparent 100%)}
+.hero-cnt{position:relative;z-index:3;max-width:1200px;margin:0 auto;padding:0 2.5rem 4.5rem;width:100%}
 .hero-eye{font-family:'Jost',sans-serif;font-size:.48rem;color:rgba(245,240,232,.5);letter-spacing:.36em;text-transform:uppercase;font-weight:200;margin-bottom:.8rem}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,4.8rem);color:rgba(245,240,232,.94);font-weight:300;line-height:1.12;letter-spacing:.01em;margin-bottom:1.2rem;max-width:700px}
 .hero-h1 em{font-style:italic;color:rgba(245,240,232,.7)}
@@ -96,11 +112,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .tools-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
 .sec-label{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.7rem;display:flex;align-items:center;gap:.8rem}
 .sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--dark);font-weight:300;margin-bottom:2.5rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--dark);font-weight:300;margin-bottom:2.5rem;line-height:1.15}
 .sec-title em{font-style:italic;color:var(--earth)}
 
 .tool-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2.5rem}
-.ttab{font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.65rem 1.4rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px}
+.ttab{font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.14em;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.7rem 1.3rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px;white-space:nowrap}
 .ttab:hover{color:var(--dark)}
 .ttab.active{color:var(--dark);border-bottom-color:var(--earth)}
 .tpanel{display:none}.tpanel.active{display:block;animation:fu .3s ease}
@@ -193,7 +209,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--earth)}
 .fg textarea{min-height:110px;resize:vertical;line-height:1.8}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:500px}
-.fnote{font-family:'Jost',sans-serif;font-size:.44rem;letter-spacing:.1em;color:var(--muted2);background:rgba(138,106,64,.05);border-right:2px solid rgba(138,106,64,.22);padding:.55rem .85rem;margin-bottom:.9rem;line-height:1.7;font-weight:300}
+.fnote{font-family:'Noto Serif Hebrew',serif;font-size:.78rem;letter-spacing:.01em;color:var(--muted);background:rgba(138,106,64,.05);border-right:2px solid rgba(138,106,64,.3);padding:.85rem 1.1rem;margin-bottom:1.3rem;line-height:1.85;font-weight:300;border-radius:0 6px 6px 0}
 
 /* NUM */
 .ncards{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.1rem}
@@ -433,6 +449,25 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .je-text{font-family:'Noto Serif Hebrew',serif;font-size:.76rem;color:var(--muted);line-height:1.85;font-weight:300;white-space:pre-wrap}
 .je-del{position:absolute;top:1.2rem;left:1.2rem;background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.9rem;opacity:.5;transition:opacity .2s}
 .je-del:hover{opacity:1;color:#a04030}
+
+/* === SUBTLE PAGE BACKGROUNDS === */
+.tools-wrap,.academy-wrap,.res-wrap,.know-wrap,.about-wrap,.contact-wrap{position:relative}
+#sec-tools,#sec-academy,#sec-journal{background:linear-gradient(180deg,#f7f2e9 0%,#f3ede2 100%)}
+#sec-research,#sec-knowledge{background:linear-gradient(180deg,#f5f0e8 0%,#ede7da 100%)}
+#sec-about,#sec-pricing,#sec-contact{background:linear-gradient(180deg,#f7f2e9 0%,#f0e9dc 100%)}
+/* subtle texture dots */
+.tools-wrap::before,.academy-wrap::before{content:'';position:absolute;top:0;right:0;width:280px;height:280px;background:radial-gradient(circle,rgba(138,106,64,.05),transparent 70%);pointer-events:none;z-index:0}
+
+/* gradient tiles: ensure text pops */
+.photo-grid .pg-item .pg-label{z-index:3}
+.photo-grid .pg-item .pg-title{color:#f5f0e8 !important}
+.photo-grid .pg-item .pg-sub{color:rgba(245,240,232,.6) !important}
+.photo-grid .pg-item .pg-ov{background:linear-gradient(to top,rgba(8,4,12,.6),transparent 70%)}
+.photo-grid .pg-item{position:relative;transition:transform .3s,box-shadow .3s}
+.photo-grid .pg-item:hover{transform:scale(.99);box-shadow:inset 0 0 60px rgba(212,184,112,.15)}
+/* decorative icon in center of each tile */
+.pg-item .pg-icon-bg{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);font-size:0;opacity:.18;z-index:1}
+.pg-item .pg-icon-bg svg{width:64px;height:64px;color:#d4b870}
 </style>
 </head>
 <body>
@@ -506,18 +541,19 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <div class="hero">
     <div class="hero-img"></div>
+    <div class="hero-stars" id="hero-stars"></div>
     <div class="hero-ov"></div>
     <div class="hero-cnt">
-      <div class="hero-eye">Ancient Wisdom · Modern Tools · מבוסס על המסורות המובילות בעולם</div>
-      <div class="hero-h1">מה שאתה מחפש —<br><em>כבר נמצא בך</em></div>
+      <div class="hero-eye">חוכמה עתיקה · כלים מודרניים</div>
+      <div class="hero-h1">הקשב לקול<br><em>הפנימי שלך</em></div>
       <div class="hero-line"></div>
-      <div class="hero-sub">טארוט · אסטרולוגיה · נומרולוגיה · תקשור<br>כלי AI חיים בזמן אמת</div>
+      <div class="hero-sub">שבעה כלים רוחניים שיעזרו לך להבין את עצמך,<br>את היחסים שלך ואת הדרך שלפניך</div>
       <div class="hero-btns">
-        <button class="btn-hero" onclick="show('tools')">התחל לחקור</button>
-        <button class="btn-hero-ghost" onclick="show('academy')">הקורסים שלנו ↓</button>
+        <button class="btn-hero" onclick="show('tools')">התחל את המסע</button>
+        <button class="btn-hero-ghost" onclick="show('academy')">גלה את האקדמיה ↓</button>
       </div>
     </div>
-    <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+    <div class="scroll-hint"><span>גלול למטה</span><div class="scroll-line"></div></div>
   </div>
 
   <!-- STATS -->
@@ -531,44 +567,44 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- 4 PHOTO GRID -->
   <div class="photo-grid" role="list" aria-label="כלים מיסטיים">
-    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')">
-      <img src="https://images.unsplash.com/photo-1633158829799-96bb13cab779?w=500&q=80&auto=format&fit=crop" alt="טארוט" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-tarot')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#3a2818,#1a1008)" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-tarot"/></svg></div>
       <div class="pg-label"><div class="pg-sub">Rider-Waite · 78 קלפים</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-tarot"/></svg>קריאת טארוט</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')">
-      <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=500&q=80&auto=format&fit=crop" alt="אסטרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-astro')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#1a2850,#0a1228)" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
       <div class="pg-label"><div class="pg-sub">Kepler College · NCGR</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>אסטרולוגיה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')">
-      <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&q=80&auto=format&fit=crop" alt="נומרולוגיה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a45,#140a22)" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-infinity"/></svg></div>
       <div class="pg-label"><div class="pg-sub">השיטה הפיתגוראית</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-infinity"/></svg>נומרולוגיה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')">
-      <img src="https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=500&q=80&auto=format&fit=crop" alt="חלומות" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#1a1838,#0a0818)" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-moon"/></svg></div>
       <div class="pg-label"><div class="pg-sub">Jung · Freud · Hall</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>פרשנות חלומות</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')">
-      <img src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?w=500&q=80&auto=format&fit=crop" alt="צ'אקרות" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a38,#3a2030)" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-spiral"/></svg></div>
       <div class="pg-label"><div class="pg-sub">מסורת וודית-יוגית</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-spiral"/></svg>צ'אקרות</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')">
-      <img src="https://images.unsplash.com/photo-1518972559570-7cc1309f3229?w=500&q=80&auto=format&fit=crop" alt="קריסטלים" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-tarot')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#1a3038,#0a1820)" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
       <div class="pg-label"><div class="pg-sub">Crystal Academy</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>קריסטלים</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')">
-      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&q=80&auto=format&fit=crop" alt="מדיטציה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-dream')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#2a2418,#1a1810)" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-moon"/></svg></div>
       <div class="pg-label"><div class="pg-sub">מדיטציה מודרכת AI</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>מדיטציה</div></div>
     </div>
-    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')">
-      <img src="https://images.unsplash.com/photo-1564399580075-5dfe19c205f3?w=500&q=80&auto=format&fit=crop" alt="מפת הנשמה" loading="lazy" onerror="var p=this.closest('.pg-item');this.remove();if(p)p.classList.add('pg-fb-num')">
-      <div class="pg-ov"></div>
+    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a48,#1a1230)" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')">
+      
+      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
       <div class="pg-label"><div class="pg-sub">פרופיל רוחני אישי</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>מפת הנשמה</div></div>
     </div>
   </div>
@@ -591,8 +627,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- SPLIT -->
   <div class="split">
-    <div class="split-img">
-      <img src="https://images.unsplash.com/photo-1602472097151-72eeec7a5b8c?w=800&q=80&auto=format&fit=crop" alt="קלפים וידיים">
+    <div class="split-img" style="background:radial-gradient(ellipse at 40% 30%,rgba(120,80,180,.4),transparent 60%),linear-gradient(155deg,#2a1a45,#120a22)">
     </div>
     <div class="split-txt">
       <div class="split-eyebrow">האקדמיה שלנו</div>
@@ -628,7 +663,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     <button class="ttab" onclick="showTool('meditation')">מדיטציה</button>
     <button class="ttab" onclick="showTool('soulmap')">מפת הנשמה</button>
     <button class="ttab" onclick="showTool('oracle')">האורקל</button>
-    <button class="ttab" onclick="showTool('compat')">תאימות</button>
+    <button class="ttab" onclick="showTool('compat')">התאמה זוגית</button>
   </div>
 
   <!-- TAROT -->
@@ -776,7 +811,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- COMPATIBILITY -->
   <div class="tpanel" id="tp-compat">
-    <div class="fnote">בדיקת תאימות רוחנית בין שני אנשים — לפי אסטרולוגיה ונומרולוגיה. מתאים לזוגיות, ידידות או שותפות.</div>
+    <div class="fnote">בדיקת התאמה זוגית ורוחנית בין שניים — לפי אסטרולוגיה ונומרולוגיה. מתאים לזוגיות, ידידות או שותפות.</div>
     <div class="fgrid">
       <div class="fg"><label>שם ראשון</label><input type="text" id="cp-n1" placeholder="שם"></div>
       <div class="fg"><label>תאריך לידה ראשון</label><input type="date" id="cp-d1"></div>
@@ -789,8 +824,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
       <button class="chip" onclick="pcompat(this)">ידידות</button>
       <button class="chip" onclick="pcompat(this)">שותפות עסקית</button>
     </div>
-    <button class="btn" onclick="doCompat()">בדוק תאימות →</button>
-    <div class="ai-res" role="region" aria-live="polite" id="cp-res"><div class="ai-label">ניתוח תאימות</div><div class="ai-text" id="cp-out"></div></div>
+    <button class="btn" onclick="doCompat()">בדוק התאמה →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="cp-res"><div class="ai-label">ניתוח התאמה</div><div class="ai-text" id="cp-out"></div></div>
   </div>
 </div>
 </div>
@@ -1100,6 +1135,7 @@ function updSel(){document.getElementById('sc').innerHTML=sel.map(i=>`<div class
 function updBtn(){document.getElementById('tbtn').disabled=sel.length!==lN;}
 try{buildCards();}catch(e){console.warn(e);}
 try{renderMoon();}catch(e){console.warn(e);}
+try{buildStars();}catch(e){console.warn(e);}
 try{renderJournal();}catch(e){console.warn(e);}
 async function doTarot(){
   if(sel.length!==lN)return;
@@ -1589,6 +1625,53 @@ function deleteJournalEntry(i){
     localStorage.setItem('ma_journal',JSON.stringify(journal));
     renderJournal();
   }catch(_){}
+}
+
+
+
+// ========== HERO STARS ==========
+function buildStars(){
+  const c=document.getElementById('hero-stars');
+  if(!c)return;
+  let html='';
+  // כוכבים מנצנצים - גדולים יותר עם זוהר
+  for(let i=0;i<90;i++){
+    const size=(Math.random()*2.5+1).toFixed(1);
+    const x=(Math.random()*100).toFixed(1);
+    const y=(Math.random()*100).toFixed(1);
+    const dur=(Math.random()*3+2).toFixed(1);
+    const delay=(Math.random()*5).toFixed(1);
+    const maxop=(Math.random()*0.5+0.5).toFixed(2);
+    const glow=(Math.random()*5+2).toFixed(0);
+    html+=`<div class="hero-star" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--dur:${dur}s;--maxop:${maxop};--glow:${glow}px;animation-delay:${delay}s"></div>`;
+  }
+  // חלקיקים מרחפים זהובים
+  for(let i=0;i<14;i++){
+    const size=(Math.random()*4+2).toFixed(1);
+    const x=(Math.random()*100).toFixed(1);
+    const y=(Math.random()*60+40).toFixed(1);
+    const fdur=(Math.random()*8+8).toFixed(1);
+    const delay=(Math.random()*8).toFixed(1);
+    html+=`<div class="hero-particle" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--fdur:${fdur}s;animation-delay:${delay}s"></div>`;
+  }
+  c.innerHTML=html;
+  // כוכבים נופלים - מתחדשים מדי פעם
+  spawnShootingStar();
+}
+function spawnShootingStar(){
+  const c=document.getElementById('hero-stars');
+  if(!c)return;
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  const x=(Math.random()*50+40).toFixed(1);
+  const y=(Math.random()*30).toFixed(1);
+  const dur=(Math.random()*1+1.2).toFixed(1);
+  s.style.left=x+'%';s.style.top=y+'%';
+  s.style.animation=`shoot ${dur}s ease-in forwards`;
+  c.appendChild(s);
+  setTimeout(()=>s.remove(),parseFloat(dur)*1000+200);
+  // הבא בעוד 3-8 שניות
+  setTimeout(spawnShootingStar,(Math.random()*5000+3000));
 }
 
 
