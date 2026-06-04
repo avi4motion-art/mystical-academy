@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -468,6 +467,12 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 /* decorative icon in center of each tile */
 .pg-item .pg-icon-bg{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);font-size:0;opacity:.18;z-index:1}
 .pg-item .pg-icon-bg svg{width:64px;height:64px;color:#d4b870}
+
+/* === TOOL BANNERS === */
+.tool-banner{width:100%;height:150px;border-radius:12px;overflow:hidden;margin-bottom:1.8rem;position:relative;background:linear-gradient(155deg,#1a0f2e,#0a0612)}
+.tool-banner img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.tool-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,6,18,.3),transparent 50%);pointer-events:none}
+@media(max-width:600px){.tool-banner{height:110px}}
 </style>
 </head>
 <body>
@@ -567,44 +572,44 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- 4 PHOTO GRID -->
   <div class="photo-grid" role="list" aria-label="כלים מיסטיים">
-    <div class="pg-item" style="background:linear-gradient(155deg,#3a2818,#1a1008)" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')">
+    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="images/tarot.jpg" alt="tarot" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-tarot"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Rider-Waite · 78 קלפים</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-tarot"/></svg>קריאת טארוט</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#1a2850,#0a1228)" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')">
+    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="images/astro.jpg" alt="astro" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Kepler College · NCGR</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>אסטרולוגיה</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a45,#140a22)" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')">
+    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="images/numerology.jpg" alt="numerology" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-infinity"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">השיטה הפיתגוראית</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-infinity"/></svg>נומרולוגיה</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#1a1838,#0a0818)" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')">
+    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="images/dreams.jpg" alt="dreams" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-moon"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Jung · Freud · Hall</div><div class="pg-title" style="display:flex;align-items:center;gap:.5rem"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>פרשנות חלומות</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a38,#3a2030)" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')">
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="images/chakras.jpg" alt="chakras" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-spiral"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">מסורת וודית-יוגית</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-spiral"/></svg>צ'אקרות</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#1a3038,#0a1820)" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')">
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="images/crystals.jpg" alt="crystals" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">Crystal Academy</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>קריסטלים</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#2a2418,#1a1810)" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')">
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="images/meditation.jpg" alt="meditation" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-moon"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">מדיטציה מודרכת AI</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-moon"/></svg>מדיטציה</div></div>
     </div>
-    <div class="pg-item" style="background:linear-gradient(155deg,#2a1a48,#1a1230)" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')">
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="images/soulmap.jpg" alt="soulmap" loading="lazy">
       
-      <div class="pg-ov"></div><div class="pg-icon-bg"><svg><use href="#icon-star"/></svg></div>
+      <div class="pg-ov"></div>
       <div class="pg-label"><div class="pg-sub">פרופיל רוחני אישי</div><div class="pg-title"><svg width="20" height="20" style="opacity:.7;flex-shrink:0"><use href="#icon-star"/></svg>מפת הנשמה</div></div>
     </div>
   </div>
@@ -668,6 +673,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- TAROT -->
   <div class="tpanel active" id="tp-tarot">
+    <div class="tool-banner"><img src="images/tarot.jpg" alt="tarot" loading="lazy"></div>
     <div class="lrow" id="lrow"></div>
     <div class="tnote">בחר <strong id="nn">1</strong> קלף מתוך 78</div>
     <div class="card-grid" id="cg"></div>
@@ -678,6 +684,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- ASTRO -->
   <div class="tpanel" id="tp-astro">
+    <div class="tool-banner"><img src="images/astro.jpg" alt="astro" loading="lazy"></div>
     <div class="mtabs">
       <button class="mtab active" onclick="setAT(this,'daily')">הורוסקופ יומי</button>
       <button class="mtab" onclick="setAT(this,'natal')">מפה נטאלית</button>
@@ -701,6 +708,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- NUMEROLOGY -->
   <div class="tpanel" id="tp-numerology">
+    <div class="tool-banner"><img src="images/numerology.jpg" alt="numerology" loading="lazy"></div>
     <div class="fgrid">
       <div class="fg"><label>שם מלא — Latin letters</label><input type="text" id="nname" placeholder="e.g. David Cohen" oninput="calcN()"></div>
       <div class="fg"><label>תאריך לידה</label><input type="date" id="ndate" oninput="calcN()"></div>
@@ -721,6 +729,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- DREAMS -->
   <div class="tpanel" id="tp-dreams">
+    <div class="tool-banner"><img src="images/dreams.jpg" alt="dreams" loading="lazy"></div>
     <div class="fg"><label>תאר את החלום</label><textarea id="din" placeholder="ספר את החלום — אנשים, מקומות, תחושות, סמלים..."></textarea></div>
     <div class="fg" style="margin-bottom:.2rem"><label>מצב רוח עם ההתעוררות</label></div>
     <div class="chips">
@@ -744,6 +753,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- CHAKRAS -->
   <div class="tpanel" id="tp-chakras">
+    <div class="tool-banner"><img src="images/chakras.jpg" alt="chakras" loading="lazy"></div>
     <div class="fnote">מבוסס על המסורת הוודית-יוגית האותנטית. בחר צ'אקרה לאבחון ותרגיל איזון.</div>
     <div class="chakra-grid" id="chakra-grid"></div>
     <div class="fg" style="max-width:500px;margin-top:1.2rem"><label>איך אתה מרגיש כיום? (אופציונלי)</label><textarea id="chakra-q" placeholder="תאר מצב גופני/רגשי/אנרגטי..." style="min-height:70px"></textarea></div>
@@ -753,6 +763,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- CRYSTALS -->
   <div class="tpanel" id="tp-crystals">
+    <div class="tool-banner"><img src="images/crystals.jpg" alt="crystals" loading="lazy"></div>
     <div class="fnote">ריפוי בגבישים מבוסס על מסורת Crystal Academy of Advanced Healing Arts (Katrina Raphaell). בחר מטרה וקבל המלצת גבישים.</div>
     <div class="fg" style="margin-bottom:.3rem"><label>מה מטרת הריפוי?</label></div>
     <div class="chips">
@@ -770,6 +781,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- MEDITATION -->
   <div class="tpanel" id="tp-meditation">
+    <div class="tool-banner"><img src="images/meditation.jpg" alt="meditation" loading="lazy"></div>
     <div class="fnote">AI יוצר עבורך מדיטציה מודרכת אישית לפי הכוונה והזמן שלך.</div>
     <div class="fg" style="margin-bottom:.3rem"><label>מה הכוונה?</label></div>
     <div class="chips">
@@ -792,6 +804,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
   <!-- SOUL MAP -->
   <div class="tpanel" id="tp-soulmap">
+    <div class="tool-banner"><img src="images/soulmap.jpg" alt="soulmap" loading="lazy"></div>
     <div class="fnote">מפת הנשמה שלך — פרופיל רוחני מלא המשלב אסטרולוגיה, נומרולוגיה, צ'אקרות ואבני מזל. הזן את פרטיך וקבל תמונה אישית עשירה.</div>
     <div class="fgrid">
       <div class="fg"><label>שם מלא (אותיות לטיניות)</label><input type="text" id="sm-name" placeholder="e.g. David Cohen"></div>
