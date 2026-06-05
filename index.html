@@ -77,8 +77,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .stat-l{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;font-weight:200;margin-top:.3rem}
 
 /* 4-PHOTO GRID */
-.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;overflow:hidden}
-.pg-item{min-height:200px}
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;overflow:hidden;width:100%;max-width:100%;box-sizing:border-box;margin:0;padding:0}
+.pg-item{min-height:200px;width:100%;max-width:100%;box-sizing:border-box;overflow:hidden}
 .pg-item{position:relative;overflow:hidden;cursor:pointer}
 .pg-item img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease;display:block}
 .pg-item:hover img{transform:scale(1.06)}
@@ -103,9 +103,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .split-p{font-family:'Noto Serif Hebrew',serif;font-size:.77rem;color:var(--muted);line-height:2.05;font-weight:300;margin-bottom:1.4rem}
 
 /* CLOSING PHOTO */
-.closing-photo{position:relative;height:340px;overflow:hidden}
+.closing-photo{position:relative;height:340px;overflow:hidden;background:#0a0612}
+.closing-stars{position:absolute;inset:0;z-index:1;pointer-events:none}
 .closing-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
-.closing-ov{position:absolute;inset:0;background:rgba(15,8,3,.52);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:1.2rem}
+.closing-ov{position:absolute;inset:0;z-index:2;background:rgba(15,8,3,.42);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:1.2rem}
 .closing-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.4rem,2.5vw,2rem);color:rgba(245,240,232,.88);font-weight:300;max-width:600px;padding:0 2rem;line-height:1.55}
 
 /* TOOLS */
@@ -479,6 +480,18 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .photo-grid .pg-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .photo-grid .pg-item:hover img{transform:scale(1.05)}
 .photo-grid .pg-item{overflow:hidden}
+html,body{max-width:100%;overflow-x:hidden}
+*{box-sizing:border-box}
+
+/* === WISDOM BANNER (full-width) === */
+.wisdom-banner{position:relative;width:100%;min-height:440px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0a0612;background-image:url('bg-figure.jpg');background-size:cover;background-position:center 35%}
+.wisdom-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,6,18,.82) 0%,rgba(10,6,18,.55) 45%,rgba(10,6,18,.45) 100%);z-index:1}
+.wisdom-content{position:relative;z-index:2;max-width:1200px;width:100%;padding:4rem 2.5rem;text-align:center}
+.wisdom-eyebrow{font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(212,184,112,.85);margin-bottom:1.4rem;font-weight:300}
+.wisdom-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#f5f0e8;font-weight:300;line-height:1.18;margin-bottom:1.5rem;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.wisdom-h em{font-style:italic;color:#d4b870}
+.wisdom-p{font-family:'Noto Serif Hebrew',serif;font-size:.92rem;color:rgba(245,240,232,.82);line-height:2;font-weight:300;max-width:620px;margin:0 auto 2.2rem;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+@media(max-width:600px){.wisdom-banner{min-height:380px}.wisdom-content{padding:3rem 1.5rem}}
 </style>
 </head>
 <body>
@@ -636,24 +649,26 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
     <div class="q-attr">האקדמיה המיסטית</div>
   </div>
 
-  <!-- SPLIT -->
-  <div class="split">
-    <div class="split-img" style="background:radial-gradient(ellipse at 40% 30%,rgba(120,80,180,.4),transparent 60%),linear-gradient(155deg,#2a1a45,#120a22)">
-    </div>
-    <div class="split-txt">
-      <div class="split-eyebrow">האקדמיה שלנו</div>
-      <div class="split-h">חוכמה עתיקה<br><em>מוצגת בשקיפות</em></div>
-      <div class="split-p">כל כלי מבוסס על מסורת מוכרת ומתועדת. Rider-Waite-Smith, Kepler College, Arthur Findlay College. ידע אמיתי, מוצג בשקיפות מלאה.</div>
-      <button class="btn" onclick="show('about')">קרא עוד על האקדמיה →</button>
+  <!-- WISDOM BANNER -->
+  <div class="wisdom-banner">
+    <div class="wisdom-overlay"></div>
+    <div class="wisdom-content">
+      <div class="wisdom-eyebrow">האקדמיה שלנו</div>
+      <div class="wisdom-h">חוכמה עתיקה<br><em>מוצגת בשקיפות</em></div>
+      <div class="wisdom-p">כל כלי מבוסס על מסורת מוכרת ומתועדת — Rider-Waite-Smith, Kepler College, Arthur Findlay College. ידע אמיתי, מוצג בשקיפות מלאה.</div>
+      <button class="btn-hero" onclick="show('about')">קרא עוד על האקדמיה →</button>
     </div>
   </div>
 
   <!-- CLOSING PHOTO -->
   <div class="closing-photo">
-    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1800&q=80&auto=format&fit=crop" alt="שמי כוכבים">
+    <div class="hero-img" style="position:absolute;inset:0"></div>
+    <div class="closing-stars" id="closing-stars"></div>
     <div class="closing-ov">
-      <div class="closing-q">"כל מסע פנימי מתחיל בשאלה אחת"</div>
-      <button class="btn-hero" onclick="show('tools')">התחל לחקור</button>
+      <div>
+        <div class="closing-q">"כל מסע פנימי מתחיל בשאלה אחת"</div>
+        <button class="btn-hero" onclick="show('tools')">התחל לחקור</button>
+      </div>
     </div>
   </div>
 
@@ -662,8 +677,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 <!-- TOOLS -->
 <div class="sec" id="sec-tools">
 <div class="tools-wrap">
-  <div class="sec-label">כלים אינטראקטיביים</div>
-  <div class="sec-title">עבוד עם <em>AI מיסטי</em> בזמן אמת</div>
+  <div class="sec-label">שבעה שערים אל הנשמה</div>
+  <div class="sec-title">גלה את מה <em>שהיקום</em> מנסה לומר לך</div>
   <div class="tool-tabs">
     <button class="ttab active" onclick="showTool('tarot')">טארוט</button>
     <button class="ttab" onclick="showTool('astro')">אסטרולוגיה</button>
@@ -1674,6 +1689,9 @@ function buildStars(){
     html+=`<div class="hero-particle" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--fdur:${fdur}s;animation-delay:${delay}s"></div>`;
   }
   c.innerHTML=html;
+  // אותם כוכבים גם בבאנר הסיום
+  const cc=document.getElementById('closing-stars');
+  if(cc)cc.innerHTML=html;
   // כוכבים נופלים - מתחדשים מדי פעם
   spawnShootingStar();
 }
