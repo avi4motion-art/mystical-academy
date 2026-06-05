@@ -492,6 +492,17 @@ html,body{max-width:100%;overflow-x:hidden}
 .wisdom-h em{font-style:italic;color:#d4b870}
 .wisdom-p{font-family:'Noto Serif Hebrew',serif;font-size:.92rem;color:rgba(245,240,232,.82);line-height:2;font-weight:300;max-width:620px;margin:0 auto 2.2rem;text-shadow:0 1px 12px rgba(0,0,0,.4)}
 @media(max-width:600px){.wisdom-banner{min-height:380px}.wisdom-content{padding:3rem 1.5rem}}
+
+/* === SECTION SEPARATION (home) === */
+.moon-strip{margin-top:0;border-top:.5px solid var(--border)}
+.wisdom-banner{margin-top:0;margin-bottom:0}
+.quote-sec{padding-top:4rem;padding-bottom:4rem}
+/* הפרדה ברורה בין באנר חוכמה עתיקה לבאנר כל מסע פנימי */
+.closing-photo{margin-top:5rem;position:relative}
+.closing-photo::before{content:'';position:absolute;top:-5rem;left:0;right:0;height:5rem;background:var(--cream)}
+/* breathing room between major blocks */
+.photo-grid{margin-bottom:3rem}
+.stat-row{padding:3.5rem 2.5rem}
 </style>
 </head>
 <body>
@@ -661,8 +672,7 @@ html,body{max-width:100%;overflow-x:hidden}
   </div>
 
   <!-- CLOSING PHOTO -->
-  <div class="closing-photo">
-    <div class="hero-img" style="position:absolute;inset:0"></div>
+  <div class="closing-photo" style="background:#0a0612;background-image:linear-gradient(rgba(10,6,18,.4),rgba(10,6,18,.55)),url('bg-moon.jpg');background-size:cover;background-position:center 40%">
     <div class="closing-stars" id="closing-stars"></div>
     <div class="closing-ov">
       <div>
