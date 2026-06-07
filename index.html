@@ -37,19 +37,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .hero{position:relative;height:75vh;min-height:520px;max-height:760px;display:flex;align-items:flex-end;overflow:hidden}
 .hero-img{position:absolute;inset:0;background:#0a0612;background-image:linear-gradient(180deg,rgba(10,6,18,.45),rgba(10,6,18,.65)),url('hero-gate.jpg');background-size:cover;background-position:center;animation:heroDrift 26s ease-in-out infinite alternate}
 @keyframes heroDrift{0%{transform:scale(1)}100%{transform:scale(1.08)}}
-/* dynamic mystical gradient that breathes underneath */
 .hero::before{content:'';position:absolute;inset:-30%;z-index:1;background:radial-gradient(ellipse 55% 45% at 30% 40%,rgba(150,90,220,.55),transparent 50%),radial-gradient(ellipse 50% 40% at 72% 58%,rgba(230,170,110,.35),transparent 48%),radial-gradient(ellipse 65% 50% at 55% 85%,rgba(80,50,160,.5),transparent 55%),radial-gradient(ellipse 40% 35% at 85% 25%,rgba(120,160,220,.3),transparent 50%);animation:nebula 18s ease-in-out infinite alternate;pointer-events:none;mix-blend-mode:screen}
 @keyframes nebula{0%{opacity:.6;transform:scale(1) rotate(0deg) translate(0,0)}50%{opacity:1;transform:scale(1.18) rotate(4deg) translate(-3%,2%)}100%{opacity:.7;transform:scale(1.06) rotate(-3deg) translate(2%,-1%)}}
 .hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle 2px at 15% 25%,rgba(255,245,220,.8),transparent),radial-gradient(circle 1.5px at 85% 15%,rgba(220,200,255,.7),transparent),radial-gradient(circle 2px at 60% 85%,rgba(255,245,220,.6),transparent);pointer-events:none}
-/* twinkling stars layer */
 .hero-stars{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .hero-star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur,4s) ease-in-out infinite;opacity:0;box-shadow:0 0 var(--glow,4px) var(--glow,4px) rgba(255,245,220,.6)}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:var(--maxop,.95);transform:scale(1.2)}}
-/* shooting stars */
 .shooting-star{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;box-shadow:0 0 10px 3px rgba(255,245,220,.95);opacity:0;z-index:2}
 .shooting-star::after{content:'';position:absolute;top:50%;left:50%;width:110px;height:2px;background:linear-gradient(to right,rgba(255,245,220,.9),rgba(255,245,220,.3) 45%,transparent);transform-origin:left center;transform:translateY(-50%) rotate(-35deg);border-radius:2px}
 @keyframes shoot{0%{opacity:0;transform:translate(0,0) scale(.5)}10%{opacity:1;transform:translate(-36px,25px) scale(1)}90%{opacity:1}100%{opacity:0;transform:translate(-360px,252px) scale(.85)}}
-/* floating particles */
 .hero-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,184,112,.6),transparent);animation:float var(--fdur,12s) ease-in-out infinite;opacity:0;z-index:1}
 @keyframes float{0%{opacity:0;transform:translateY(20px) translateX(0)}25%{opacity:.7}50%{opacity:.9;transform:translateY(-30px) translateX(15px)}75%{opacity:.5}100%{opacity:0;transform:translateY(-70px) translateX(-10px)}}
 .hero-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(18,10,4,.82) 0%,rgba(18,10,4,.42) 40%,rgba(18,10,4,.1) 75%,transparent 100%)}
@@ -116,7 +112,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--dark);font-weight:300;margin-bottom:2.5rem;line-height:1.15}
 .sec-title em{font-style:italic;color:var(--earth)}
 
-.tool-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2.5rem}
+.tool-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ttab{font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.14em;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.7rem 1.3rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px;white-space:nowrap}
 .ttab:hover{color:var(--dark)}
 .ttab.active{color:var(--dark);border-bottom-color:var(--earth)}
@@ -138,11 +134,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .tc.selected{transform:translateY(-10px) scale(1.03)}
 .tc-inner{width:100%;height:100%;border-radius:7px;overflow:hidden;position:relative;box-shadow:0 4px 16px rgba(30,18,8,.28)}
 .tc:hover .tc-inner{box-shadow:0 10px 28px rgba(30,18,8,.38)}
-/* ornate double border like real RWS */
 .tc-outer{position:absolute;inset:0;border:3px solid #f8f4ea;border-radius:7px;z-index:6;pointer-events:none}
 .tc-frame{position:absolute;inset:5px;border:1.5px solid rgba(200,160,70,.85);border-radius:4px;z-index:6;pointer-events:none}
 .tc-frame2{position:absolute;inset:8px;border:.5px solid rgba(200,160,70,.4);border-radius:3px;z-index:6;pointer-events:none}
-/* corner flourishes */
 .tc-corner{position:absolute;width:7px;height:7px;border:1px solid rgba(200,160,70,.7);z-index:6;pointer-events:none}
 .tc-corner.tl{top:5px;left:5px;border-right:none;border-bottom:none}
 .tc-corner.tr{top:5px;right:5px;border-left:none;border-bottom:none}
@@ -344,7 +338,6 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
   .scroll-line { animation: none; }
 }
 
-
 /* === photo grid: frame separators + fallbacks === */
 .photo-grid{gap:5px !important;background:var(--earth) !important}
 .pg-item{background:var(--cream)}
@@ -352,13 +345,11 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .pg-item.pg-fb-astro{background:linear-gradient(155deg,#1a2850,#0d1428)}
 .pg-item.pg-fb-num{background:linear-gradient(155deg,#3a2548,#1a1028)}
 .pg-item.pg-fb-dream{background:linear-gradient(155deg,#2a2848,#12101f)}
-/* כשאין תמונה, הראה את התווית במרכז */
 .pg-item[class*="pg-fb-"] .pg-label{bottom:auto;top:50%;transform:translateY(-50%);text-align:center}
 .pg-item[class*="pg-fb-"] .pg-title{justify-content:center;font-size:1.5rem}
 .pg-item[class*="pg-fb-"] .pg-ov{background:linear-gradient(to top,rgba(12,6,2,.5),rgba(12,6,2,.2))}
 .pg-title{display:flex;align-items:center;gap:.5rem}
 
-/* fallback shows large icon when image missing */
 .pg-item.pg-fb-tarot::after,.pg-item.pg-fb-astro::after,.pg-item.pg-fb-num::after,.pg-item.pg-fb-dream::after{
   content:'';position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;
   background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.3;
@@ -387,7 +378,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .gate-overlay{position:fixed;inset:0;z-index:200;background:rgba(20,12,4,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.5rem;animation:gfade .3s ease}
 .gate-overlay.show{display:flex}
 @keyframes gfade{from{opacity:0}to{opacity:1}}
-.gate-box{background:var(--cream);border:.5px solid rgba(200,160,70,.3);border-radius:16px;max-width:440px;width:100%;padding:2.8rem 2.4rem;text-align:center;box-shadow:0 20px 60px rgba(20,12,4,.4);animation:gslide .4s cubic-bezier(.4,0,.2,1)}
+.gate-box{background:var(--cream);border:.5px solid rgba(200,160,70,.3);border-radius:16px;max-width:440px;width:100%;padding:2.8rem 2.4rem;text-align:center;box-shadow:0 20px 60px rgba(20,12,4,.4);animation:gslide .4s cubic-bezier(.4,0,.2,1);position:relative}
 @keyframes gslide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .gate-icon{width:54px;height:54px;margin:0 auto 1.2rem;border-radius:50%;background:linear-gradient(145deg,rgba(138,106,64,.15),rgba(138,106,64,.04));border:.5px solid rgba(138,106,64,.25);display:flex;align-items:center;justify-content:center}
 .gate-icon svg{width:26px;height:26px;color:var(--earth)}
@@ -420,7 +411,6 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .price-features li{font-family:'Noto Serif Hebrew',serif;font-size:.72rem;color:var(--muted);line-height:1.7;padding:.5rem 0;border-bottom:.5px solid rgba(138,106,64,.08);font-weight:300;position:relative;padding-right:1.3rem}
 .price-features li::before{content:'✦';position:absolute;right:0;color:var(--earth);font-size:.6rem;top:.65rem}
 .price-features li strong{color:var(--dark);font-weight:400}
-@media(max-width:768px){.pricing-grid{grid-template-columns:1fr}}
 
 .gate-code-toggle{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--earth);letter-spacing:.08em;margin-top:1rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;opacity:.8;transition:opacity .2s}
 .gate-code-toggle:hover{opacity:1}
@@ -435,7 +425,6 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .moon-label{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.5rem}
 .moon-phase{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--dark);font-weight:300;margin-bottom:.5rem}
 .moon-desc{font-family:'Noto Serif Hebrew',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:600px}
-@media(max-width:600px){.moon-strip{grid-template-columns:1fr;text-align:center;gap:1.5rem}.moon-visual{justify-content:center}}
 
 .result-actions{display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap}
 .ra-btn{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);color:var(--earth);padding:.5rem 1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:.45rem;border-radius:6px}
@@ -456,10 +445,9 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 #sec-tools,#sec-academy,#sec-journal{background:linear-gradient(180deg,#f7f2e9 0%,#f3ede2 100%)}
 #sec-research,#sec-knowledge{background:linear-gradient(180deg,#f5f0e8 0%,#ede7da 100%)}
 #sec-about,#sec-pricing,#sec-contact{background:linear-gradient(180deg,#f7f2e9 0%,#f0e9dc 100%)}
-/* subtle texture dots */
 .tools-wrap::before,.academy-wrap::before{content:'';position:absolute;top:0;right:0;width:280px;height:280px;background:radial-gradient(circle,rgba(138,106,64,.05),transparent 70%);pointer-events:none;z-index:0}
 
-/* gradient tiles: ensure text pops */
+/* gradient tiles */
 .photo-grid .pg-item .pg-label{z-index:3}
 .photo-grid .pg-item .pg-title{color:#f5f0e8 !important}
 .photo-grid .pg-item .pg-sub{color:rgba(245,240,232,.6) !important}
@@ -467,7 +455,6 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .photo-grid .pg-item:hover .pg-ov{opacity:0}
 .photo-grid .pg-item{position:relative;transition:transform .3s,box-shadow .3s}
 .photo-grid .pg-item:hover{transform:scale(.99);box-shadow:inset 0 0 60px rgba(212,184,112,.15)}
-/* decorative icon in center of each tile */
 .pg-item .pg-icon-bg{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);font-size:0;opacity:.18;z-index:1}
 .pg-item .pg-icon-bg svg{width:64px;height:64px;color:#d4b870}
 
@@ -475,7 +462,6 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .tool-banner{width:100%;height:150px;border-radius:12px;overflow:hidden;margin-bottom:1.8rem;position:relative;background:linear-gradient(155deg,#1a0f2e,#0a0612)}
 .tool-banner img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .tool-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,6,18,.3),transparent 50%);pointer-events:none}
-@media(max-width:600px){.tool-banner{height:110px}}
 
 .photo-grid .pg-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .photo-grid .pg-item:hover img{transform:scale(1.05)}
@@ -491,18 +477,82 @@ html,body{max-width:100%;overflow-x:hidden}
 .wisdom-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#f5f0e8;font-weight:300;line-height:1.18;margin-bottom:1.5rem;text-shadow:0 2px 30px rgba(0,0,0,.5)}
 .wisdom-h em{font-style:italic;color:#d4b870}
 .wisdom-p{font-family:'Noto Serif Hebrew',serif;font-size:.92rem;color:rgba(245,240,232,.82);line-height:2;font-weight:300;max-width:620px;margin:0 auto 2.2rem;text-shadow:0 1px 12px rgba(0,0,0,.4)}
-@media(max-width:600px){.wisdom-banner{min-height:380px}.wisdom-content{padding:3rem 1.5rem}}
 
 /* === SECTION SEPARATION (home) === */
 .moon-strip{margin-top:0;border-top:.5px solid var(--border)}
 .wisdom-banner{margin-top:0;margin-bottom:0}
 .quote-sec{padding-top:4rem;padding-bottom:4rem}
-/* הפרדה ברורה בין באנר חוכמה עתיקה לבאנר כל מסע פנימי */
 .closing-photo{margin-top:5rem;position:relative}
 .closing-photo::before{content:'';position:absolute;top:-5rem;left:0;right:0;height:5rem;background:var(--cream)}
-/* breathing room between major blocks */
 .photo-grid{margin-bottom:3rem}
 .stat-row{padding:3.5rem 2.5rem}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+   ===================================================== */
+@media(max-width:768px){
+  /* photo grid: 2 עמודות במובייל */
+  .photo-grid{grid-template-columns:repeat(2,1fr) !important}
+  .pg-item{min-height:160px}
+
+  /* pricing */
+  .pricing-grid{grid-template-columns:1fr}
+
+  /* nav */
+  .nav-inner{padding:.7rem 1rem}
+  .nav-links{gap:.8rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .nl{font-size:.42rem}
+
+  /* hero */
+  .hero-cnt{padding:0 1.2rem 3rem}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:.7rem}
+
+  /* stats */
+  .stats-strip{grid-template-columns:1fr}
+  .stat-divider{display:none}
+  .stat-item{padding:1.2rem 1.5rem}
+
+  /* tools wrap */
+  .tools-wrap,.academy-wrap,.res-wrap,.know-wrap,.about-wrap,.contact-wrap{padding:2.5rem 1.2rem}
+
+  /* about / contact grids */
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
+
+  /* course list */
+  .course-list{grid-template-columns:1fr}
+
+  /* art grid */
+  .art-grid{grid-template-columns:1fr}
+  .art:nth-child(odd){border-left:.5px solid var(--border)}
+
+  /* moon strip */
+  .moon-strip{grid-template-columns:1fr;text-align:center;gap:1.5rem;padding:2rem 1.2rem}
+  .moon-visual{justify-content:center}
+
+  /* wisdom banner */
+  .wisdom-banner{min-height:380px}
+  .wisdom-content{padding:3rem 1.5rem}
+
+  /* tool banner */
+  .tool-banner{height:110px}
+
+  /* fgrid */
+  .fgrid{grid-template-columns:1fr;max-width:100%}
+  .fgrid .fg[style*="grid-column"]{grid-column:span 1}
+
+  /* zodiac grid */
+  .zg{grid-template-columns:repeat(3,1fr)}
+
+  /* footer */
+  .foot-top{grid-template-columns:1fr;gap:1.5rem}
+  .foot-bottom{flex-direction:column;gap:.5rem}
+}
+
+@media(max-width:480px){
+  .photo-grid{grid-template-columns:repeat(2,1fr) !important}
+  .pg-item{min-height:130px}
+  .zg{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
@@ -602,46 +652,14 @@ html,body{max-width:100%;overflow-x:hidden}
 
   <!-- 4 PHOTO GRID -->
   <div class="photo-grid" role="list" aria-label="כלים מיסטיים">
-    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="tarot" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="astro" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="numerology" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="dreams" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="chakras" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="crystals" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="meditation" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
-    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="soulmap" loading="lazy">
-      
-      <div class="pg-ov"></div>
-      
-    </div>
+    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="tarot" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="astro" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="numerology" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="dreams" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="chakras" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="crystals" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="meditation" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="soulmap" loading="lazy"><div class="pg-ov"></div></div>
   </div>
 
   <!-- MOON PHASE -->
@@ -1275,14 +1293,11 @@ ${modList}
 השיעור צריך לכלול: (1) פתיחה מעוררת השראה על מהות התחום; (2) רקע היסטורי קצר על ${c.s}; (3) הסבר מה התלמיד ילמד וירכוש; (4) תרגיל מעשי ראשון שאפשר לעשות כבר היום; (5) המלצה כיצד להמשיך. כ-400 מילה, סגנון חם ומקצועי.`,'cout','cres');
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
-
-// לימוד מודול ספציפי
 async function learnModule(courseIdx,modIdx){
   const c=COURSES[courseIdx];const mod=c.m[modIdx];
-  // 2 שיעורים ראשונים חינם, השאר דורשים חברות
   if(modIdx>=2 && !isSubscribed()){openCourseGate();return;}
   document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
-  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתch, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres');
+  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתח, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres');
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
 
@@ -1309,9 +1324,7 @@ try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=docum
 // CONTACT
 function submitC(){const n=document.getElementById('cn').value,e=document.getElementById('ce').value;if(!n||!e){alert('נא למלא שם ואימייל');return;}document.getElementById('csuc').style.display='block';}
 
-// AI STREAM
-
-// ========== CHAKRAS ==========
+// CHAKRAS
 const CHAKRAS=[
   {n:'כתר',s:'Sahasrara',c:'#9b6fd4',loc:'קודקוד הראש',theme:'רוחניות, חיבור עליון, מודעות'},
   {n:'עין שלישית',s:'Ajna',c:'#4868c0',loc:'מרכז המצח',theme:'אינטואיציה, חוכמה, דמיון'},
@@ -1345,7 +1358,7 @@ async function doChakra(){
   await ai(prompt,'chakra-out','chakra-res');
 }
 
-// ========== CRYSTALS ==========
+// CRYSTALS
 let selCrystalGoal='';
 function pcr(btn){document.querySelectorAll('#tp-crystals .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selCrystalGoal=btn.textContent;}
 async function doCrystal(){
@@ -1354,7 +1367,7 @@ async function doCrystal(){
   await ai(`מומחה לריפוי בגבישים במסורת Crystal Academy of Advanced Healing Arts. מטרה: ${selCrystalGoal}.${q?' שאלה: '+q:''} המלץ על 3-4 גבישים מתאימים — לכל אחד: שם, צבע, תכונות, ואיך להשתמש בו. הדגש שזו פרקטיקה רוחנית משלימה. כ-320 מילה בעברית.`,'crystal-out','crystal-res');
 }
 
-// ========== MEDITATION ==========
+// MEDITATION
 let medIntent='',medTime='5 דקות';
 function pmed(btn,type){
   const row=btn.closest('.chips');
@@ -1368,25 +1381,13 @@ async function doMeditation(){
   await ai(`מנחה מדיטציה מנוסה. צור מדיטציה מודרכת בעברית. כוונה: ${medIntent}. משך: ${medTime}. כתוב את הסקריפט המלא להקראה — פתיחה, גוף המדיטציה עם הוראות נשימה והדמיה, וסיום עדין. סגנון רגוע, גוף שני. התאם את האורך ל-${medTime}.`,'med-out','med-res');
 }
 
-
-
-// ========== FREEMIUM GATE ==========
-const FREE_BEFORE_SIGNUP=1;  // פרשנות אחת חינם ללא הרשמה
-const FREE_TOTAL=5;          // סה"כ חינם אחרי הרשמה
-function getUsage(){
-  try{return parseInt(localStorage.getItem('ma_usage')||'0',10);}catch(_){return 0;}
-}
-function setUsage(n){
-  try{localStorage.setItem('ma_usage',String(n));}catch(_){}
-  updateUsagePill();
-}
-function isRegistered(){
-  try{return localStorage.getItem('ma_lead')==='1';}catch(_){return false;}
-}
-function hasFullAccess(){
-  try{return localStorage.getItem('ma_full')==='1';}catch(_){return false;}
-}
-// קוד גישה משפחתי
+// FREEMIUM GATE
+const FREE_BEFORE_SIGNUP=1;
+const FREE_TOTAL=5;
+function getUsage(){try{return parseInt(localStorage.getItem('ma_usage')||'0',10);}catch(_){return 0;}}
+function setUsage(n){try{localStorage.setItem('ma_usage',String(n));}catch(_){}updateUsagePill();}
+function isRegistered(){try{return localStorage.getItem('ma_lead')==='1';}catch(_){return false;}}
+function hasFullAccess(){try{return localStorage.getItem('ma_full')==='1';}catch(_){return false;}}
 const ACCESS_CODE='mistyfree';
 function tryAccessCode(code){
   if((code||'').trim().toLowerCase()===ACCESS_CODE){
@@ -1395,7 +1396,6 @@ function tryAccessCode(code){
   }
   return false;
 }
-// תאימות לאחור
 function isSubscribed(){return isRegistered()||hasFullAccess();}
 function updateUsagePill(){
   const pill=document.getElementById('usage-pill');
@@ -1409,14 +1409,10 @@ function updateUsagePill(){
   cnt.textContent=left;
   pill.style.display='flex';
 }
-// מצב: 'ok' מותר | 'signup' צריך הרשמה | 'subscribe' צריך מנוי
 function useState(){
   if(hasFullAccess())return 'ok';
   const used=getUsage();
-  if(!isRegistered()){
-    if(used<FREE_BEFORE_SIGNUP)return 'ok';
-    return 'signup';
-  }
+  if(!isRegistered()){if(used<FREE_BEFORE_SIGNUP)return 'ok';return 'signup';}
   if(used<FREE_TOTAL)return 'ok';
   return 'subscribe';
 }
@@ -1445,15 +1441,8 @@ function openSubscribeGate(){
   if(o)o.classList.add('show');
 }
 function openGate(){openSubscribeGate();}
-function closeGate(){
-  const o=document.getElementById('gate-overlay');
-  if(o)o.classList.remove('show');
-}
-
-function toggleCodeField(){
-  const w=document.getElementById('gate-code-wrap');
-  if(w)w.classList.toggle('show');
-}
+function closeGate(){const o=document.getElementById('gate-overlay');if(o)o.classList.remove('show');}
+function toggleCodeField(){const w=document.getElementById('gate-code-wrap');if(w)w.classList.toggle('show');}
 function submitCode(){
   const code=document.getElementById('gate-code').value;
   if(tryAccessCode(code)){
@@ -1463,14 +1452,10 @@ function submitCode(){
     suc.style.display='block';
     updateUsagePill();
     setTimeout(closeGate,2000);
-  }else{
-    alert('קוד גישה שגוי');
-  }
+  }else{alert('קוד גישה שגוי');}
 }
 
-
-
-// ========== SOUL MAP ==========
+// SOUL MAP
 async function doSoulMap(){
   const name=document.getElementById('sm-name').value.trim();
   const date=document.getElementById('sm-date').value;
@@ -1486,7 +1471,7 @@ async function doSoulMap(){
 פתח ב"מפת הנשמה של [שם]" וסדר בבירור. כ-350 מילה.`,'sm-out','sm-res');
 }
 
-// ========== ORACLE ==========
+// ORACLE
 async function doOracle(){
   const q=document.getElementById('oracle-q').value.trim();
   if(!q){alert('נא להזין שאלה');return;}
@@ -1494,7 +1479,7 @@ async function doOracle(){
 השב במסר אורקל קצר, פיוטי ומסתורי — לא תשובה ישירה אלא הכוונה חכמה שמעוררת מחשבה. 2-4 משפטים בלבד, בסגנון נבואי-רוחני בעברית. סיים בשורת חוכמה אחת מודגשת.`,'oracle-out','oracle-res');
 }
 
-// ========== COMPATIBILITY ==========
+// COMPATIBILITY
 let compatType='זוגיות';
 function pcompat(btn){document.querySelectorAll('#tp-compat .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');compatType=btn.textContent;}
 async function doCompat(){
@@ -1509,17 +1494,14 @@ async function doCompat(){
 כלול: מזלות שניהם וכיצד הם מתחברים, מספרי מסלול החיים והדינמיקה ביניהם, ציון תאימות כללי (באחוזים), נקודות חוזק, אתגרים אפשריים, וטיפ לחיזוק הקשר. כ-320 מילה בעברית, חיובי ומאוזן.`,'cp-out','cp-res');
 }
 
-
-
-// ========== MOON PHASE (calculated, no AI) ==========
+// MOON PHASE
 function calcMoonPhase(){
-  // אלגוריתם חישוב שלב ירח
   const now=new Date();
-  const lp=2551443; // אורך מחזור ירח בשניות
-  const newMoon=new Date(1970,0,7,20,35,0); // ירח חדש ידוע
+  const lp=2551443;
+  const newMoon=new Date(1970,0,7,20,35,0);
   const phase=((now.getTime()-newMoon.getTime())/1000)%lp;
-  const age=Math.floor(phase/86400); // גיל הירח בימים (0-29)
-  const frac=phase/lp; // 0-1 במחזור
+  const age=Math.floor(phase/86400);
+  const frac=phase/lp;
   return {age,frac};
 }
 function moonPhaseName(frac){
@@ -1541,22 +1523,17 @@ function renderMoon(){
   const info=moonPhaseName(frac);
   phaseEl.textContent=info.n;
   descEl.textContent=info.d;
-  // ציור הצל על הדיסק
   let shadow=disc.querySelector('.moon-shadow');
   if(!shadow){shadow=document.createElement('div');shadow.className='moon-shadow';disc.appendChild(shadow);}
-  // frac 0=חדש (צל מלא), 0.5=מלא (אין צל)
-  const illum=1-Math.abs(1-2*frac); // 0 בחדש, 1 במלא
+  const illum=1-Math.abs(1-2*frac);
   const shadowWidth=(1-illum)*100;
   if(frac<0.5){shadow.style.right='0';shadow.style.left='';}
   else{shadow.style.left='0';shadow.style.right='';}
   shadow.style.width=shadowWidth+'%';
 }
 
-
-
-// ========== SHARE CARD + JOURNAL ==========
+// SHARE CARD + JOURNAL
 function addResultActions(outEl,boxId,text){
-  // הסר כפתורים קודמים אם יש
   const existing=outEl.parentElement.querySelector('.result-actions');
   if(existing)existing.remove();
   const bar=document.createElement('div');
@@ -1574,40 +1551,31 @@ function addResultActions(outEl,boxId,text){
 }
 
 function shareResult(title,text){
-  // יצירת תמונה עם canvas
   const W=1080,H=1080;
   const canvas=document.createElement('canvas');
   canvas.width=W;canvas.height=H;
   const ctx=canvas.getContext('2d');
-  // רקע
   const grad=ctx.createLinearGradient(0,0,W,H);
   grad.addColorStop(0,'#2d1e10');grad.addColorStop(1,'#1a1008');
   ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
-  // מסגרת
   ctx.strokeStyle='rgba(200,160,70,.5)';ctx.lineWidth=2;
   ctx.strokeRect(50,50,W-100,H-100);
   ctx.strokeStyle='rgba(200,160,70,.25)';ctx.lineWidth=1;
   ctx.strokeRect(65,65,W-130,H-130);
-  // לוגו עליון
   ctx.fillStyle='rgba(212,184,112,.85)';
   ctx.font='28px Georgia';ctx.textAlign='center';
   ctx.fillText('האקדמיה המיסטית',W/2,140);
-  // כוכב מפריד
   ctx.font='32px Georgia';ctx.fillText('✦',W/2,200);
-  // כותרת
   ctx.fillStyle='#f0e8d8';
   ctx.font='italic 56px Georgia';
   wrapText(ctx,title,W/2,300,W-200,64);
-  // טקסט תוכן (מקוצר)
   ctx.fillStyle='rgba(245,240,232,.82)';
   ctx.font='34px Georgia';
   let short=text.length>340?text.slice(0,340).trim()+'...':text;
   wrapText(ctx,short,W/2,420,W-220,52);
-  // כתובת תחתונה
   ctx.fillStyle='rgba(212,184,112,.6)';
   ctx.font='26px Georgia';
   ctx.fillText('mystical-academy.vercel.app',W/2,H-90);
-  // הורדה
   canvas.toBlob(blob=>{
     try{
       const url=URL.createObjectURL(blob);
@@ -1634,15 +1602,12 @@ function saveToJournal(title,text){
   try{
     const journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');
     journal.unshift({title,text,date:new Date().toISOString()});
-    if(journal.length>50)journal.length=50; // שמור עד 50
+    if(journal.length>50)journal.length=50;
     localStorage.setItem('ma_journal',JSON.stringify(journal));
     renderJournal();
-    // משוב ויזואלי
     alert('✦ נשמר ביומן הרוחני שלך');
   }catch(_){alert('לא ניתן לשמור כעת');}
 }
-
-
 
 function renderJournal(){
   const list=document.getElementById('journal-list');
@@ -1671,14 +1636,11 @@ function deleteJournalEntry(i){
   }catch(_){}
 }
 
-
-
-// ========== HERO STARS ==========
+// HERO STARS
 function buildStars(){
   const c=document.getElementById('hero-stars');
   if(!c)return;
   let html='';
-  // כוכבים מנצנצים - גדולים יותר עם זוהר
   for(let i=0;i<90;i++){
     const size=(Math.random()*2.5+1).toFixed(1);
     const x=(Math.random()*100).toFixed(1);
@@ -1689,7 +1651,6 @@ function buildStars(){
     const glow=(Math.random()*5+2).toFixed(0);
     html+=`<div class="hero-star" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--dur:${dur}s;--maxop:${maxop};--glow:${glow}px;animation-delay:${delay}s"></div>`;
   }
-  // חלקיקים מרחפים זהובים
   for(let i=0;i<14;i++){
     const size=(Math.random()*4+2).toFixed(1);
     const x=(Math.random()*100).toFixed(1);
@@ -1699,10 +1660,8 @@ function buildStars(){
     html+=`<div class="hero-particle" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--fdur:${fdur}s;animation-delay:${delay}s"></div>`;
   }
   c.innerHTML=html;
-  // אותם כוכבים גם בבאנר הסיום
   const cc=document.getElementById('closing-stars');
   if(cc)cc.innerHTML=html;
-  // כוכבים נופלים - מתחדשים מדי פעם
   spawnShootingStar();
 }
 function spawnShootingStar(){
@@ -1710,7 +1669,6 @@ function spawnShootingStar(){
   if(!c)return;
   const s=document.createElement('div');
   s.className='shooting-star';
-  // מתחיל מימין-למעלה, נופל אלכסונית שמאלה-למטה
   const x=(Math.random()*40+50).toFixed(1);
   const y=(Math.random()*25+5).toFixed(1);
   const dur=(Math.random()*0.6+1).toFixed(1);
@@ -1718,36 +1676,22 @@ function spawnShootingStar(){
   s.style.animation=`shoot ${dur}s linear forwards`;
   c.appendChild(s);
   setTimeout(()=>s.remove(),parseFloat(dur)*1000+300);
-  // הבא בעוד 4-9 שניות
   setTimeout(spawnShootingStar,(Math.random()*5000+4000));
 }
-
 
 async function submitLead(){
   const email=document.getElementById('gate-email').value.trim();
   if(!email||!email.includes('@')){alert('נא להזין אימייל תקין');return;}
   const btn=document.querySelector('#gate-form-view .gate-btn');
   if(btn){btn.disabled=true;btn.textContent='שולח...';}
-  // שמור מקומית (לסימון שנרשם) + שלח לשרת
-  try{
-    localStorage.setItem('ma_lead','1');
-    localStorage.setItem('ma_lead_email',email);
-  }catch(_){}
-  try{
-    await fetch('/api/lead',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,source:'gate'})
-    });
-  }catch(_){}
+  try{localStorage.setItem('ma_lead','1');localStorage.setItem('ma_lead_email',email);}catch(_){}
+  try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'gate'})});}catch(_){}
   document.getElementById('gate-form-view').style.display='none';
   document.getElementById('gate-success').style.display='block';
   updateUsagePill();
   setTimeout(closeGate,2500);
 }
 try{updateUsagePill();}catch(e){console.warn(e);}
-
-
 
 function openWaitlist(){
   const form=document.getElementById('gate-form-view');
@@ -1768,11 +1712,9 @@ function openCourseGate(){
   if(o)o.classList.add('show');
 }
 
-
 async function ai(prompt,outId,boxId){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
   if(!box||!out)return;
-  // בדיקת מכסה חינמית
   const st=useState();
   if(st==='signup'){openSignupGate();return;}
   if(st==='subscribe'){openSubscribeGate();return;}
