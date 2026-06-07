@@ -451,8 +451,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .photo-grid .pg-item .pg-label{z-index:3}
 .photo-grid .pg-item .pg-title{color:#f5f0e8 !important}
 .photo-grid .pg-item .pg-sub{color:rgba(245,240,232,.6) !important}
-.photo-grid .pg-item .pg-ov{background:linear-gradient(to top,rgba(8,4,12,.15),transparent 50%);transition:opacity .3s}
-.photo-grid .pg-item:hover .pg-ov{opacity:0}
+.photo-grid .pg-item .pg-ov{background:linear-gradient(to top,rgba(8,4,12,.72) 0%,rgba(8,4,12,.2) 50%,transparent 100%);transition:opacity .3s}
+.photo-grid .pg-item:hover .pg-ov{opacity:.7}
 .photo-grid .pg-item{position:relative;transition:transform .3s,box-shadow .3s}
 .photo-grid .pg-item:hover{transform:scale(.99);box-shadow:inset 0 0 60px rgba(212,184,112,.15)}
 .pg-item .pg-icon-bg{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);font-size:0;opacity:.18;z-index:1}
@@ -494,6 +494,7 @@ html,body{max-width:100%;overflow-x:hidden}
   /* photo grid: 2 עמודות במובייל */
   .photo-grid{grid-template-columns:repeat(2,1fr) !important}
   .pg-item{min-height:160px}
+  .pg-title{font-size:1.1rem !important}
 
   /* pricing */
   .pricing-grid{grid-template-columns:1fr}
@@ -652,14 +653,14 @@ html,body{max-width:100%;overflow-x:hidden}
 
   <!-- 4 PHOTO GRID -->
   <div class="photo-grid" role="list" aria-label="כלים מיסטיים">
-    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="tarot" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="astro" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="numerology" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="dreams" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="chakras" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="crystals" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="meditation" loading="lazy"><div class="pg-ov"></div></div>
-    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="soulmap" loading="lazy"><div class="pg-ov"></div></div>
+    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="tarot" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">טארוט</div></div></div>
+    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="astro" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">אסטרולוגיה</div></div></div>
+    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="numerology" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">נומרולוגיה</div></div></div>
+    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="dreams" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">פרשנות חלומות</div></div></div>
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="chakras" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">צ'אקרות</div></div></div>
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="crystals" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">קריסטלים</div></div></div>
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="meditation" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">מדיטציה</div></div></div>
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="soulmap" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">מפת הנשמה</div></div></div>
   </div>
 
   <!-- MOON PHASE -->
