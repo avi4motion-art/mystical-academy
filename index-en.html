@@ -1,0 +1,1775 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mystical Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f0e8;--cream2:#ede7da;
+  --earth:#8a6a40;--earth2:#6a4e28;
+  --dark:#2d1e10;--dark2:#1a1008;
+  --text:#3d2c18;--muted:#8a7060;--muted2:#b8a090;
+  --border:rgba(138,106,64,.14);--border2:rgba(138,106,64,.25);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--text);font-family:'Georgia',serif;direction:ltr;font-weight:300}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--dark);letter-spacing:.26em;text-transform:uppercase;cursor:pointer}
+.nav-links{display:flex;gap:1.8rem}
+.nl{font-family:'Jost',sans-serif;font-size:.5rem;color:var(--muted2);letter-spacing:.18em;text-transform:uppercase;font-weight:300;cursor:pointer;background:none;border:none;transition:color .2s;padding:.25rem 0;position:relative}
+.nl:hover,.nl.active{color:var(--dark)}
+.nl.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--earth)}
+.nl:focus-visible{outline:2px solid var(--earth);outline-offset:3px;border-radius:2px}
+
+/* SECTIONS */
+.sec{display:none;animation:fu .4s ease}
+.sec.active{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{position:relative;height:75vh;min-height:520px;max-height:760px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:#0a0612;background-image:linear-gradient(180deg,rgba(10,6,18,.45),rgba(10,6,18,.65)),url('hero-gate.jpg');background-size:cover;background-position:center;animation:heroDrift 26s ease-in-out infinite alternate}
+@keyframes heroDrift{0%{transform:scale(1)}100%{transform:scale(1.08)}}
+.hero::before{content:'';position:absolute;inset:-30%;z-index:1;background:radial-gradient(ellipse 55% 45% at 30% 40%,rgba(150,90,220,.55),transparent 50%),radial-gradient(ellipse 50% 40% at 72% 58%,rgba(230,170,110,.35),transparent 48%),radial-gradient(ellipse 65% 50% at 55% 85%,rgba(80,50,160,.5),transparent 55%),radial-gradient(ellipse 40% 35% at 85% 25%,rgba(120,160,220,.3),transparent 50%);animation:nebula 18s ease-in-out infinite alternate;pointer-events:none;mix-blend-mode:screen}
+@keyframes nebula{0%{opacity:.6;transform:scale(1) rotate(0deg) translate(0,0)}50%{opacity:1;transform:scale(1.18) rotate(4deg) translate(-3%,2%)}100%{opacity:.7;transform:scale(1.06) rotate(-3deg) translate(2%,-1%)}}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle 2px at 15% 25%,rgba(255,245,220,.8),transparent),radial-gradient(circle 1.5px at 85% 15%,rgba(220,200,255,.7),transparent),radial-gradient(circle 2px at 60% 85%,rgba(255,245,220,.6),transparent);pointer-events:none}
+.hero-stars{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero-star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur,4s) ease-in-out infinite;opacity:0;box-shadow:0 0 var(--glow,4px) var(--glow,4px) rgba(255,245,220,.6)}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:var(--maxop,.95);transform:scale(1.2)}}
+.shooting-star{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;box-shadow:0 0 10px 3px rgba(255,245,220,.95);opacity:0;z-index:2}
+.shooting-star::after{content:'';position:absolute;top:50%;left:50%;width:110px;height:2px;background:linear-gradient(to right,rgba(255,245,220,.9),rgba(255,245,220,.3) 45%,transparent);transform-origin:left center;transform:translateY(-50%) rotate(-35deg);border-radius:2px}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) scale(.5)}10%{opacity:1;transform:translate(-36px,25px) scale(1)}90%{opacity:1}100%{opacity:0;transform:translate(-360px,252px) scale(.85)}}
+.hero-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,184,112,.6),transparent);animation:float var(--fdur,12s) ease-in-out infinite;opacity:0;z-index:1}
+@keyframes float{0%{opacity:0;transform:translateY(20px) translateX(0)}25%{opacity:.7}50%{opacity:.9;transform:translateY(-30px) translateX(15px)}75%{opacity:.5}100%{opacity:0;transform:translateY(-70px) translateX(-10px)}}
+.hero-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(18,10,4,.82) 0%,rgba(18,10,4,.42) 40%,rgba(18,10,4,.1) 75%,transparent 100%)}
+.hero-cnt{position:relative;z-index:3;max-width:1200px;margin:0 auto;padding:0 2.5rem 4.5rem;width:100%}
+.hero-eye{font-family:'Jost',sans-serif;font-size:.48rem;color:rgba(245,240,232,.5);letter-spacing:.36em;text-transform:uppercase;font-weight:200;margin-bottom:.8rem}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,4.8rem);color:rgba(245,240,232,.94);font-weight:300;line-height:1.12;letter-spacing:.01em;margin-bottom:1.2rem;max-width:700px}
+.hero-h1 em{font-style:italic;color:rgba(245,240,232,.7)}
+.hero-line{width:44px;height:.5px;background:rgba(245,240,232,.3);margin-bottom:1.2rem}
+.hero-sub{font-family:'Georgia',serif;font-size:.8rem;color:rgba(245,240,232,.45);line-height:2;margin-bottom:2rem;max-width:420px;font-weight:300}
+.hero-btns{display:flex;gap:1rem;align-items:center}
+.btn-hero{font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;background:rgba(245,240,232,.1);border:1px solid rgba(245,240,232,.32);color:rgba(245,240,232,.85);padding:.72rem 1.9rem;cursor:pointer;transition:all .28s}
+.btn-hero:hover{background:rgba(245,240,232,.2);border-color:rgba(245,240,232,.55)}
+.btn-hero-ghost{font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;font-weight:200;background:none;border:none;color:rgba(245,240,232,.4);cursor:pointer;transition:color .2s}
+.btn-hero-ghost:hover{color:rgba(245,240,232,.7)}
+.scroll-hint{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.scroll-hint span{font-family:'Jost',sans-serif;font-size:.38rem;color:rgba(245,240,232,.28);letter-spacing:.2em;text-transform:uppercase;font-weight:200}
+.scroll-line{width:.5px;height:28px;background:linear-gradient(to bottom,rgba(245,240,232,.22),transparent);animation:sp 2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
+
+/* STATS STRIP */
+.stats-strip{display:grid;grid-template-columns:1fr .5px 1fr .5px 1fr;border-bottom:.5px solid var(--border);border-top:.5px solid var(--border)}
+.stat-item{padding:2.2rem 2.5rem;text-align:center}
+.stat-divider{background:var(--border);margin:1.5rem 0}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:var(--earth);font-weight:300;line-height:1}
+.stat-l{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;font-weight:200;margin-top:.3rem}
+
+/* 4-PHOTO GRID */
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;overflow:hidden;width:100%;max-width:100%;box-sizing:border-box;margin:0;padding:0}
+.pg-item{min-height:200px;width:100%;max-width:100%;box-sizing:border-box;overflow:hidden}
+.pg-item{position:relative;overflow:hidden;cursor:pointer}
+.pg-item img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease;display:block}
+.pg-item:hover img{transform:scale(1.06)}
+.pg-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,6,2,.86) 0%,rgba(12,6,2,.15) 55%,transparent 100%)}
+.pg-label{position:absolute;bottom:0;right:0;left:0;padding:1.2rem 1rem}
+.pg-sub{font-family:'Jost',sans-serif;font-size:.38rem;color:rgba(245,240,232,.48);letter-spacing:.22em;text-transform:uppercase;font-weight:200;margin-bottom:.35rem}
+.pg-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#f5f0e8;font-weight:300;line-height:1.25}
+
+/* QUOTE */
+.quote-sec{padding:4rem 2.5rem;text-align:center;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);background:var(--cream2)}
+.big-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,1.9rem);color:var(--earth2);font-weight:300;line-height:1.65;max-width:680px;margin:0 auto .7rem}
+.q-attr{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted2);letter-spacing:.22em;text-transform:uppercase;font-weight:200}
+
+/* SPLIT ROW */
+.split{display:grid;grid-template-columns:1fr 1fr;border-bottom:.5px solid var(--border)}
+.split-img{position:relative;overflow:hidden;height:420px}
+.split-img img{width:100%;height:100%;object-fit:cover;display:block}
+.split-txt{background:var(--cream2);padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.split-eyebrow{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted2);letter-spacing:.22em;text-transform:uppercase;font-weight:300;margin-bottom:.8rem}
+.split-h{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--dark);font-weight:300;line-height:1.3;margin-bottom:1rem}
+.split-h em{font-style:italic;color:var(--earth)}
+.split-p{font-family:'Georgia',serif;font-size:.77rem;color:var(--muted);line-height:2.05;font-weight:300;margin-bottom:1.4rem}
+
+/* CLOSING PHOTO */
+.closing-photo{position:relative;height:340px;overflow:hidden;background:#0a0612}
+.closing-stars{position:absolute;inset:0;z-index:1;pointer-events:none}
+.closing-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.closing-ov{position:absolute;inset:0;z-index:2;background:rgba(15,8,3,.42);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:1.2rem}
+.closing-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.4rem,2.5vw,2rem);color:rgba(245,240,232,.88);font-weight:300;max-width:600px;padding:0 2rem;line-height:1.55}
+
+/* TOOLS */
+.tools-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.sec-label{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.7rem;display:flex;align-items:center;gap:.8rem}
+.sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--dark);font-weight:300;margin-bottom:2.5rem;line-height:1.15}
+.sec-title em{font-style:italic;color:var(--earth)}
+
+.tool-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ttab{font-family:'Jost',sans-serif;font-size:.56rem;letter-spacing:.14em;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.7rem 1.3rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px;white-space:nowrap}
+.ttab:hover{color:var(--dark)}
+.ttab.active{color:var(--dark);border-bottom-color:var(--earth)}
+.tpanel{display:none}.tpanel.active{display:block;animation:fu .3s ease}
+
+/* CARD GRID */
+.lrow{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.lbtn{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.15em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);padding:.42rem .85rem;color:var(--muted);cursor:pointer;transition:all .2s}
+.lbtn:hover,.lbtn.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
+.tnote{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.1em;margin-bottom:1rem}
+.tnote strong{color:var(--earth);font-weight:400}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:.8rem;max-height:420px;overflow-y:auto;padding:.5rem .2rem;margin-bottom:1.2rem;scrollbar-width:thin;scrollbar-color:var(--earth) var(--cream2)}
+.card-grid::-webkit-scrollbar{width:3px}
+.card-grid::-webkit-scrollbar-thumb{background:var(--earth);opacity:.5}
+
+.tc{width:82px;height:138px;cursor:pointer;position:relative;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.tc:hover{transform:translateY(-7px) rotate(-1deg)}
+.tc.selected{transform:translateY(-10px) scale(1.03)}
+.tc-inner{width:100%;height:100%;border-radius:7px;overflow:hidden;position:relative;box-shadow:0 4px 16px rgba(30,18,8,.28)}
+.tc:hover .tc-inner{box-shadow:0 10px 28px rgba(30,18,8,.38)}
+.tc-outer{position:absolute;inset:0;border:3px solid #f8f4ea;border-radius:7px;z-index:6;pointer-events:none}
+.tc-frame{position:absolute;inset:5px;border:1.5px solid rgba(200,160,70,.85);border-radius:4px;z-index:6;pointer-events:none}
+.tc-frame2{position:absolute;inset:8px;border:.5px solid rgba(200,160,70,.4);border-radius:3px;z-index:6;pointer-events:none}
+.tc-corner{position:absolute;width:7px;height:7px;border:1px solid rgba(200,160,70,.7);z-index:6;pointer-events:none}
+.tc-corner.tl{top:5px;left:5px;border-right:none;border-bottom:none}
+.tc-corner.tr{top:5px;right:5px;border-left:none;border-bottom:none}
+.tc-corner.bl{bottom:21px;left:5px;border-right:none;border-top:none}
+.tc-corner.br{bottom:21px;right:5px;border-left:none;border-top:none}
+.tc-bg{position:absolute;inset:0}
+.tc-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,rgba(255,255,255,.12),transparent 65%)}
+.tc-num-top{position:absolute;top:11px;left:0;right:0;text-align:center;z-index:4;font-family:'Cormorant Garamond',serif;font-size:.5rem;letter-spacing:.1em}
+.tc-art{position:absolute;inset:20px 10px 26px;display:flex;align-items:center;justify-content:center;z-index:3}
+.tc-art svg{width:100%;height:100%;max-width:54px;max-height:74px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+.tc-name{position:absolute;bottom:0;left:3px;right:3px;height:18px;display:flex;align-items:center;justify-content:center;z-index:5;background:linear-gradient(to top,rgba(0,0,0,.15),transparent)}
+.tc-name span{font-family:'Cormorant Garamond',serif;font-size:.42rem;letter-spacing:.08em;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;text-transform:uppercase;font-weight:600}
+.tc.selected .tc-outer{border-color:var(--earth);box-shadow:0 0 14px rgba(200,160,70,.55)}
+.tc.selected .tc-frame{border-color:rgba(220,180,90,1)}
+
+.bg-m0{background:linear-gradient(155deg,#e8d060,#c09818,#7a5808)}
+.bg-m1{background:linear-gradient(155deg,#e0d888,#b89018,#7a5808)}
+.bg-m2{background:linear-gradient(155deg,#1a2040,#2a3870,#0d1428)}
+.bg-m3{background:linear-gradient(155deg,#284010,#487820,#162808)}
+.bg-m4{background:linear-gradient(155deg,#601010,#901818,#380808)}
+.bg-m5{background:linear-gradient(155deg,#381860,#603898,#200830)}
+.bg-m6{background:linear-gradient(155deg,#d8b848,#b08818,#785808)}
+.bg-m7{background:linear-gradient(155deg,#183868,#286098,#0d1e38)}
+.bg-m8{background:linear-gradient(155deg,#e0d870,#b8a028,#786008)}
+.bg-m9{background:linear-gradient(155deg,#181c28,#282c40,#0a0e18)}
+.bg-m10{background:linear-gradient(155deg,#401870,#703098,#220838)}
+.bg-m11{background:linear-gradient(155deg,#d8c860,#b09820,#705808)}
+.bg-m12{background:linear-gradient(155deg,#182838,#284858,#0d1820)}
+.bg-m13{background:linear-gradient(155deg,#080810,#181820,#040408)}
+.bg-m14{background:linear-gradient(155deg,#2858a0,#4888d0,#143058)}
+.bg-m15{background:linear-gradient(155deg,#180808,#380808,#080404)}
+.bg-m16{background:linear-gradient(155deg,#181208,#302010,#080804)}
+.bg-m17{background:linear-gradient(155deg,#080c18,#0c1828,#040608)}
+.bg-m18{background:linear-gradient(155deg,#08080e,#0c0c18,#040406)}
+.bg-m19{background:linear-gradient(155deg,#f0c828,#d09018,#885808)}
+.bg-m20{background:linear-gradient(155deg,#283850,#405870,#141e2a)}
+.bg-m21{background:linear-gradient(155deg,#380e60,#602090,#1e0830)}
+.bg-wands{background:linear-gradient(155deg,#b83808,#d85818,#781808)}
+.bg-cups{background:linear-gradient(155deg,#162888,#2848c0,#0c1650)}
+.bg-swords{background:linear-gradient(155deg,#c8d8e0,#98b8c8,#586878)}
+.bg-pents{background:linear-gradient(155deg,#204808,#3c7818,#102408)}
+
+.sel-chips{display:flex;gap:.5rem;flex-wrap:wrap;min-height:30px;margin-bottom:1rem}
+.sch{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.1em;text-transform:uppercase;font-weight:300;background:rgba(138,106,64,.08);border:.5px solid rgba(138,106,64,.3);padding:.28rem .65rem;color:var(--earth)}
+
+/* ZODIAC */
+.zg{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.6rem}
+.zc{background:linear-gradient(155deg,#1a1424,#0f0a18);border:.5px solid rgba(200,160,70,.18);border-radius:10px;padding:1.3rem .6rem 1.1rem;text-align:center;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.zc::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:80px;height:80px;background:radial-gradient(circle,rgba(200,160,70,.12),transparent 70%);transition:opacity .3s;opacity:0}
+.zc:hover::before,.zc.sel::before{opacity:1}
+.zc:hover,.zc.sel{border-color:rgba(200,160,70,.6);transform:translateY(-4px);box-shadow:0 8px 22px rgba(15,8,2,.4)}
+.zc.sel{background:linear-gradient(155deg,#241a30,#160f22);border-color:rgba(220,180,90,.8)}
+.ze{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:#d4b870;margin-bottom:.35rem;position:relative;z-index:1;line-height:1}
+.zn{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:rgba(245,240,232,.9);font-weight:400;position:relative;z-index:1}
+.zd{font-family:'Jost',sans-serif;font-size:.4rem;color:rgba(200,160,70,.55);letter-spacing:.14em;margin-top:.3rem;font-weight:200;position:relative;z-index:1}
+
+.mtabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:1.6rem}
+.mtab{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.58rem 1.2rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px}
+.mtab.active{color:var(--dark);border-bottom-color:var(--earth)}
+
+/* FORM */
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-family:'Jost',sans-serif;font-size:.44rem;letter-spacing:.17em;text-transform:uppercase;font-weight:300;color:var(--muted2);margin-bottom:.35rem}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--cream2);border:.5px solid var(--border2);padding:.6rem .9rem;font-family:'Georgia',serif;font-size:.85rem;color:var(--dark);font-weight:300;outline:none;transition:border-color .2s}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--earth)}
+.fg textarea{min-height:110px;resize:vertical;line-height:1.8}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:500px}
+.fnote{font-family:'Georgia',serif;font-size:.78rem;letter-spacing:.01em;color:var(--muted);background:rgba(138,106,64,.05);border-right:2px solid rgba(138,106,64,.3);padding:.85rem 1.1rem;margin-bottom:1.3rem;line-height:1.85;font-weight:300;border-radius:0 6px 6px 0}
+
+/* NUM */
+.ncards{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:1.1rem}
+.nc{background:var(--cream2);border:.5px solid var(--border);padding:.9rem;text-align:center}
+.nv{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--earth);font-weight:300;line-height:1}
+.nl{font-family:'Jost',sans-serif;font-size:.4rem;color:var(--muted2);letter-spacing:.16em;text-transform:uppercase;margin-top:.28rem;font-weight:200}
+.master{color:#9060c0 !important}
+
+/* CHIPS */
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+.chip{font-family:'Jost',sans-serif;font-size:.44rem;letter-spacing:.13em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);padding:.36rem .75rem;color:var(--muted);cursor:pointer;transition:all .2s}
+.chip:hover,.chip.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
+
+/* AI RESULT */
+.ai-res{display:none;margin-top:2rem;border-top:.5px solid var(--border);padding-top:2rem}
+.ai-label{font-family:'Jost',sans-serif;font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;color:var(--muted2);margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
+.ai-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.ai-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--dark);line-height:1.95;font-weight:300;white-space:pre-wrap}
+.ldots{display:flex;gap:5px;padding:.5rem 0}
+.ld{width:5px;height:5px;background:var(--earth);animation:lda 1.3s ease-in-out infinite}
+.ld:nth-child(2){animation-delay:.22s}.ld:nth-child(3){animation-delay:.44s}
+@keyframes lda{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+
+/* BTN */
+.btn{font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);color:var(--earth);padding:.65rem 1.7rem;cursor:pointer;transition:all .22s}
+.btn:hover{background:rgba(138,106,64,.07);border-color:var(--earth)}
+.btn:focus-visible{outline:2px solid var(--earth);outline-offset:3px}
+.btn:disabled{opacity:.35;cursor:default;pointer-events:none}
+.btn-dark{background:var(--dark2);border-color:var(--dark2);color:rgba(245,240,232,.75)}
+.btn-dark:hover{background:var(--dark);border-color:var(--dark)}
+
+/* ACADEMY */
+.academy-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.filter-tabs{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:2rem}
+.ftab{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;font-weight:300;background:none;border:none;border-bottom:1.5px solid transparent;padding:.58rem 1.2rem;color:var(--muted2);cursor:pointer;transition:all .2s;margin-bottom:-.5px}
+.ftab.active{color:var(--dark);border-bottom-color:var(--earth)}
+.course-list{display:flex;flex-direction:column}
+.course-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+.ccard{border:.5px solid var(--border);border-radius:12px;padding:1.6rem 1.5rem;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);background:linear-gradient(155deg,#faf6ee,#f2ece0);position:relative;overflow:hidden;display:block}
+.ccard::before{content:'';position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle at top right,rgba(138,106,64,.08),transparent 70%);pointer-events:none}
+.ccard:hover{border-color:rgba(138,106,64,.5);transform:translateY(-3px);box-shadow:0 12px 30px rgba(45,30,16,.1)}
+.ccard.open{border-color:var(--earth);background:linear-gradient(155deg,#faf6ee,#ede5d6)}
+.cc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.cc-icon-wrap{width:46px;height:46px;border-radius:11px;background:linear-gradient(145deg,rgba(138,106,64,.12),rgba(138,106,64,.04));border:.5px solid rgba(138,106,64,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:1rem}
+.cc-icon-wrap svg{width:22px;height:22px;color:var(--earth)}
+.cc-lv span{font-family:'Jost',sans-serif;font-size:.4rem;letter-spacing:.15em;text-transform:uppercase;font-weight:300;padding:.2rem .6rem;border-radius:20px}
+.lv-b{background:rgba(60,120,80,.12);color:#4a8060}
+.lv-i{background:rgba(80,60,140,.12);color:#6050a0}
+.lv-a{background:rgba(138,106,64,.14);color:var(--earth)}
+.cc-main h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--dark);font-weight:500;margin-bottom:.3rem;line-height:1.2}
+.cc-src{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--earth);letter-spacing:.1em;font-weight:300;opacity:.8}
+.cc-desc{font-family:'Georgia',serif;font-size:.76rem;color:var(--muted);line-height:1.9;font-weight:300;margin-top:.7rem}
+.cc-arr{display:none}
+.cc-toggle{font-family:'Jost',sans-serif;font-size:.42rem;letter-spacing:.16em;text-transform:uppercase;font-weight:300;color:var(--earth);margin-top:1rem;display:flex;align-items:center;gap:.4rem;transition:gap .2s}
+.ccard:hover .cc-toggle{gap:.6rem}
+.cc-toggle svg{width:12px;height:12px;transition:transform .3s}
+.ccard.open .cc-toggle svg{transform:rotate(180deg)}
+.cc-mods{display:none;padding:1rem 0 .2rem;border-top:.5px solid var(--border);margin-top:1.1rem}
+.ccard.open .cc-mods{display:block}
+.mod{display:flex;gap:.6rem;font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted);letter-spacing:.08em;font-weight:300;padding:.28rem 0;border-bottom:.5px solid rgba(138,106,64,.06)}
+.mn{color:var(--muted2);font-size:.4rem;min-width:16px;font-weight:200}
+
+/* RESEARCH */
+.res-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.res-list{display:flex;flex-direction:column}
+.rc{display:grid;grid-template-columns:55px 1fr 90px;gap:1.8rem;align-items:center;padding:1.3rem 0;border-bottom:.5px solid var(--border);cursor:pointer;transition:background .2s}
+.rc:hover{background:rgba(138,106,64,.03)}
+.rc-idx{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:rgba(138,106,64,.2);font-weight:300}
+.rc-topic{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:var(--dark);font-weight:400;margin-bottom:.18rem}
+.rc-region{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.1em;font-weight:200}
+.rc-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem}
+.rc-pct{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--earth);font-weight:300}
+.rc-bar{height:2px;width:80px;background:rgba(138,106,64,.12);position:relative}
+.rc-fill{position:absolute;top:0;right:0;height:100%;background:var(--earth);opacity:.55}
+
+/* KNOWLEDGE */
+.know-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.art-grid{display:grid;grid-template-columns:1fr 1fr;border-top:.5px solid var(--border)}
+.art{padding:2rem;border-bottom:.5px solid var(--border);border-left:.5px solid var(--border);cursor:pointer;transition:background .2s}
+.art:nth-child(odd){border-left:none}
+.art:hover{background:rgba(138,106,64,.04)}
+.art-cat{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--earth);letter-spacing:.2em;text-transform:uppercase;font-weight:300;margin-bottom:.5rem}
+.art-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--dark);font-weight:400;line-height:1.4;margin-bottom:.4rem}
+.art-desc{font-family:'Georgia',serif;font-size:.72rem;color:var(--muted);line-height:1.8;font-weight:300}
+.art-read{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--earth);letter-spacing:.15em;text-transform:uppercase;font-weight:300;margin-top:.7rem;display:block}
+
+/* ABOUT */
+.about-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-h{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--dark);font-weight:300;line-height:1.3;margin-bottom:1.2rem}
+.about-h em{font-style:italic;color:var(--earth)}
+.about-p{font-family:'Georgia',serif;font-size:.77rem;color:var(--muted);line-height:2.1;font-weight:300;margin-bottom:.9rem}
+.val-list{display:flex;flex-direction:column;gap:0;margin-top:1.8rem}
+.val{padding:1.2rem 0;border-bottom:.5px solid var(--border);display:grid;grid-template-columns:36px 1fr;gap:.9rem;align-items:start}
+.val-icon{font-size:1rem;padding-top:.1rem}
+.val h4{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--dark);font-weight:400;margin-bottom:.25rem}
+.val p{font-family:'Georgia',serif;font-size:.7rem;color:var(--muted);line-height:1.8;font-weight:300}
+.src-box{background:var(--cream2);border:.5px solid var(--border);padding:1.8rem}
+.src-label{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted2);letter-spacing:.2em;text-transform:uppercase;font-weight:300;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:.5px solid var(--border)}
+.src-item{padding:.65rem 0;border-bottom:.5px solid rgba(138,106,64,.07);font-family:'Georgia',serif;font-size:.72rem;color:var(--muted);line-height:1.7;font-weight:300}
+.src-item:last-child{border-bottom:none}
+.src-item strong{font-weight:400;color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:.8rem}
+
+/* CONTACT */
+.contact-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-h{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--dark);font-weight:300;margin-bottom:.9rem}
+.contact-p{font-family:'Georgia',serif;font-size:.77rem;color:var(--muted);line-height:2;font-weight:300;margin-bottom:1.8rem}
+.contact-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--earth2);line-height:1.7;font-weight:300;padding-right:1rem;border-right:2px solid rgba(138,106,64,.22)}
+.form-suc{background:rgba(60,120,80,.07);border:.5px solid rgba(60,120,80,.25);padding:.9rem 1.1rem;font-family:'Jost',sans-serif;font-size:.48rem;letter-spacing:.14em;color:#4a8060;display:none;margin-top:.9rem;font-weight:300}
+
+/* FOOTER */
+footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
+.foot-inner{max-width:1200px;margin:0 auto;padding:0 2.5rem}
+.foot-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:.5px solid rgba(245,240,232,.07);margin-bottom:2rem}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:.92rem;color:rgba(245,240,232,.65);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem}
+.foot-tag{font-family:'Georgia',serif;font-size:.66rem;color:rgba(245,240,232,.28);line-height:1.8;font-weight:300}
+.foot-col-t{font-family:'Jost',sans-serif;font-size:.42rem;color:rgba(245,240,232,.28);letter-spacing:.2em;text-transform:uppercase;font-weight:200;margin-bottom:.8rem}
+.foot-links{display:flex;flex-direction:column;gap:.45rem}
+.fl{font-family:'Cormorant Garamond',serif;font-size:.78rem;color:rgba(245,240,232,.42);cursor:pointer;transition:color .2s;background:none;border:none;text-align:left;font-weight:300}
+.fl:hover{color:rgba(245,240,232,.75)}
+.foot-bottom{display:flex;justify-content:space-between}
+.foot-copy{font-family:'Jost',sans-serif;font-size:.4rem;color:rgba(245,240,232,.18);letter-spacing:.14em;font-weight:200}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .scroll-line { animation: none; }
+}
+
+/* === photo grid: frame separators + fallbacks === */
+.photo-grid{gap:5px !important;background:var(--earth) !important}
+.pg-item{background:var(--cream)}
+.pg-item.pg-fb-tarot{background:linear-gradient(155deg,#5a3a18,#2a1808)}
+.pg-item.pg-fb-astro{background:linear-gradient(155deg,#1a2850,#0d1428)}
+.pg-item.pg-fb-num{background:linear-gradient(155deg,#3a2548,#1a1028)}
+.pg-item.pg-fb-dream{background:linear-gradient(155deg,#2a2848,#12101f)}
+.pg-item[class*="pg-fb-"] .pg-label{bottom:auto;top:50%;transform:translateY(-50%);text-align:center}
+.pg-item[class*="pg-fb-"] .pg-title{justify-content:center;font-size:1.5rem}
+.pg-item[class*="pg-fb-"] .pg-ov{background:linear-gradient(to top,rgba(12,6,2,.5),rgba(12,6,2,.2))}
+.pg-title{display:flex;align-items:center;gap:.5rem}
+
+.pg-item.pg-fb-tarot::after,.pg-item.pg-fb-astro::after,.pg-item.pg-fb-num::after,.pg-item.pg-fb-dream::after{
+  content:'';position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;
+  background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.3;
+}
+
+/* CHAKRAS */
+.chakra-grid{display:flex;flex-direction:column;gap:.5rem;max-width:600px}
+.chakra-item{display:grid;grid-template-columns:48px 1fr auto;gap:1rem;align-items:center;padding:.8rem 1rem;border:.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .25s;background:var(--cream2)}
+.chakra-item:hover{border-color:var(--earth);transform:translateX(-4px)}
+.chakra-item.sel{border-color:var(--earth);background:rgba(138,106,64,.06)}
+.chakra-dot{width:34px;height:34px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.15);position:relative}
+.chakra-dot::after{content:'';position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.5),transparent)}
+.chakra-info h4{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--dark);font-weight:500;margin-bottom:.1rem}
+.chakra-info p{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.08em}
+.chakra-sanskrit{font-family:'Cormorant Garamond',serif;font-size:.8rem;color:var(--earth);font-style:italic}
+
+.mod-clickable{cursor:pointer;transition:all .2s;padding-right:.5rem;border-radius:5px}
+.mod-clickable:hover{background:rgba(138,106,64,.07);padding-right:.7rem}
+.mod-arrow{margin-right:auto;font-family:'Jost',sans-serif;font-size:.4rem;color:var(--earth);letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .2s}
+.mod-clickable:hover .mod-arrow{opacity:1}
+.mod{display:flex;align-items:center;gap:.6rem}
+
+/* === FREEMIUM GATE === */
+.usage-pill{position:fixed;bottom:1.2rem;left:1.2rem;z-index:90;background:rgba(45,30,16,.92);backdrop-filter:blur(8px);color:rgba(245,240,232,.9);font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.1em;padding:.5rem .9rem;border-radius:30px;border:.5px solid rgba(200,160,70,.3);display:flex;align-items:center;gap:.5rem;transition:opacity .3s}
+.usage-pill strong{color:#d4b870;font-family:'Cormorant Garamond',serif;font-size:.8rem}
+.gate-overlay{position:fixed;inset:0;z-index:200;background:rgba(20,12,4,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1.5rem;animation:gfade .3s ease}
+.gate-overlay.show{display:flex}
+@keyframes gfade{from{opacity:0}to{opacity:1}}
+.gate-box{background:var(--cream);border:.5px solid rgba(200,160,70,.3);border-radius:16px;max-width:440px;width:100%;padding:2.8rem 2.4rem;text-align:center;box-shadow:0 20px 60px rgba(20,12,4,.4);animation:gslide .4s cubic-bezier(.4,0,.2,1);position:relative}
+@keyframes gslide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.gate-icon{width:54px;height:54px;margin:0 auto 1.2rem;border-radius:50%;background:linear-gradient(145deg,rgba(138,106,64,.15),rgba(138,106,64,.04));border:.5px solid rgba(138,106,64,.25);display:flex;align-items:center;justify-content:center}
+.gate-icon svg{width:26px;height:26px;color:var(--earth)}
+.gate-box h3{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--dark);font-weight:400;margin-bottom:.7rem;line-height:1.3}
+.gate-box p{font-family:'Georgia',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.6rem}
+.gate-input{width:100%;background:var(--cream2);border:.5px solid var(--border2);padding:.8rem 1rem;font-family:'Georgia',serif;font-size:.9rem;color:var(--dark);outline:none;border-radius:8px;margin-bottom:.9rem;text-align:center;transition:border-color .2s}
+.gate-input:focus{border-color:var(--earth)}
+.gate-btn{width:100%;font-family:'Jost',sans-serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;background:var(--dark2);border:none;color:rgba(245,240,232,.85);padding:.85rem;cursor:pointer;transition:all .25s;border-radius:8px}
+.gate-btn:hover{background:var(--dark)}
+.gate-close{position:absolute;top:1rem;left:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--muted2);cursor:pointer;line-height:1;transition:color .2s}
+.gate-close:hover{color:var(--dark)}
+.gate-success{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--earth);line-height:1.6;display:none}
+.gate-small{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.06em;margin-top:1rem;line-height:1.7}
+
+.mod-locked .mod-arrow{opacity:.6;color:var(--muted2)}
+.mod-locked:hover .mod-arrow{opacity:1;color:var(--earth)}
+.mod-arrow{opacity:1}
+
+/* === PRICING === */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
+.price-card{background:var(--cream2);border:.5px solid var(--border);border-radius:14px;padding:2.2rem 1.8rem;position:relative;display:flex;flex-direction:column;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.price-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(45,30,16,.1)}
+.price-card.featured{border-color:rgba(200,160,70,.6);background:linear-gradient(165deg,#faf6ee,#f2ece0);box-shadow:0 10px 30px rgba(138,106,64,.12)}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--earth);color:#f5f0e8;font-family:'Jost',sans-serif;font-size:.42rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;padding:.32rem .9rem;border-radius:20px;white-space:nowrap}
+.price-name{font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;color:var(--muted2);margin-bottom:1rem}
+.price-amount{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--dark);font-weight:300;line-height:1}
+.price-amount span{font-size:.9rem;color:var(--muted2)}
+.price-period{font-family:'Jost',sans-serif;font-size:.44rem;color:var(--muted2);letter-spacing:.06em;margin:.5rem 0 1.5rem;font-weight:200}
+.price-features{list-style:none;margin:0 0 1.8rem;padding:0;flex:1}
+.price-features li{font-family:'Georgia',serif;font-size:.72rem;color:var(--muted);line-height:1.7;padding:.5rem 0;border-bottom:.5px solid rgba(138,106,64,.08);font-weight:300;position:relative;padding-right:1.3rem}
+.price-features li::before{content:'✦';position:absolute;right:0;color:var(--earth);font-size:.6rem;top:.65rem}
+.price-features li strong{color:var(--dark);font-weight:400}
+
+.gate-code-toggle{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--earth);letter-spacing:.08em;margin-top:1rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;opacity:.8;transition:opacity .2s}
+.gate-code-toggle:hover{opacity:1}
+.gate-code-wrap{display:none;margin-top:.5rem}
+.gate-code-wrap.show{display:block;animation:gfade .3s ease}
+
+/* === MOON PHASE === */
+.moon-strip{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:1200px;margin:0 auto;padding:3rem 2.5rem;border-bottom:.5px solid var(--border)}
+.moon-visual{display:flex;align-items:center;justify-content:center}
+.moon-disc{width:90px;height:90px;border-radius:50%;background:#f5f0e8;box-shadow:inset 0 0 0 1px rgba(138,106,64,.3),0 0 40px rgba(212,184,112,.25);position:relative;overflow:hidden;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 70% 65%,rgba(138,106,64,.08),transparent 30%)}
+.moon-shadow{position:absolute;top:0;height:100%;background:#1a1208;border-radius:50%;transition:all .5s}
+.moon-label{font-family:'Jost',sans-serif;font-size:.46rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.5rem}
+.moon-phase{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--dark);font-weight:300;margin-bottom:.5rem}
+.moon-desc{font-family:'Georgia',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:600px}
+
+.result-actions{display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap}
+.ra-btn{font-family:'Jost',sans-serif;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;font-weight:300;background:none;border:.5px solid var(--border2);color:var(--earth);padding:.5rem 1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:.45rem;border-radius:6px}
+.ra-btn:hover{background:rgba(138,106,64,.07);border-color:var(--earth)}
+.ra-btn svg{opacity:.7}
+
+/* === JOURNAL === */
+.journal-entry{background:var(--cream2);border:.5px solid var(--border);border-radius:12px;padding:1.5rem 1.7rem;margin-bottom:1rem;position:relative}
+.journal-entry .je-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
+.je-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--dark);font-weight:500}
+.je-date{font-family:'Jost',sans-serif;font-size:.42rem;color:var(--muted2);letter-spacing:.08em}
+.je-text{font-family:'Georgia',serif;font-size:.76rem;color:var(--muted);line-height:1.85;font-weight:300;white-space:pre-wrap}
+.je-del{position:absolute;top:1.2rem;left:1.2rem;background:none;border:none;color:var(--muted2);cursor:pointer;font-size:.9rem;opacity:.5;transition:opacity .2s}
+.je-del:hover{opacity:1;color:#a04030}
+
+/* === SUBTLE PAGE BACKGROUNDS === */
+.tools-wrap,.academy-wrap,.res-wrap,.know-wrap,.about-wrap,.contact-wrap{position:relative}
+#sec-tools,#sec-academy,#sec-journal{background:linear-gradient(180deg,#f7f2e9 0%,#f3ede2 100%)}
+#sec-research,#sec-knowledge{background:linear-gradient(180deg,#f5f0e8 0%,#ede7da 100%)}
+#sec-about,#sec-pricing,#sec-contact{background:linear-gradient(180deg,#f7f2e9 0%,#f0e9dc 100%)}
+.tools-wrap::before,.academy-wrap::before{content:'';position:absolute;top:0;right:0;width:280px;height:280px;background:radial-gradient(circle,rgba(138,106,64,.05),transparent 70%);pointer-events:none;z-index:0}
+
+/* gradient tiles */
+.photo-grid .pg-item .pg-label{z-index:3;text-align:center;right:0;left:0;padding:.8rem .5rem}
+.photo-grid .pg-item .pg-title{color:#f5f0e8 !important;font-size:1.15rem;justify-content:center;text-shadow:0 1px 6px rgba(0,0,0,.9);font-family:'Cormorant Garamond',serif;font-weight:400;display:block}
+.photo-grid .pg-item .pg-sub{color:rgba(245,240,232,.6) !important}
+.photo-grid .pg-item .pg-ov{background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.15) 45%,transparent 100%);transition:opacity .3s}
+.photo-grid .pg-item:hover .pg-ov{opacity:.8}
+.photo-grid .pg-item{position:relative;transition:transform .3s,box-shadow .3s}
+.photo-grid .pg-item:hover{transform:scale(.99);box-shadow:inset 0 0 60px rgba(212,184,112,.15)}
+.pg-item .pg-icon-bg{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);font-size:0;opacity:.18;z-index:1}
+.pg-item .pg-icon-bg svg{width:64px;height:64px;color:#d4b870}
+
+/* === TOOL BANNERS === */
+.tool-banner{width:100%;height:150px;border-radius:12px;overflow:hidden;margin-bottom:1.8rem;position:relative;background:linear-gradient(155deg,#1a0f2e,#0a0612)}
+.tool-banner img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.tool-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,6,18,.3),transparent 50%);pointer-events:none}
+
+.photo-grid .pg-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.photo-grid .pg-item:hover img{transform:scale(1.05)}
+.photo-grid .pg-item{overflow:hidden}
+html,body{max-width:100%;overflow-x:hidden}
+*{box-sizing:border-box}
+
+/* === WISDOM BANNER (full-width) === */
+.wisdom-banner{position:relative;width:100%;min-height:440px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#0a0612;background-image:url('bg-figure.jpg');background-size:cover;background-position:center 35%}
+.wisdom-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,6,18,.82) 0%,rgba(10,6,18,.55) 45%,rgba(10,6,18,.45) 100%);z-index:1}
+.wisdom-content{position:relative;z-index:2;max-width:1200px;width:100%;padding:4rem 2.5rem;text-align:center}
+.wisdom-eyebrow{font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(212,184,112,.85);margin-bottom:1.4rem;font-weight:300}
+.wisdom-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.8rem);color:#f5f0e8;font-weight:300;line-height:1.18;margin-bottom:1.5rem;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.wisdom-h em{font-style:italic;color:#d4b870}
+.wisdom-p{font-family:'Georgia',serif;font-size:.92rem;color:rgba(245,240,232,.82);line-height:2;font-weight:300;max-width:620px;margin:0 auto 2.2rem;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+
+/* === SECTION SEPARATION (home) === */
+.moon-strip{margin-top:0;border-top:.5px solid var(--border)}
+.wisdom-banner{margin-top:0;margin-bottom:0}
+.quote-sec{padding-top:4rem;padding-bottom:4rem}
+.closing-photo{margin-top:5rem;position:relative}
+.closing-photo::before{content:'';position:absolute;top:-5rem;left:0;right:0;height:5rem;background:var(--cream)}
+.photo-grid{margin-bottom:3rem}
+.stat-row{padding:3.5rem 2.5rem}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+   ===================================================== */
+@media(max-width:768px){
+  /* photo grid: 2 columns on mobile */
+  .photo-grid{grid-template-columns:repeat(2,1fr) !important}
+  .pg-item{min-height:190px}
+  .pg-title{font-size:1.1rem !important}
+
+  /* pricing */
+  .pricing-grid{grid-template-columns:1fr}
+
+  /* nav */
+  .nav-inner{padding:.7rem 1rem}
+  .nav-links{gap:.8rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .nl{font-size:.42rem}
+
+  /* hero */
+  .hero-cnt{padding:0 1.2rem 3rem}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:.7rem}
+
+  /* stats */
+  .stats-strip{grid-template-columns:1fr}
+  .stat-divider{display:none}
+  .stat-item{padding:1.2rem 1.5rem}
+
+  /* tools wrap */
+  .tools-wrap,.academy-wrap,.res-wrap,.know-wrap,.about-wrap,.contact-wrap{padding:2.5rem 1.2rem}
+
+  /* about / contact grids */
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
+
+  /* course list */
+  .course-list{grid-template-columns:1fr}
+
+  /* art grid */
+  .art-grid{grid-template-columns:1fr}
+  .art:nth-child(odd){border-left:.5px solid var(--border)}
+
+  /* moon strip */
+  .moon-strip{grid-template-columns:1fr;text-align:center;gap:1.5rem;padding:2rem 1.2rem}
+  .moon-visual{justify-content:center}
+
+  /* wisdom banner */
+  .wisdom-banner{min-height:380px}
+  .wisdom-content{padding:3rem 1.5rem}
+
+  /* tool banner */
+  .tool-banner{height:110px}
+
+  /* fgrid */
+  .fgrid{grid-template-columns:1fr;max-width:100%}
+  .fgrid .fg[style*="grid-column"]{grid-column:span 1}
+
+  /* zodiac grid */
+  .zg{grid-template-columns:repeat(3,1fr)}
+
+  /* footer */
+  .foot-top{grid-template-columns:1fr;gap:1.5rem}
+  .foot-bottom{flex-direction:column;gap:.5rem}
+}
+
+@media(max-width:480px){
+  .photo-grid{grid-template-columns:repeat(2,1fr) !important}
+  .pg-item{min-height:130px}
+  .zg{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-tarot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="2" width="10" height="16" rx="1.5"/><rect x="10" y="6" width="10" height="16" rx="1.5"/>
+    <line x1="7" y1="7" x2="11" y2="7"/><line x1="7" y1="10" x2="11" y2="10"/>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </symbol>
+  <symbol id="icon-infinity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M12 12c-2-2.5-4-4-6-4a4 4 0 0 0 0 8c2 0 4-1.5 6-4z"/>
+    <path d="M12 12c2 2.5 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.5-6 4z"/>
+  </symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </symbol>
+  <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <symbol id="icon-spiral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M12 12c0-2.2-1.8-4-4-4s-4 1.8-4 4 1.8 4 4 4 4-1.8 4-4-1.8-4-4-4"/>
+    <path d="M12 12c0-4.4 3.6-8 8-8"/>
+    <path d="M12 12c0 4.4-3.6 8-8 8"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+</svg>
+
+
+<nav role="navigation" aria-label="Main Navigation">
+  <div class="nav-inner">
+    <div class="logo" onclick="show('home')">The Mystical Academy</div>
+    <div class="nav-links">
+      <button class="nl active" onclick="show('home')">Home</button>
+      <button class="nl" onclick="show('tools')">Tools</button>
+      <button class="nl" onclick="show('academy')">Academy</button>
+      <button class="nl" onclick="show('research')">Research</button>
+      <button class="nl" onclick="show('knowledge')">Knowledge</button>
+      <button class="nl" onclick="show('about')">About</button>
+      <button class="nl" onclick="show('journal')">My Journal</button>
+      <button class="nl" onclick="show('pricing')">Membership</button>
+      <button class="nl" onclick="show('contact')">Contact</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="sec active" id="sec-home">
+
+  <div class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-stars" id="hero-stars"></div>
+    <div class="hero-ov"></div>
+    <div class="hero-cnt">
+      <div class="hero-eye">Ancient Wisdom · Modern Tools</div>
+      <div class="hero-h1">Listen to Your<br><em>Inner Voice</em></div>
+      <div class="hero-line"></div>
+      <div class="hero-sub">Seven spiritual tools to help you understand yourself,<br>your relationships, and the path ahead</div>
+      <div class="hero-btns">
+        <button class="btn-hero" onclick="show('tools')">Begin the Journey</button>
+        <button class="btn-hero-ghost" onclick="show('academy')">Explore the Academy ↓</button>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>Scroll down</span><div class="scroll-line"></div></div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item"><div class="stat-n">78</div><div class="stat-l">Tarot Cards</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><div class="stat-n">7</div><div class="stat-l">Full Courses</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><div class="stat-n">100+</div><div class="stat-l">Years of Tradition</div></div>
+  </div>
+
+  <!-- 4 PHOTO GRID -->
+  <div class="photo-grid" role="list" aria-label="Mystical Tools">
+    <div class="pg-item" onclick="goTool('tarot')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('tarot')"><img src="tarot.jpg" alt="Tarot" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Tarot</div></div></div>
+    <div class="pg-item" onclick="goTool('astro')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('astro')"><img src="astro.jpg" alt="Astrology" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Astrology</div></div></div>
+    <div class="pg-item" onclick="goTool('numerology')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('numerology')"><img src="numerology.jpg" alt="Numerology" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Numerology</div></div></div>
+    <div class="pg-item" onclick="goTool('dreams')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('dreams')"><img src="dreams.jpg" alt="Dream Interpretation" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Dream Interpretation</div></div></div>
+    <div class="pg-item" onclick="goTool('chakras')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('chakras')"><img src="chakras.jpg" alt="Chakras" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Chakras</div></div></div>
+    <div class="pg-item" onclick="goTool('crystals')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('crystals')"><img src="crystals.jpg" alt="Crystals" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Crystals</div></div></div>
+    <div class="pg-item" onclick="goTool('meditation')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('meditation')"><img src="meditation.jpg" alt="Meditation" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Meditation</div></div></div>
+    <div class="pg-item" onclick="goTool('soulmap')" role="listitem" tabindex="0" onkeypress="if(event.key==='Enter')goTool('soulmap')"><img src="soulmap.jpg" alt="Soul Map" loading="lazy"><div class="pg-ov"></div><div class="pg-label"><div class="pg-title">Soul Map</div></div></div>
+  </div>
+
+  <!-- MOON PHASE -->
+  <div class="moon-strip">
+    <div class="moon-visual"><div class="moon-disc" id="moon-disc"></div></div>
+    <div class="moon-info">
+      <div class="moon-label">Current Moon Phase</div>
+      <div class="moon-phase" id="moon-phase">—</div>
+      <div class="moon-desc" id="moon-desc">—</div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-sec">
+    <div class="big-q">"The stars do not dictate fate — they offer a map to those who know how to read it"</div>
+    <div class="q-attr">The Mystical Academy</div>
+  </div>
+
+  <!-- WISDOM BANNER -->
+  <div class="wisdom-banner">
+    <div class="wisdom-overlay"></div>
+    <div class="wisdom-content">
+      <div class="wisdom-eyebrow">Our Academy</div>
+      <div class="wisdom-h">Ancient Wisdom<br><em>Presented with Transparency</em></div>
+      <div class="wisdom-p">Every tool is based on recognized, documented traditions — Rider-Waite-Smith, Kepler College, Arthur Findlay College. Real knowledge, presented with full transparency.</div>
+      <button class="btn-hero" onclick="show('about')">Learn More About the Academy →</button>
+    </div>
+  </div>
+
+  <!-- CLOSING PHOTO -->
+  <div class="closing-photo" style="background:#0a0612;background-image:linear-gradient(rgba(10,6,18,.4),rgba(10,6,18,.55)),url('bg-moon.jpg');background-size:cover;background-position:center 40%">
+    <div class="closing-stars" id="closing-stars"></div>
+    <div class="closing-ov">
+      <div>
+        <div class="closing-q">"Every inner journey begins with a single question"</div>
+        <button class="btn-hero" onclick="show('tools')">Start Exploring</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOOLS -->
+<div class="sec" id="sec-tools">
+<div class="tools-wrap">
+  <div class="sec-label">Seven Gateways to the Soul</div>
+  <div class="sec-title">Discover What <em>the Universe</em> Is Trying to Tell You</div>
+  <div class="tool-tabs">
+    <button class="ttab active" onclick="showTool('tarot')">Tarot</button>
+    <button class="ttab" onclick="showTool('astro')">Astrology</button>
+    <button class="ttab" onclick="showTool('numerology')">Numerology</button>
+    <button class="ttab" onclick="showTool('dreams')">Dreams</button>
+    <button class="ttab" onclick="showTool('chakras')">Chakras</button>
+    <button class="ttab" onclick="showTool('crystals')">Crystals</button>
+    <button class="ttab" onclick="showTool('meditation')">Meditation</button>
+    <button class="ttab" onclick="showTool('soulmap')">Soul Map</button>
+    <button class="ttab" onclick="showTool('oracle')">The Oracle</button>
+    <button class="ttab" onclick="showTool('compat')">Compatibility</button>
+  </div>
+
+  <!-- TAROT -->
+  <div class="tpanel active" id="tp-tarot">
+    <div class="tool-banner"><img src="tarot.jpg" alt="tarot" loading="lazy"></div>
+    <div class="lrow" id="lrow"></div>
+    <div class="tnote">Choose <strong id="nn">1</strong> card from 78</div>
+    <div class="card-grid" id="cg"></div>
+    <div class="sel-chips" id="sc"></div>
+    <button class="btn" id="tbtn" onclick="doTarot()" disabled>Read the Cards →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="tres"><div class="ai-label">Card Reading</div><div class="ai-text" id="tout"></div></div>
+  </div>
+
+  <!-- ASTRO -->
+  <div class="tpanel" id="tp-astro">
+    <div class="tool-banner"><img src="astro.jpg" alt="astro" loading="lazy"></div>
+    <div class="mtabs">
+      <button class="mtab active" onclick="setAT(this,'daily')">Daily Horoscope</button>
+      <button class="mtab" onclick="setAT(this,'natal')">Natal Chart</button>
+    </div>
+    <div id="at-daily">
+      <div class="zg" id="zg"></div>
+      <button class="btn" id="hbtn" onclick="doHoro()" disabled>Get Horoscope →</button>
+      <div class="ai-res" role="region" aria-live="polite" id="hres"><div class="ai-label">Daily Horoscope</div><div class="ai-text" id="hout"></div></div>
+    </div>
+    <div id="at-natal" style="display:none">
+      <div class="fgrid">
+        <div class="fg"><label>Date of Birth</label><input type="date" id="nd"></div>
+        <div class="fg"><label>Time of Birth</label><input type="time" id="nt"></div>
+        <div class="fg" style="grid-column:span 2"><label>City of Birth</label><input type="text" id="nc" placeholder="New York"></div>
+      </div>
+      <div class="fnote">A full natal chart requires Swiss Ephemeris. Analysis is based on your Sun sign.</div>
+      <button class="btn" onclick="doNatal()">Analyze Natal Chart →</button>
+      <div class="ai-res" role="region" aria-live="polite" id="nres"><div class="ai-label">Natal Analysis</div><div class="ai-text" id="nout"></div></div>
+    </div>
+  </div>
+
+  <!-- NUMEROLOGY -->
+  <div class="tpanel" id="tp-numerology">
+    <div class="tool-banner"><img src="numerology.jpg" alt="numerology" loading="lazy"></div>
+    <div class="fgrid">
+      <div class="fg"><label>Full Name — Latin letters</label><input type="text" id="nname" placeholder="e.g. David Cohen" oninput="calcN()"></div>
+      <div class="fg"><label>Date of Birth</label><input type="date" id="ndate" oninput="calcN()"></div>
+    </div>
+    <div class="fnote">Calculated using the Pythagorean method — Latin letters required.</div>
+    <div class="ncards" id="ncards" style="display:none">
+      <div class="nc"><div class="nv" id="nv-life">—</div><div class="nl">Life Path</div></div>
+      <div class="nc"><div class="nv" id="nv-expr">—</div><div class="nl">Expression</div></div>
+      <div class="nc"><div class="nv" id="nv-soul">—</div><div class="nl">Soul Urge</div></div>
+      <div class="nc"><div class="nv" id="nv-pers">—</div><div class="nl">Personality</div></div>
+      <div class="nc"><div class="nv" id="nv-bday">—</div><div class="nl">Birthday</div></div>
+      <div class="nc"><div class="nv" id="nv-mat">—</div><div class="nl">Maturity</div></div>
+    </div>
+    <div class="fg" style="max-width:500px"><label>Personal question (optional)</label><textarea id="nq" placeholder="What would you like to explore?" style="min-height:65px"></textarea></div>
+    <button class="btn" onclick="doNum()">Interpret the Numbers →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="numres"><div class="ai-label">Numerology Reading</div><div class="ai-text" id="numout"></div></div>
+  </div>
+
+  <!-- DREAMS -->
+  <div class="tpanel" id="tp-dreams">
+    <div class="tool-banner"><img src="dreams.jpg" alt="dreams" loading="lazy"></div>
+    <div class="fg"><label>Describe the Dream</label><textarea id="din" placeholder="Describe your dream — people, places, feelings, symbols..."></textarea></div>
+    <div class="fg" style="margin-bottom:.2rem"><label>Mood upon waking</label></div>
+    <div class="chips">
+      <button class="chip" onclick="pc(this,'mood')">Peaceful</button>
+      <button class="chip" onclick="pc(this,'mood')">Anxious</button>
+      <button class="chip" onclick="pc(this,'mood')">Joyful</button>
+      <button class="chip" onclick="pc(this,'mood')">Sad</button>
+      <button class="chip" onclick="pc(this,'mood')">Confused</button>
+      <button class="chip" onclick="pc(this,'mood')">Inspired</button>
+    </div>
+    <div class="fg" style="margin-bottom:.2rem"><label>Interpretation School</label></div>
+    <div class="chips">
+      <button class="chip active" onclick="ps(this,'jung')">Jung — Archetypes</button>
+      <button class="chip" onclick="ps(this,'freud')">Freud — Unconscious</button>
+      <button class="chip" onclick="ps(this,'hall')">Hall/Domhoff — Empirical</button>
+      <button class="chip" onclick="ps(this,'spiritual')">Spiritual — Intuitive</button>
+    </div>
+    <button class="btn" onclick="doDream()">Interpret the Dream →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="dres"><div class="ai-label">Dream Interpretation</div><div class="ai-text" id="dout"></div></div>
+  </div>
+
+  <!-- CHAKRAS -->
+  <div class="tpanel" id="tp-chakras">
+    <div class="tool-banner"><img src="chakras.jpg" alt="chakras" loading="lazy"></div>
+    <div class="fnote">Based on authentic Vedic-Yogic tradition. Select a chakra for diagnosis and balancing exercise.</div>
+    <div class="chakra-grid" id="chakra-grid"></div>
+    <div class="fg" style="max-width:500px;margin-top:1.2rem"><label>How are you feeling today? (optional)</label><textarea id="chakra-q" placeholder="Describe your physical/emotional/energetic state..." style="min-height:70px"></textarea></div>
+    <button class="btn" onclick="doChakra()">Get Diagnosis & Exercise →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="chakra-res"><div class="ai-label" id="chakra-label">Chakra Diagnosis</div><div class="ai-text" id="chakra-out"></div></div>
+  </div>
+
+  <!-- CRYSTALS -->
+  <div class="tpanel" id="tp-crystals">
+    <div class="tool-banner"><img src="crystals.jpg" alt="crystals" loading="lazy"></div>
+    <div class="fnote">Crystal healing based on the Crystal Academy of Advanced Healing Arts tradition (Katrina Raphaell). Choose a goal and receive crystal recommendations.</div>
+    <div class="fg" style="margin-bottom:.3rem"><label>What is your healing goal?</label></div>
+    <div class="chips">
+      <button class="chip" onclick="pcr(this)">Protection & Balance</button>
+      <button class="chip" onclick="pcr(this)">Love & Emotional Healing</button>
+      <button class="chip" onclick="pcr(this)">Abundance & Manifestation</button>
+      <button class="chip" onclick="pcr(this)">Clarity & Intuition</button>
+      <button class="chip" onclick="pcr(this)">Peace & Calm</button>
+      <button class="chip" onclick="pcr(this)">Energy & Vitality</button>
+    </div>
+    <div class="fg" style="max-width:500px"><label>Personal question (optional)</label><textarea id="crystal-q" placeholder="What would you like to balance or heal?" style="min-height:70px"></textarea></div>
+    <button class="btn" onclick="doCrystal()">Recommend Crystals →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="crystal-res"><div class="ai-label">Crystal Recommendation</div><div class="ai-text" id="crystal-out"></div></div>
+  </div>
+
+  <!-- MEDITATION -->
+  <div class="tpanel" id="tp-meditation">
+    <div class="tool-banner"><img src="meditation.jpg" alt="meditation" loading="lazy"></div>
+    <div class="fnote">AI creates a personalized guided meditation based on your intention and time.</div>
+    <div class="fg" style="margin-bottom:.3rem"><label>What is your intention?</label></div>
+    <div class="chips">
+      <button class="chip" onclick="pmed(this,'intent')">Relaxation & Stress Relief</button>
+      <button class="chip" onclick="pmed(this,'intent')">Focus & Clarity</button>
+      <button class="chip" onclick="pmed(this,'intent')">Emotional Healing</button>
+      <button class="chip" onclick="pmed(this,'intent')">Deep Sleep</button>
+      <button class="chip" onclick="pmed(this,'intent')">Spiritual Connection</button>
+      <button class="chip" onclick="pmed(this,'intent')">Self-Confidence</button>
+    </div>
+    <div class="fg" style="margin-bottom:.3rem"><label>Duration</label></div>
+    <div class="chips">
+      <button class="chip active" onclick="pmed(this,'time')">5 minutes</button>
+      <button class="chip" onclick="pmed(this,'time')">10 minutes</button>
+      <button class="chip" onclick="pmed(this,'time')">15 minutes</button>
+    </div>
+    <button class="btn" onclick="doMeditation()">Create Guided Meditation →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="med-res"><div class="ai-label">Your Meditation</div><div class="ai-text" id="med-out"></div></div>
+  </div>
+
+  <!-- SOUL MAP -->
+  <div class="tpanel" id="tp-soulmap">
+    <div class="tool-banner"><img src="soulmap.jpg" alt="soulmap" loading="lazy"></div>
+    <div class="fnote">Your Soul Map — a complete spiritual profile combining astrology, numerology, chakras and birthstones. Enter your details and receive a rich personal portrait.</div>
+    <div class="fgrid">
+      <div class="fg"><label>Full Name (Latin letters)</label><input type="text" id="sm-name" placeholder="e.g. David Cohen"></div>
+      <div class="fg"><label>Date of Birth</label><input type="date" id="sm-date"></div>
+    </div>
+    <button class="btn" onclick="doSoulMap()">Discover My Soul Map →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="sm-res"><div class="ai-label">Your Soul Map</div><div class="ai-text" id="sm-out"></div></div>
+  </div>
+
+  <!-- ORACLE -->
+  <div class="tpanel" id="tp-oracle">
+    <div class="fnote">Ask the Oracle one question — and receive a short, precise mystical message. Breathe deeply, focus on your question, and ask.</div>
+    <div class="fg" style="max-width:600px"><label>Your question for the Oracle</label><textarea id="oracle-q" placeholder="What is on your mind right now?" style="min-height:90px"></textarea></div>
+    <button class="btn" onclick="doOracle()">Ask the Oracle →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="oracle-res"><div class="ai-label">Oracle Message</div><div class="ai-text" id="oracle-out"></div></div>
+  </div>
+
+  <!-- COMPATIBILITY -->
+  <div class="tpanel" id="tp-compat">
+    <div class="fnote">Spiritual compatibility check between two people — based on astrology and numerology. Suitable for romance, friendship, or partnership.</div>
+    <div class="fgrid">
+      <div class="fg"><label>First Name</label><input type="text" id="cp-n1" placeholder="Name"></div>
+      <div class="fg"><label>First Date of Birth</label><input type="date" id="cp-d1"></div>
+      <div class="fg"><label>Second Name</label><input type="text" id="cp-n2" placeholder="Name"></div>
+      <div class="fg"><label>Second Date of Birth</label><input type="date" id="cp-d2"></div>
+    </div>
+    <div class="fg" style="margin-bottom:.3rem;max-width:500px"><label>Relationship Type</label></div>
+    <div class="chips">
+      <button class="chip active" onclick="pcompat(this)">Romance</button>
+      <button class="chip" onclick="pcompat(this)">Friendship</button>
+      <button class="chip" onclick="pcompat(this)">Business Partnership</button>
+    </div>
+    <button class="btn" onclick="doCompat()">Check Compatibility →</button>
+    <div class="ai-res" role="region" aria-live="polite" id="cp-res"><div class="ai-label">Compatibility Analysis</div><div class="ai-text" id="cp-out"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ACADEMY -->
+<div class="sec" id="sec-academy">
+<div class="academy-wrap">
+  <div class="sec-label">The Academy</div>
+  <div class="sec-title">Courses Based on <em>Leading Institutions</em></div>
+  <div style="font-family:'Georgia',serif;font-size:.72rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:680px;margin:-1.5rem 0 2.5rem;padding:.9rem 1.1rem;background:rgba(138,106,64,.05);border-right:2px solid rgba(138,106,64,.25)">Courses are based on the methodologies of world-leading institutions and written with AI as educational material and inspiration. They are not official courses from the mentioned institutions.</div>
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="fc(this,'all')">All</button>
+    <button class="ftab" onclick="fc(this,'b')">Beginner</button>
+    <button class="ftab" onclick="fc(this,'i')">Intermediate</button>
+    <button class="ftab" onclick="fc(this,'a')">Advanced</button>
+  </div>
+  <div class="course-list" id="cl"></div>
+  <div class="ai-res" role="region" aria-live="polite" id="cres" style="margin-top:2.5rem"><div class="ai-label" id="clbl">AI Guide</div><div class="ai-text" id="cout"></div></div>
+</div>
+</div>
+
+<!-- RESEARCH -->
+<div class="sec" id="sec-research">
+<div class="res-wrap">
+  <div class="sec-label">Global Research</div>
+  <div class="sec-title">Trends <em>2025</em></div>
+  <div class="res-list" id="rl"></div>
+  <div class="ai-res" role="region" aria-live="polite" id="rres" style="margin-top:2.5rem"><div class="ai-label" id="rlbl">Deep Analysis</div><div class="ai-text" id="rout"></div></div>
+</div>
+</div>
+
+<!-- KNOWLEDGE -->
+<div class="sec" id="sec-knowledge">
+<div class="know-wrap">
+  <div class="sec-label">Knowledge Library</div>
+  <div class="sec-title">Articles — <em>AI writes in real time</em></div>
+  <div class="art-grid" id="artg"></div>
+  <div class="ai-res" role="region" aria-live="polite" id="arres" style="margin-top:2.5rem"><div class="ai-label" id="arlbl">Article</div><div class="ai-text" id="arout"></div></div>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div class="sec" id="sec-about">
+<div class="about-wrap">
+  <div class="about-grid">
+    <div>
+      <div class="sec-label">About</div>
+      <div class="about-h">A Space of <em>Wisdom</em><br>and Transparency</div>
+      <div class="about-p">The Mystical Academy was built on one principle: real knowledge, presented with full transparency. Every tool is based on a recognized method. What is calculated is calculated. What is interpretation is presented as such.</div>
+      <div class="about-p">We believe the best mysticism is the kind that hides nothing. All content is for entertainment and educational purposes only and does not constitute professional medical, psychological, or financial advice.</div>
+      <div class="val-list">
+        <div class="val"><div class="val-icon">🔬</div><div><h4>Real Foundation</h4><p>Every method carefully selected based on proven sources</p></div></div>
+        <div class="val"><div class="val-icon">⚖️</div><div><h4>Full Transparency</h4><p>What is calculated is accurate. What is interpretation — clearly stated</p></div></div>
+        <div class="val"><div class="val-icon">🌍</div><div><h4>Global Knowledge</h4><p>Arthur Findlay, Biddy Tarot, Kepler College, Linda Howe</p></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="src-box">
+        <div class="src-label">Institutional Foundation</div>
+        <div class="src-item"><strong>Tarot</strong> — Rider-Waite-Smith (1909) · Biddy Tarot</div>
+        <div class="src-item"><strong>Astrology</strong> — Kepler College · NCGR</div>
+        <div class="src-item"><strong>Mediumship</strong> — Arthur Findlay College (1964)</div>
+        <div class="src-item"><strong>Numerology</strong> — Pythagorean Method</div>
+        <div class="src-item"><strong>Dreams</strong> — Jung · Freud · Hall & Van de Castle</div>
+        <div class="src-item"><strong>Akashic Records</strong> — Linda Howe · Pathway Process</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- JOURNAL -->
+<div class="sec" id="sec-journal">
+<div class="about-wrap">
+  <div class="sec-label">Personal Journey</div>
+  <div class="sec-title">My <em>Spiritual Journal</em></div>
+  <div style="font-family:'Georgia',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:600px;margin-bottom:2.5rem">Here you will find the insights, readings and messages you chose to save. Your journey, in one place.</div>
+  <div id="journal-list"></div>
+  <div id="journal-empty" style="text-align:center;padding:3rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--muted2);display:none">
+    Your journal is still empty.<br>Save insights from the tools and they will appear here ✦
+  </div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div class="sec" id="sec-pricing">
+<div class="about-wrap">
+  <div style="text-align:center;margin-bottom:3rem">
+    <div class="sec-label" style="justify-content:center">Academy Membership</div>
+    <div class="sec-title" style="text-align:center">Choose Your <em>Journey</em></div>
+    <div style="font-family:'Georgia',serif;font-size:.8rem;color:var(--muted);line-height:1.9;font-weight:300;max-width:560px;margin:1rem auto 0">Membership is launching soon. Join the waitlist and receive a special launch offer when it opens.</div>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Beginners</div>
+      <div class="price-amount">Free</div>
+      <div class="price-period">Free forever</div>
+      <ul class="price-features">
+        <li>5 readings per month across all tools</li>
+        <li>2 introductory lessons per course</li>
+        <li>Access to the knowledge library</li>
+        <li>Global trends research</li>
+      </ul>
+      <button class="btn" style="width:100%" onclick="show('tools')">Start Now</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-name">Academy Membership</div>
+      <div class="price-amount">$9<span>/month</span></div>
+      <div class="price-period">Monthly billing · Cancel anytime</div>
+      <ul class="price-features">
+        <li>Readings <strong>without limit</strong> across all tools</li>
+        <li>Tarot, Astrology, Numerology, Dreams</li>
+        <li>Chakras, Crystals, Meditations</li>
+        <li>20% discount on all courses</li>
+        <li>First access to new content</li>
+      </ul>
+      <button class="btn btn-dark" style="width:100%" onclick="openWaitlist()">Join the Waitlist</button>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Full Course</div>
+      <div class="price-amount">$29<span>/course</span></div>
+      <div class="price-period">One-time payment · Lifetime access</div>
+      <ul class="price-features">
+        <li>Complete course — all modules</li>
+        <li>In-depth lessons with exercises</li>
+        <li>Based on world-leading institutions</li>
+        <li>Lifetime access</li>
+        <li>Academy members — 20% discount</li>
+      </ul>
+      <button class="btn" style="width:100%" onclick="show('academy')">Browse Courses</button>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;font-family:'Jost',sans-serif;font-size:.5rem;color:var(--muted2);letter-spacing:.08em;line-height:1.8">Prices are final. Membership is launching — joining the waitlist does not require payment.</div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="sec" id="sec-contact">
+<div class="contact-wrap">
+  <div class="contact-grid">
+    <div>
+      <div class="sec-label">Contact</div>
+      <div class="contact-h">We'd Love<br>to Hear From You</div>
+      <div class="contact-p">Send a message and we'll get back to you shortly.</div>
+      <div class="contact-q">"Every question is the beginning of an answer"</div>
+    </div>
+    <div>
+      <div class="fg"><label>Full Name</label><input type="text" id="cn" placeholder="Your name"></div>
+      <div class="fg"><label>Email</label><input type="email" id="ce" placeholder="your@email.com" dir="ltr"></div>
+      <div class="fg"><label>Area of Interest</label>
+        <select id="cs"><option value="">Select topic...</option><option>Tarot</option><option>Astrology</option><option>Numerology</option><option>Mediumship</option><option>Akashic Records</option><option>Dreams</option><option>Other</option></select>
+      </div>
+      <div class="fg"><label>Message</label><textarea id="cm" placeholder="Write your message..."></textarea></div>
+      <button class="btn btn-dark" onclick="submitC()" style="width:100%;margin-top:.3rem">Send Message</button>
+      <div class="form-suc" id="csuc">✓ Message sent successfully</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo">The Mystical Academy</div>
+        <div class="foot-tag">An educational space uniting ancient wisdom with digital tools — based on real research and full transparency</div>
+      </div>
+      <div>
+        <div class="foot-col-t">Navigation</div>
+        <div class="foot-links">
+          <button class="fl" onclick="show('home')" aria-label="Navigate to Home">Home</button>
+          <button class="fl" onclick="show('tools')">Tools</button>
+          <button class="fl" onclick="show('academy')">Academy</button>
+          <button class="fl" onclick="show('research')">Research</button>
+          <button class="fl" onclick="show('knowledge')">Knowledge</button>
+          <button class="fl" onclick="show('about')">About</button>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-t">Sources</div>
+        <div class="foot-links">
+          <span class="fl" style="cursor:default;opacity:.5">Rider-Waite-Smith</span>
+          <span class="fl" style="cursor:default;opacity:.5">Kepler College</span>
+          <span class="fl" style="cursor:default;opacity:.5">Arthur Findlay College</span>
+          <span class="fl" style="cursor:default;opacity:.5">Linda Howe</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2025 The Mystical Academy</div>
+      <div class="foot-copy">Real-time AI content · Based on proven methods</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV
+const SECS=['home','tools','academy','research','knowledge','about','journal','pricing','contact'];
+function show(id){
+  const target=document.getElementById('sec-'+id);
+  if(!target)return;
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nl').forEach(b=>b.classList.remove('active'));
+  target.classList.add('active');
+  const i=SECS.indexOf(id);
+  const navs=document.querySelectorAll('.nl');
+  if(i>-1&&navs[i])navs[i].classList.add('active');
+  try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+  if(id==='journal')try{renderJournal();}catch(_){}
+}
+function goTool(t){show('tools');showTool(t);}
+function _onShowJournal(){try{renderJournal();}catch(_){}}
+
+// TOOL TABS
+function showTool(t){
+  const panel=document.getElementById('tp-'+t);
+  if(!panel)return;
+  document.querySelectorAll('.tpanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ttab').forEach(b=>b.classList.remove('active'));
+  panel.classList.add('active');
+  const tabs=document.querySelectorAll('.ttab');
+  ['tarot','astro','numerology','dreams','chakras','crystals','meditation','soulmap','oracle','compat'].forEach((n,i)=>{if(n===t&&tabs[i])tabs[i].classList.add('active');});
+}
+
+// TAROT
+const MAJOR=[
+  {n:'The Fool',bg:'bg-m0',tc:'#7a5010'},{n:'The Magician',bg:'bg-m1',tc:'#5a3808'},
+  {n:'High Priestess',bg:'bg-m2',tc:'#c0d0ff'},{n:'The Empress',bg:'bg-m3',tc:'#c0e8a0'},
+  {n:'The Emperor',bg:'bg-m4',tc:'#ffc0c0'},{n:'Hierophant',bg:'bg-m5',tc:'#d0b0ff'},
+  {n:'The Lovers',bg:'bg-m6',tc:'#806000'},{n:'The Chariot',bg:'bg-m7',tc:'#c0d8ff'},
+  {n:'Strength',bg:'bg-m8',tc:'#706000'},{n:'The Hermit',bg:'bg-m9',tc:'#b0b8d0'},
+  {n:'Wheel',bg:'bg-m10',tc:'#c0a0ff'},{n:'Justice',bg:'bg-m11',tc:'#706800'},
+  {n:'Hanged Man',bg:'bg-m12',tc:'#90b8d0'},{n:'Death',bg:'bg-m13',tc:'#d0d8ff'},
+  {n:'Temperance',bg:'bg-m14',tc:'#ffffff'},{n:'The Devil',bg:'bg-m15',tc:'#ff9090'},
+  {n:'The Tower',bg:'bg-m16',tc:'#d8c080'},{n:'The Star',bg:'bg-m17',tc:'#b0d0ff'},
+  {n:'The Moon',bg:'bg-m18',tc:'#a0b0e0'},{n:'The Sun',bg:'bg-m19',tc:'#4a2800'},
+  {n:'Judgement',bg:'bg-m20',tc:'#b0c8e8'},{n:'The World',bg:'bg-m21',tc:'#c0a0e8'}
+];
+const SUITS=[{n:'Wands',bg:'bg-wands',tc:'#c08060'},{n:'Cups',bg:'bg-cups',tc:'#90b0ff'},{n:'Swords',bg:'bg-swords',tc:'#304850'},{n:'Pentacles',bg:'bg-pents',tc:'#90c060'}];
+const COURT=['Page','Knight','Queen','King'];
+const ART_M=[
+  `<circle cx="30" cy="14" r="10" fill="#f8d040" opacity=".85"/><line x1="30" y1="0" x2="30" y2="4" stroke="#f8d040" stroke-width="2"/><line x1="44" y1="14" x2="48" y2="14" stroke="#f8d040" stroke-width="2"/><line x1="16" y1="14" x2="12" y2="14" stroke="#f8d040" stroke-width="2"/><circle cx="30" cy="14" r="5" fill="#fff" opacity=".7"/><rect x="20" y="32" width="20" height="22" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".5"/>`,
+  `<circle cx="30" cy="10" r="7" fill="none" stroke="#fff" stroke-width="1.5" opacity=".8"/><line x1="18" y1="10" x2="42" y2="10" stroke="#c09010" stroke-width="2"/><rect x="20" y="18" width="20" height="18" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".6"/>`,
+  `<circle cx="30" cy="10" r="8" fill="none" stroke="#c0c8ff" stroke-width="1.2" opacity=".7"/><rect x="22" y="20" width="16" height="26" rx="2" fill="none" stroke="#c0c8ff" stroke-width="1" opacity=".5"/><line x1="14" y1="18" x2="14" y2="50" stroke="#c0c8ff" stroke-width="1.5" opacity=".6"/><line x1="46" y1="18" x2="46" y2="50" stroke="#c0c8ff" stroke-width="1.5" opacity=".6"/>`,
+  `<circle cx="30" cy="12" r="9" fill="#f0d840" opacity=".7"/><path d="M16 28 Q30 20 44 28 L44 52 Q30 58 16 52Z" fill="#fff" opacity=".15"/><ellipse cx="30" cy="48" rx="10" ry="6" fill="#80c040" opacity=".3"/>`,
+  `<rect x="18" y="8" width="24" height="30" rx="2" fill="none" stroke="#ffc0c0" stroke-width="1.5" opacity=".7"/><circle cx="30" cy="14" r="5" fill="#f0d040" opacity=".8"/><polygon points="26,0 30,4 34,0" fill="#f0d040" opacity=".8"/>`,
+  `<line x1="18" y1="6" x2="18" y2="52" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><line x1="42" y1="6" x2="42" y2="52" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><rect x="20" y="8" width="20" height="14" rx="2" fill="none" stroke="#d0b0ff" stroke-width="1" opacity=".5"/>`,
+  `<circle cx="30" cy="8" r="7" fill="#f0d040" opacity=".9"/><circle cx="20" cy="28" r="6" fill="#fff" opacity=".4"/><circle cx="40" cy="28" r="6" fill="#fff" opacity=".4"/>`,
+  `<rect x="14" y="20" width="32" height="22" rx="1" fill="none" stroke="#d0e8ff" stroke-width="1.5" opacity=".6"/><circle cx="30" cy="14" r="7" fill="none" stroke="#f0d040" stroke-width="1.5" opacity=".7"/>`,
+  `<circle cx="30" cy="14" r="10" fill="#f0d840" opacity=".6"/><path d="M18 30 Q14 40 18 48 Q22 52 30 54 Q38 52 42 48 Q46 40 42 30" fill="none" stroke="#f0d040" stroke-width="1.2" opacity=".6"/>`,
+  `<line x1="30" y1="2" x2="30" y2="60" stroke="#c0c8e0" stroke-width="1" opacity=".3"/><polygon points="30,6 33,10 30,14 27,10" fill="#f0e080" opacity=".7"/>`,
+  `<circle cx="30" cy="30" r="22" fill="none" stroke="#d0a8ff" stroke-width="1.5" opacity=".6"/><line x1="30" y1="8" x2="30" y2="52" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/><line x1="8" y1="30" x2="52" y2="30" stroke="#d0a8ff" stroke-width=".8" opacity=".4"/>`,
+  `<line x1="30" y1="2" x2="30" y2="60" stroke="#f0d040" stroke-width="1.5" opacity=".6"/><line x1="10" y1="22" x2="50" y2="22" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><circle cx="20" cy="22" r="6" fill="none" stroke="#f0d040" stroke-width="1" opacity=".6"/><circle cx="40" cy="22" r="6" fill="none" stroke="#f0d040" stroke-width="1" opacity=".6"/>`,
+  `<line x1="14" y1="8" x2="46" y2="8" stroke="#a0c8e0" stroke-width="2" opacity=".7"/><line x1="14" y1="4" x2="14" y2="52" stroke="#6a8a00" stroke-width="3" opacity=".6"/><line x1="46" y1="4" x2="46" y2="52" stroke="#6a8a00" stroke-width="3" opacity=".6"/>`,
+  `<rect x="16" y="10" width="28" height="36" rx="2" fill="none" stroke="#e0e8ff" stroke-width="1" opacity=".4"/><line x1="30" y1="22" x2="30" y2="40" stroke="#fff" stroke-width="1" opacity=".3"/>`,
+  `<circle cx="20" cy="20" r="8" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><circle cx="40" cy="20" r="8" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><path d="M28 16 Q30 26 32 16" stroke="#f0d040" stroke-width="2" fill="none" opacity=".8"/>`,
+  `<polygon points="30,4 40,20 20,20" fill="#c03030" opacity=".6"/><circle cx="30" cy="30" r="14" fill="none" stroke="#c03030" stroke-width="1.5" opacity=".5"/>`,
+  `<rect x="22" y="12" width="16" height="36" rx="1" fill="none" stroke="#e0c890" stroke-width="1.5" opacity=".6"/><polygon points="22,12 38,12 30,4" fill="#c09020" opacity=".6"/>`,
+  `<polygon points="30,4 32,12 40,12 34,17 36,25 30,20 24,25 26,17 20,12 28,12" fill="#f0e040" opacity=".85"/>`,
+  `<circle cx="30" cy="14" r="11" fill="none" stroke="#d0d8ff" stroke-width="1.5" opacity=".7"/><circle cx="34" cy="14" r="8" fill="#08080e" opacity=".8"/>`,
+  `<circle cx="30" cy="18" r="13" fill="#fff" opacity=".85"/><circle cx="30" cy="18" r="9" fill="#f8d040" opacity=".9"/><line x1="30" y1="0" x2="30" y2="5" stroke="#f8d040" stroke-width="2"/><line x1="30" y1="31" x2="30" y2="36" stroke="#f8d040" stroke-width="2"/>`,
+  `<ellipse cx="30" cy="12" rx="12" ry="8" fill="none" stroke="#f0d040" stroke-width="1.5" opacity=".7"/><circle cx="22" cy="44" r="5" fill="#c0d8ff" opacity=".4"/><circle cx="38" cy="44" r="5" fill="#c0d8ff" opacity=".4"/>`,
+  `<ellipse cx="30" cy="30" rx="18" ry="26" fill="none" stroke="#d0b0ff" stroke-width="1.5" opacity=".6"/><circle cx="30" cy="30" r="6" fill="#a070d0" opacity=".5"/><circle cx="14" cy="14" r="4" fill="#f0d040" opacity=".6"/><circle cx="46" cy="46" r="4" fill="#f0d040" opacity=".6"/>`
+];
+const ART_S=`<line x1="30" y1="4" x2="30" y2="56" stroke="currentColor" stroke-width="2.5" opacity=".7"/><circle cx="30" cy="8" r="4" fill="currentColor" opacity=".8"/>`;
+const ART_C=`<circle cx="30" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".7"/><rect x="18" y="26" width="24" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/><polygon points="24,8 30,2 36,8" fill="currentColor" opacity=".7"/>`;
+
+const ROMAN=['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+let ALL=[];
+MAJOR.forEach((c,i)=>ALL.push({name:c.n,bg:c.bg,tc:c.tc,art:ART_M[i],roman:ROMAN[i]}));
+SUITS.forEach(s=>{
+  for(let n=1;n<=10;n++)ALL.push({name:`${n===1?'Ace':n} of ${s.n}`,bg:s.bg,tc:s.tc,art:ART_S});
+  COURT.forEach(c=>ALL.push({name:`${c} of ${s.n}`,bg:s.bg,tc:s.tc,art:ART_C}));
+});
+
+const LAYOUTS=[{n:'Single Card',c:1},{n:'Three Card',c:3},{n:'Five Cards',c:5},{n:'Celtic Cross',c:10}];
+try{(()=>{const r=document.getElementById('lrow');LAYOUTS.forEach((l,i)=>{const b=document.createElement('button');b.className='lbtn'+(i===0?' active':'');b.textContent=l.n;b.onclick=()=>{document.querySelectorAll('.lbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');setL(l.c);};r.appendChild(b);});})();}catch(e){console.warn("iife:",e);}
+
+let sel=[],lN=1;
+function setL(n){lN=n;document.getElementById('nn').textContent=n;sel=[];document.querySelectorAll('.tc').forEach(c=>c.classList.remove('selected'));updSel();updBtn();}
+function buildCards(){
+  const g=document.getElementById('cg');g.innerHTML='';
+  ALL.forEach((c,i)=>{
+    const d=document.createElement('div');d.className='tc';d.tabIndex=0;
+    const roman=c.roman||'';
+    d.innerHTML=`<div class="tc-inner">
+      <div class="tc-bg ${c.bg}"></div>
+      <div class="tc-outer"></div><div class="tc-frame"></div><div class="tc-frame2"></div>
+      <div class="tc-corner tl"></div><div class="tc-corner tr"></div><div class="tc-corner bl"></div><div class="tc-corner br"></div>
+      ${roman?`<div class="tc-num-top" style="color:${c.tc};opacity:.85">${roman}</div>`:''}
+      <div class="tc-art"><svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="color:${c.tc}">${c.art}</svg></div>
+      <div class="tc-name"><span style="color:${c.tc}">${c.name.replace(' of ',' ').toUpperCase()}</span></div>
+    </div>`;
+    d.onclick=()=>toggleC(i,d);
+    d.onkeypress=(e)=>{if(e.key==='Enter')toggleC(i,d);};
+    g.appendChild(d);
+  });
+}
+function toggleC(i,el){
+  const idx=sel.indexOf(i);
+  if(idx>-1){sel.splice(idx,1);el.classList.remove('selected');}
+  else if(sel.length<lN){sel.push(i);el.classList.add('selected');}
+  updSel();updBtn();
+}
+function updSel(){document.getElementById('sc').innerHTML=sel.map(i=>`<div class="sch">${ALL[i].name}</div>`).join('');}
+function updBtn(){document.getElementById('tbtn').disabled=sel.length!==lN;}
+try{buildCards();}catch(e){console.warn(e);}
+try{renderMoon();}catch(e){console.warn(e);}
+try{buildStars();}catch(e){console.warn(e);}
+try{renderJournal();}catch(e){console.warn(e);}
+async function doTarot(){
+  if(sel.length!==lN)return;
+  const nm=sel.map(i=>ALL[i].name).join(', ');
+  const lm={1:'Single Card',3:'Three Card Past/Present/Future',5:'Five Cards',10:'Celtic Cross'};
+  await ai(`Experienced Tarot reader, Rider-Waite-Smith tradition. Spread: ${lm[lN]}. Cards: ${nm}. Deep interpretation in English — symbolism, position, message. About 320 words.`,'tout','tres');
+}
+
+// ZODIAC
+const ZOD=[{n:'Aries',e:'♈',d:'21/3–19/4'},{n:'Taurus',e:'♉',d:'20/4–20/5'},{n:'Gemini',e:'♊',d:'21/5–20/6'},{n:'Cancer',e:'♋',d:'21/6–22/7'},{n:'Leo',e:'♌',d:'23/7–22/8'},{n:'Virgo',e:'♍',d:'23/8–22/9'},{n:'Libra',e:'♎',d:'23/9–22/10'},{n:'Scorpio',e:'♏',d:'23/10–21/11'},{n:'Sagittarius',e:'♐',d:'22/11–21/12'},{n:'Capricorn',e:'♑',d:'22/12–19/1'},{n:'Aquarius',e:'♒',d:'20/1–18/2'},{n:'Pisces',e:'♓',d:'19/2–20/3'}];
+let selSign='';
+try{(()=>{const g=document.getElementById('zg');ZOD.forEach(z=>{const d=document.createElement('div');d.className='zc';d.innerHTML=`<div class="ze">${z.e}</div><div class="zn">${z.n}</div><div class="zd">${z.d}</div>`;d.onclick=()=>{document.querySelectorAll('.zc').forEach(c=>c.classList.remove('sel'));d.classList.add('sel');selSign=z.n;document.getElementById('hbtn').disabled=false;};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+function setAT(btn,tab){document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('at-daily').style.display=tab==='daily'?'block':'none';document.getElementById('at-natal').style.display=tab==='natal'?'block':'none';}
+async function doHoro(){if(!selSign)return;await ai(`Experienced astrologer. Daily horoscope for ${selSign} for ${new Date().toLocaleDateString('en-US')}. Love, career, health, message. About 260 words in English.`,'hout','hres');}
+async function doNatal(){const d=document.getElementById('nd').value,t=document.getElementById('nt').value,c=document.getElementById('nc').value;if(!d||!c){alert('Please fill in date and city');return;}await ai(`Astrologer in the Kepler College tradition. Birth: ${d}${t?', '+t:''}, ${c}. Sun sign, natal analysis. Note that full accuracy requires Swiss Ephemeris. About 280 words.`,'nout','nres');}
+
+// NUMEROLOGY
+const PY={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
+const VOW=new Set([...'AEIOU']);
+function red(n){if([11,22,33].includes(n))return n;while(n>9){let s=0;(''+n).split('').forEach(d=>s+=+d);n=s;if([11,22,33].includes(n))break;}return n;}
+function calcN(){
+  const nm=document.getElementById('nname').value,dt=document.getElementById('ndate').value;
+  if(!nm&&!dt){document.getElementById('ncards').style.display='none';return;}
+  document.getElementById('ncards').style.display='grid';
+  if(nm){const u=nm.toUpperCase();setNV('nv-expr',red([...u].reduce((a,c)=>a+(PY[c]||0),0)));setNV('nv-soul',red([...u].reduce((a,c)=>a+(VOW.has(c)?(PY[c]||0):0),0)));setNV('nv-pers',red([...u].reduce((a,c)=>a+(!VOW.has(c)&&PY[c]?(PY[c]||0):0),0)));}
+  if(dt){const p=dt.split('-');const y=red(p[0].split('').reduce((a,c)=>a+ +c,0));const m=red(+p[1]);const dv=red(+p[2]);setNV('nv-life',red(y+m+dv));setNV('nv-bday',red(+p[2]));setNV('nv-mat',red(y+m));}
+}
+function setNV(id,v){const el=document.getElementById(id);if(!v){el.textContent='—';el.classList.remove('master');return;}el.textContent=v;el.classList.toggle('master',[11,22,33].includes(v));}
+async function doNum(){
+  const nm=document.getElementById('nname').value,dt=document.getElementById('ndate').value,q=document.getElementById('nq').value;
+  if(!nm&&!dt){alert('Please fill in name or date');return;}
+  const lf=document.getElementById('nv-life').textContent;
+  await ai(`Pythagorean numerologist.${nm?'\nName: '+nm:''}${dt?'\nDate: '+dt:''}\nLife Path: ${lf}${[11,22,33].includes(+lf)?' (Master Number!)':''}\n${q?'Question: '+q:''}\nDeep interpretation in English, about 280 words.`,'numout','numres');
+}
+
+// DREAMS
+let selMood='',selSchool='jung';
+function pc(btn,t){btn.closest('.chips').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selMood=btn.textContent;}
+function ps(btn,s){document.querySelectorAll('[onclick^="ps"]').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selSchool=s;}
+async function doDream(){
+  const dream=document.getElementById('din').value.trim();if(!dream){alert('Please describe your dream');return;}
+  const sc={jung:'Carl Jung — archetypes, collective unconscious.',freud:'Sigmund Freud — manifest/latent content, wishes.',hall:'Hall & Domhoff — empirical continuity hypothesis.',spiritual:'Spiritual-intuitive interpretation — the dream as a soul message, symbols as inner guidance, interconnected consciousness. Weaves wisdom from spiritual traditions (Kabbalah, Shamanism) in a respectful, non-dogmatic way.'};
+  await ai(`Dream interpreter from the ${sc[selSchool]} school\nDream: "${dream}"${selMood?'\nMood upon waking: '+selMood:''}\nDeep interpretation, 280-320 words in English.`,'dout','dres');
+}
+
+// ACADEMY
+const COURSES=[
+  {lv:'b',i:'🌀',t:'Foundations of Mediumship',s:'Arthur Findlay College',d:'Introduction to mediumship and spirit communication — over 100 years of training',m:['What is Mediumship?','The Clairs','Opening Reception Channels','Energetic Protection','First Practice','Ethics']},
+  {lv:'b',i:'🃏',t:'Tarot for Beginners',s:'Biddy Tarot — Brigit Esselmont',d:'78 cards from scratch — Major, Minor Arcana, spreads',m:['History & Symbolism','Major Arcana','Minor Arcana','פריסות','Reading for Others','Ethics']},
+  {lv:'b',i:'∞',t:'Basic Numerology',s:'Pythagorean Method',d:'5 core numbers, master numbers, calculation and interpretation',m:['From Pythagoras to Modern','Life Path','Expression & Soul','Personality','Master 11/22/33','Practice']},
+  {lv:'i',i:'⭐',t:'Advanced Astrology',s:'Kepler College + NCGR',d:'Natal chart, transits, relationships',m:['Natal Chart','Aspects','Transits','Synastry','Rectification','Case Analysis']},
+  {lv:'i',i:'🌀',t:'Advanced Mediumship',s:'Arthur Findlay College',d:'Meeting guides, records, trance',m:['Meeting a Guide','Records','Trance','Reading for Others','Protection','Ethics']},
+  {lv:'a',i:'📜',t:'Akashic Records',s:'Linda Howe',d:'Pathway Prayer Process — full access to the Records',m:['What are the Records?','Pathway Prayer','Opening & Closing','Reading for Yourself','Reading for Others','Advanced']},
+  {lv:'a',i:'🧬',t:'Past Lives',s:'Brian Weiss + Michael Newton',d:'Past life regression',m:['Foundations','Hypnosis','Weiss','Newton','Integration','Ethics']}
+];
+const LVH={b:'Beginner',i:'Intermediate',a:'Advanced'};
+const ICONS={'🌀':'icon-spiral','🃏':'icon-tarot','∞':'icon-infinity','⭐':'icon-star','📜':'icon-book','🧬':'icon-spiral'};
+function buildC(f='all'){
+  const g=document.getElementById('cl');g.innerHTML='';
+  COURSES.filter(c=>f==='all'||c.lv===f).forEach((c,i)=>{
+    const d=document.createElement('div');d.className='ccard';d.tabIndex=0;
+    const ico=ICONS[c.i]||'icon-spiral';
+    d.innerHTML=`
+      <div class="cc-head">
+        <div class="cc-icon-wrap"><svg aria-hidden="true"><use href="#${ico}"/></svg></div>
+        <div class="cc-lv"><span class="lv-${c.lv}">${LVH[c.lv]}</span></div>
+      </div>
+      <div class="cc-main">
+        <h3>${c.t}</h3>
+        <div class="cc-src">${c.s}</div>
+        <div class="cc-desc">${c.d}</div>
+      </div>
+      <div class="cc-toggle">Course Details <svg aria-hidden="true"><use href="#icon-chevron-down"/></svg></div>
+      <div class="cc-mods">
+        <div>${c.m.map((m,j)=>`<div class="mod mod-clickable${j>=2?' mod-locked':''}" onclick="learnModule(${COURSES.indexOf(c)},${j});event.stopPropagation()"><span class="mn">${j+1}.</span><span>${m}</span><span class="mod-arrow">${j>=2?'🔒 Member':'Learn Free →'}</span></div>`).join('')}</div>
+        <button class="btn" style="margin-top:1rem;font-size:.44rem;padding:.55rem 1.3rem" onclick="learnC(${COURSES.indexOf(c)},event)">Learn with AI →</button>
+      </div>`;
+    d.onclick=(e)=>{if(e.target.tagName==='BUTTON'||e.target.closest('button'))return;d.classList.toggle('open');d.querySelector('.cc-mods').style.display=d.classList.contains('open')?'block':'none';};
+    d.onkeypress=(e)=>{if(e.key==='Enter'&&e.target===d){d.classList.toggle('open');d.querySelector('.cc-mods').style.display=d.classList.contains('open')?'block':'none';}};
+    g.appendChild(d);
+  });
+}
+try{buildC();}catch(e){console.warn(e);}
+function fc(btn,f){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildC(f);}
+async function learnC(i,e){
+  e.stopPropagation();const c=COURSES[i];
+  document.getElementById('clbl').textContent=c.t+' — Introduction';
+  const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join('\n');
+  await ai(`You are an experienced teacher of ${c.t}, in the teaching style of ${c.s}. Write a comprehensive and engaging introductory lesson in English for this course.
+Course structure:
+${modList}
+
+The lesson should include: (1) An inspiring opening about the essence of the field; (2) A brief historical background on ${c.s}; (3) An explanation of what the student will learn and gain; (4) A first practical exercise that can be done today; (5) A recommendation on how to continue. About 400 words, warm and professional style.`,'cout','cres');
+  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+}
+async function learnModule(courseIdx,modIdx){
+  const c=COURSES[courseIdx];const mod=c.m[modIdx];
+  if(modIdx>=2 && !isSubscribed()){openCourseGate();return;}
+  document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
+  await ai(`Experienced teacher of ${c.t} (in the style of ${c.s}). Teach the module "${mod}" (module ${modIdx+1} of the course) in depth. Include: a thorough explanation of the topic, key concepts, a concrete practical exercise, and a tip from an experienced teacher. About 350 words in English, warm and practical style.`,'cout','cres');
+  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+}
+
+// RESEARCH
+const RES=[
+  {t:'Crystals',p:'+410%',r:'TikTok & Instagram',w:.96},{t:'Tarot',p:'+340%',r:'USA, UK',w:.88},
+  {t:'Astrology',p:'+290%',r:'Worldwide',w:.78},{t:'Mediumship',p:'+220%',r:'UK, Ireland',w:.65},
+  {t:'Past Lives',p:'+200%',r:'Brazil, India',w:.60},{t:'Akashic Records',p:'+180%',r:'USA, Canada',w:.55},
+  {t:'Numerology',p:'+155%',r:'India, Israel',w:.48},{t:'Automatic Writing',p:'+130%',r:'Europe',w:.42}
+];
+try{(()=>{const g=document.getElementById('rl');RES.forEach((r,i)=>{const d=document.createElement('div');d.className='rc';d.innerHTML=`<div class="rc-idx">0${i+1}</div><div><div class="rc-topic">${r.t}</div><div class="rc-region">🌍 ${r.r}</div></div><div class="rc-right"><div class="rc-pct">${r.p}</div><div class="rc-bar"><div class="rc-fill" style="width:${r.w*100}%"></div></div></div>`;d.onclick=()=>{document.getElementById('rlbl').textContent=r.t;ai(`Mysticism researcher. Explain the growth of ${r.t} by ${r.p} in ${r.r}. Tradition, factors, institutions. About 300 words.`,'rout','rres');};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+
+// KNOWLEDGE
+const ARTS=[
+  {cat:'Tarot',t:'The Hidden Symbolism of the Major Arcana',d:'22 universal archetypes and their meaning'},
+  {cat:'Astrology',t:'The 12 Astrological Houses',d:'What each house represents and how it influences you'},
+  {cat:'Numerology',t:'Master Numbers: 11, 22, 33',d:'What makes them special and their meaning'},
+  {cat:'Mediumship',t:'The Four Clairs',d:'Clairvoyance, Clairaudience, Clairsentience, Claircognizance'},
+  {cat:'Dreams',t:'Jung vs Freud',d:'Two schools of dream interpretation'},
+  {cat:'Records',t:'The Akashic Records',d:'What they are and how to access them'}
+];
+try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=document.createElement('div');d.className='art';d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">Read Article →</span>`;d.onclick=()=>{document.getElementById('arlbl').textContent=a.t;ai(`Comprehensive article on "${a.t}" (${a.cat}). ${a.d}. Introduction, history, principles, applications. About 400 words.`,'arout','arres');try{document.getElementById('arres').scrollIntoView({behavior:'smooth'})}catch(_){};};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+
+// CONTACT
+function submitC(){const n=document.getElementById('cn').value,e=document.getElementById('ce').value;if(!n||!e){alert('Please fill in name and email');return;}document.getElementById('csuc').style.display='block';}
+
+// CHAKRAS
+const CHAKRAS=[
+  {n:'Crown',s:'Sahasrara',c:'#9b6fd4',loc:'Crown of the head',theme:'Spirituality, higher connection, consciousness'},
+  {n:'Third Eye',s:'Ajna',c:'#4868c0',loc:'Center of forehead',theme:'Intuition, wisdom, imagination'},
+  {n:'Throat',s:'Vishuddha',c:'#3aa0d0',loc:'The throat',theme:'Communication, expression, truth'},
+  {n:'Heart',s:'Anahata',c:'#5cb85c',loc:'Center of chest',theme:'Love, compassion, healing'},
+  {n:'Solar Plexus',s:'Manipura',c:'#f0c040',loc:'Upper abdomen',theme:'Personal power, confidence, will'},
+  {n:'Sacral',s:'Svadhisthana',c:'#e08038',loc:'Below the navel',theme:'Creativity, emotion, passion'},
+  {n:'Root',s:'Muladhara',c:'#c0392b',loc:'Base of spine',theme:'Survival, security, grounding'}
+];
+let selChakra='';
+function buildChakras(){
+  const g=document.getElementById('chakra-grid');if(!g)return;g.innerHTML='';
+  CHAKRAS.forEach(ch=>{
+    const d=document.createElement('div');d.className='chakra-item';d.tabIndex=0;
+    d.innerHTML=`<div class="chakra-dot" style="background:${ch.c}"></div>
+      <div class="chakra-info"><h4>${ch.n} Chakra</h4><p>${ch.loc} · ${ch.theme}</p></div>
+      <div class="chakra-sanskrit">${ch.s}</div>`;
+    d.onclick=()=>{document.querySelectorAll('.chakra-item').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');selChakra=ch.n;};
+    d.onkeypress=(e)=>{if(e.key==='Enter')d.click();};
+    g.appendChild(d);
+  });
+}
+try{buildChakras();}catch(e){console.warn(e);}
+async function doChakra(){
+  const q=document.getElementById('chakra-q').value;
+  const label=selChakra?`${selChakra} Chakra`:'Chakra System';
+  document.getElementById('chakra-label').textContent=label;
+  const prompt=selChakra
+    ? `Expert in chakras from the authentic Vedic-Yogic tradition. Analyze the ${selChakra} chakra.${q?' Current state: '+q:''} Include: chakra meaning, signs of balance and imbalance, and one practical balancing exercise (breathing/meditation/movement). Emphasize this is a spiritual tradition and not a substitute for medical treatment. About 300 words in English.`
+    : `Chakra expert in the Vedic-Yogic tradition. Give an overview of the 7-chakra system.${q?' Current state: '+q:''} For each chakra: name, location, domain. End with a recommendation for a general balancing exercise. About 350 words in English.`;
+  await ai(prompt,'chakra-out','chakra-res');
+}
+
+// CRYSTALS
+let selCrystalGoal='';
+function pcr(btn){document.querySelectorAll('#tp-crystals .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');selCrystalGoal=btn.textContent;}
+async function doCrystal(){
+  if(!selCrystalGoal){alert('Please select a healing goal');return;}
+  const q=document.getElementById('crystal-q').value;
+  await ai(`Crystal healing expert in the Crystal Academy of Advanced Healing Arts tradition. Goal: ${selCrystalGoal}.${q?' Question: '+q:''} Recommend 3-4 suitable crystals — for each: name, color, properties, and how to use it. Emphasize this is a complementary spiritual practice. About 320 words in English.`,'crystal-out','crystal-res');
+}
+
+// MEDITATION
+let medIntent='',medTime='5 minutes';
+function pmed(btn,type){
+  const row=btn.closest('.chips');
+  row.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='intent')medIntent=btn.textContent;
+  else medTime=btn.textContent;
+}
+async function doMeditation(){
+  if(!medIntent){alert('Please select an intention');return;}
+  await ai(`Experienced meditation guide. Create a guided meditation in English. Intention: ${medIntent}. Duration: ${medTime}. Write the full script for reading aloud — opening, body with breathing and visualization instructions, and a gentle closing. Calm tone, second person. Adjust length for ${medTime}.`,'med-out','med-res');
+}
+
+// FREEMIUM GATE
+const FREE_BEFORE_SIGNUP=1;
+const FREE_TOTAL=5;
+function getUsage(){try{return parseInt(localStorage.getItem('ma_usage')||'0',10);}catch(_){return 0;}}
+function setUsage(n){try{localStorage.setItem('ma_usage',String(n));}catch(_){}updateUsagePill();}
+function isRegistered(){try{return localStorage.getItem('ma_lead')==='1';}catch(_){return false;}}
+function hasFullAccess(){try{return localStorage.getItem('ma_full')==='1';}catch(_){return false;}}
+const ACCESS_CODE='mistyfree';
+function tryAccessCode(code){
+  if((code||'').trim().toLowerCase()===ACCESS_CODE){
+    try{localStorage.setItem('ma_full','1');localStorage.setItem('ma_lead','1');}catch(_){}
+    return true;
+  }
+  return false;
+}
+function isSubscribed(){return isRegistered()||hasFullAccess();}
+function updateUsagePill(){
+  const pill=document.getElementById('usage-pill');
+  const cnt=document.getElementById('usage-count');
+  if(!pill||!cnt)return;
+  if(hasFullAccess()){pill.style.display='none';return;}
+  const used=getUsage();
+  let left;
+  if(!isRegistered()){left=Math.max(0,FREE_BEFORE_SIGNUP-used);}
+  else{left=Math.max(0,FREE_TOTAL-used);}
+  cnt.textContent=left;
+  pill.style.display='flex';
+}
+function useState(){
+  if(hasFullAccess())return 'ok';
+  const used=getUsage();
+  if(!isRegistered()){if(used<FREE_BEFORE_SIGNUP)return 'ok';return 'signup';}
+  if(used<FREE_TOTAL)return 'ok';
+  return 'subscribe';
+}
+function canUse(){return useState()==='ok';}
+function recordUse(){setUsage(getUsage()+1);}
+function openSignupGate(){
+  const form=document.getElementById('gate-form-view');
+  const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='You got your first taste ✦<br>Want more?';
+    form.querySelector('p').innerHTML='Sign up free and get <strong>4 more readings</strong> across all tools. No payment, just your email.';
+    form.querySelector('.gate-btn').textContent='Sign Up & Continue Free';
+    form.querySelector('.gate-small').textContent='No spam · 4 more readings right after signup';
+  }
+  if(o)o.classList.add('show');
+}
+function openSubscribeGate(){
+  const form=document.getElementById('gate-form-view');
+  const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='You've used your 5<br>free readings';
+    form.querySelector('p').innerHTML='We\'re launching <strong>Academy Membership</strong> soon — unlimited readings across all tools. Leave your email and we\'ll notify you first, with a special launch offer.';
+    form.querySelector('.gate-btn').textContent='Notify Me at Launch';
+    form.querySelector('.gate-small').textContent='No spam · One update only when membership opens';
+  }
+  if(o)o.classList.add('show');
+}
+function openGate(){openSubscribeGate();}
+function closeGate(){const o=document.getElementById('gate-overlay');if(o)o.classList.remove('show');}
+function toggleCodeField(){const w=document.getElementById('gate-code-wrap');if(w)w.classList.toggle('show');}
+function submitCode(){
+  const code=document.getElementById('gate-code').value;
+  if(tryAccessCode(code)){
+    document.getElementById('gate-form-view').style.display='none';
+    const suc=document.getElementById('gate-success');
+    suc.innerHTML='✦<br>Access activated!<br>Enjoy full access to all content.';
+    suc.style.display='block';
+    updateUsagePill();
+    setTimeout(closeGate,2000);
+  }else{alert('Invalid access code');}
+}
+
+// SOUL MAP
+async function doSoulMap(){
+  const name=document.getElementById('sm-name').value.trim();
+  const date=document.getElementById('sm-date').value;
+  if(!date){alert('Please enter your date of birth');return;}
+  await ai(`You are creating a personal and impressive spiritual Soul Map in English.${name?' Name: '+name+'.':''} Date of birth: ${date}.
+Calculate and present clearly:
+1. Astrological sign (by date) + core trait
+2. Life Path number (Pythagorean numerology) + its meaning
+3. The dominant chakra and why
+4. Recommended birthstone/crystal
+5. The Tarot card representing the soul
+6. A short inspiring personal closing message
+Open with "Soul Map of [name]" and organize clearly. About 350 words.`,'sm-out','sm-res');
+}
+
+// ORACLE
+async function doOracle(){
+  const q=document.getElementById('oracle-q').value.trim();
+  if(!q){alert('Please enter a question');return;}
+  await ai(`You are an ancient and wise mystical oracle. Someone asks you: "${q}"
+Respond with a short, poetic and mysterious oracle message — not a direct answer but wise guidance that provokes thought. 2-4 sentences only, in a prophetic-spiritual style in English. End with one bold line of wisdom.`,'oracle-out','oracle-res');
+}
+
+// COMPATIBILITY
+let compatType='Romance';
+function pcompat(btn){document.querySelectorAll('#tp-compat .chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');compatType=btn.textContent;}
+async function doCompat(){
+  const n1=document.getElementById('cp-n1').value.trim();
+  const d1=document.getElementById('cp-d1').value;
+  const n2=document.getElementById('cp-n2').value.trim();
+  const d2=document.getElementById('cp-d2').value;
+  if(!d1||!d2){alert('Please enter two dates of birth');return;}
+  await ai(`You are a spiritual compatibility expert. Analyze ${compatType} compatibility between two people based on astrology and numerology.
+Person 1: ${n1||'First person'}, born ${d1}
+Person 2: ${n2||'Second person'}, born ${d2}
+Include: both signs and how they connect, life path numbers and their dynamic, overall compatibility score (percentage), strengths, possible challenges, and a tip to strengthen the connection. About 320 words in English, positive and balanced.`,'cp-out','cp-res');
+}
+
+// MOON PHASE
+function calcMoonPhase(){
+  const now=new Date();
+  const lp=2551443;
+  const newMoon=new Date(1970,0,7,20,35,0);
+  const phase=((now.getTime()-newMoon.getTime())/1000)%lp;
+  const age=Math.floor(phase/86400);
+  const frac=phase/lp;
+  return {age,frac};
+}
+function moonPhaseName(frac){
+  if(frac<0.03||frac>=0.97)return{n:'New Moon',d:'A time for new beginnings and planting intentions. The disappearing moon invites you to make space for what wants to be born.'};
+  if(frac<0.22)return{n:'Waxing Crescent',d:'Rising energy — time for action, growth and building. What you planted is beginning to awaken.'};
+  if(frac<0.28)return{n:'First Quarter',d:'A decision point. Challenges that invite commitment and perseverance. Push forward.'};
+  if(frac<0.47)return{n:'Waxing Gibbous',d:'Time for refinement and alignment. Fine-tune your direction as the peak approaches.'};
+  if(frac<0.53)return{n:'Full Moon',d:'Peak energy — illumination, fulfillment and gratitude. A powerful time to celebrate and release what no longer serves you.'};
+  if(frac<0.72)return{n:'Waning Gibbous',d:'Time for gratitude and sharing. Spread what you have learned, release gradually.'};
+  if(frac<0.78)return{n:'Last Quarter',d:'Release and forgiveness. Let go of what is heavy, clear the way forward.'};
+  return{n:'Waning Crescent',d:'Rest and reflection. Time to slow down, contemplate, and prepare for the next cycle.'};
+}
+function renderMoon(){
+  const disc=document.getElementById('moon-disc');
+  const phaseEl=document.getElementById('moon-phase');
+  const descEl=document.getElementById('moon-desc');
+  if(!disc||!phaseEl)return;
+  const{frac}=calcMoonPhase();
+  const info=moonPhaseName(frac);
+  phaseEl.textContent=info.n;
+  descEl.textContent=info.d;
+  let shadow=disc.querySelector('.moon-shadow');
+  if(!shadow){shadow=document.createElement('div');shadow.className='moon-shadow';disc.appendChild(shadow);}
+  const illum=1-Math.abs(1-2*frac);
+  const shadowWidth=(1-illum)*100;
+  if(frac<0.5){shadow.style.right='0';shadow.style.left='';}
+  else{shadow.style.left='0';shadow.style.right='';}
+  shadow.style.width=shadowWidth+'%';
+}
+
+// SHARE CARD + JOURNAL
+function addResultActions(outEl,boxId,text){
+  const existing=outEl.parentElement.querySelector('.result-actions');
+  if(existing)existing.remove();
+  const bar=document.createElement('div');
+  bar.className='result-actions';
+  const labelEl=outEl.parentElement.querySelector('.ai-label');
+  const title=labelEl?labelEl.textContent:'Mystical Insight';
+  bar.innerHTML=`
+    <button class="ra-btn" onclick='shareResult(${JSON.stringify(title)},${JSON.stringify(text)})'>
+      <svg width="13" height="13"><use href="#icon-star"/></svg> Create Share Image
+    </button>
+    <button class="ra-btn" onclick='saveToJournal(${JSON.stringify(title)},${JSON.stringify(text)})'>
+      <svg width="13" height="13"><use href="#icon-book"/></svg> Save to Journal
+    </button>`;
+  outEl.parentElement.appendChild(bar);
+}
+
+function shareResult(title,text){
+  const W=1080,H=1080;
+  const canvas=document.createElement('canvas');
+  canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'#2d1e10');grad.addColorStop(1,'#1a1008');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(200,160,70,.5)';ctx.lineWidth=2;
+  ctx.strokeRect(50,50,W-100,H-100);
+  ctx.strokeStyle='rgba(200,160,70,.25)';ctx.lineWidth=1;
+  ctx.strokeRect(65,65,W-130,H-130);
+  ctx.fillStyle='rgba(212,184,112,.85)';
+  ctx.font='28px Georgia';ctx.textAlign='center';
+  ctx.fillText('The Mystical Academy',W/2,140);
+  ctx.font='32px Georgia';ctx.fillText('✦',W/2,200);
+  ctx.fillStyle='#f0e8d8';
+  ctx.font='italic 56px Georgia';
+  wrapText(ctx,title,W/2,300,W-200,64);
+  ctx.fillStyle='rgba(245,240,232,.82)';
+  ctx.font='34px Georgia';
+  let short=text.length>340?text.slice(0,340).trim()+'...':text;
+  wrapText(ctx,short,W/2,420,W-220,52);
+  ctx.fillStyle='rgba(212,184,112,.6)';
+  ctx.font='26px Georgia';
+  ctx.fillText('mystical-academy.vercel.app',W/2,H-90);
+  canvas.toBlob(blob=>{
+    try{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download='mystical-card.png';a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }catch(e){alert('Cannot create image in this browser');}
+  });
+}
+
+function wrapText(ctx,text,x,y,maxW,lh){
+  const words=text.split(/\s+/);let line='';let yy=y;let lines=0;
+  for(const w of words){
+    const test=line+w+' ';
+    if(ctx.measureText(test).width>maxW&&line){
+      ctx.fillText(line.trim(),x,yy);line=w+' ';yy+=lh;lines++;
+      if(lines>9){ctx.fillText('...',x,yy);return;}
+    }else line=test;
+  }
+  ctx.fillText(line.trim(),x,yy);
+}
+
+function saveToJournal(title,text){
+  try{
+    const journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');
+    journal.unshift({title,text,date:new Date().toISOString()});
+    if(journal.length>50)journal.length=50;
+    localStorage.setItem('ma_journal',JSON.stringify(journal));
+    renderJournal();
+    alert('✦ Saved to your spiritual journal');
+  }catch(_){alert('Unable to save at this time');}
+}
+
+function renderJournal(){
+  const list=document.getElementById('journal-list');
+  const empty=document.getElementById('journal-empty');
+  if(!list)return;
+  let journal=[];
+  try{journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');}catch(_){}
+  if(!journal.length){list.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  list.innerHTML=journal.map((e,i)=>{
+    const d=new Date(e.date);
+    const ds=d.toLocaleDateString('en-US')+' · '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="journal-entry">
+      <button class="je-del" onclick="deleteJournalEntry(${i})" aria-label="Delete">×</button>
+      <div class="je-head"><div class="je-title">${e.title}</div><div class="je-date">${ds}</div></div>
+      <div class="je-text">${e.text}</div>
+    </div>`;
+  }).join('');
+}
+function deleteJournalEntry(i){
+  try{
+    const journal=JSON.parse(localStorage.getItem('ma_journal')||'[]');
+    journal.splice(i,1);
+    localStorage.setItem('ma_journal',JSON.stringify(journal));
+    renderJournal();
+  }catch(_){}
+}
+
+// HERO STARS
+function buildStars(){
+  const c=document.getElementById('hero-stars');
+  if(!c)return;
+  let html='';
+  for(let i=0;i<90;i++){
+    const size=(Math.random()*2.5+1).toFixed(1);
+    const x=(Math.random()*100).toFixed(1);
+    const y=(Math.random()*100).toFixed(1);
+    const dur=(Math.random()*3+2).toFixed(1);
+    const delay=(Math.random()*5).toFixed(1);
+    const maxop=(Math.random()*0.5+0.5).toFixed(2);
+    const glow=(Math.random()*5+2).toFixed(0);
+    html+=`<div class="hero-star" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--dur:${dur}s;--maxop:${maxop};--glow:${glow}px;animation-delay:${delay}s"></div>`;
+  }
+  for(let i=0;i<14;i++){
+    const size=(Math.random()*4+2).toFixed(1);
+    const x=(Math.random()*100).toFixed(1);
+    const y=(Math.random()*60+40).toFixed(1);
+    const fdur=(Math.random()*8+8).toFixed(1);
+    const delay=(Math.random()*8).toFixed(1);
+    html+=`<div class="hero-particle" style="width:${size}px;height:${size}px;left:${x}%;top:${y}%;--fdur:${fdur}s;animation-delay:${delay}s"></div>`;
+  }
+  c.innerHTML=html;
+  const cc=document.getElementById('closing-stars');
+  if(cc)cc.innerHTML=html;
+  spawnShootingStar();
+}
+function spawnShootingStar(){
+  const c=document.getElementById('hero-stars');
+  if(!c)return;
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  const x=(Math.random()*40+50).toFixed(1);
+  const y=(Math.random()*25+5).toFixed(1);
+  const dur=(Math.random()*0.6+1).toFixed(1);
+  s.style.left=x+'%';s.style.top=y+'%';
+  s.style.animation=`shoot ${dur}s linear forwards`;
+  c.appendChild(s);
+  setTimeout(()=>s.remove(),parseFloat(dur)*1000+300);
+  setTimeout(spawnShootingStar,(Math.random()*5000+4000));
+}
+
+async function submitLead(){
+  const email=document.getElementById('gate-email').value.trim();
+  if(!email||!email.includes('@')){alert('Please enter a valid email');return;}
+  const btn=document.querySelector('#gate-form-view .gate-btn');
+  if(btn){btn.disabled=true;btn.textContent='Sending...';}
+  try{localStorage.setItem('ma_lead','1');localStorage.setItem('ma_lead_email',email);}catch(_){}
+  try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'gate'})});}catch(_){}
+  document.getElementById('gate-form-view').style.display='none';
+  document.getElementById('gate-success').style.display='block';
+  updateUsagePill();
+  setTimeout(closeGate,2500);
+}
+try{updateUsagePill();}catch(e){console.warn(e);}
+
+function openWaitlist(){
+  const form=document.getElementById('gate-form-view');
+  const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='Join the<br>Waitlist';
+    form.querySelector('p').innerHTML='<strong>Academy Membership</strong> opens soon — unlimited readings and discounts on all courses. Leave your email and receive a special launch offer.';
+  }
+  if(o)o.classList.add('show');
+}
+function openCourseGate(){
+  const form=document.getElementById('gate-form-view');
+  const o=document.getElementById('gate-overlay');
+  if(form){
+    form.querySelector('h3').innerHTML='This lesson is open<br>to Academy Members';
+    form.querySelector('p').innerHTML='The first 2 lessons are free. For the full course — join <strong>Academy Membership</strong> for access to all tools and courses. Leave your email and we\'ll notify you at launch.שקה.';
+  }
+  if(o)o.classList.add('show');
+}
+
+async function ai(prompt,outId,boxId){
+  const box=document.getElementById(boxId),out=document.getElementById(outId);
+  if(!box||!out)return;
+  const st=useState();
+  if(st==='signup'){openSignupGate();return;}
+  if(st==='subscribe'){openSubscribeGate();return;}
+  box.style.display='block';
+  out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
+  try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(_){}
+  try{
+    const res=await fetch('/api/claude',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:1000})
+    });
+    if(!res.ok){
+      out.innerHTML='<div style="font-family:Georgia,serif;font-size:.85rem;line-height:1.9;color:var(--muted)">Service temporarily unavailable. Please try again in a moment.</div>';
+      return;
+    }
+    const data=await res.json();
+    const text=(data.content||[]).map(b=>b.text||'').join('').trim();
+    out.textContent=text||'No response received. Please try again.';
+    if(text){recordUse();addResultActions(out,boxId,text);}
+  }catch(e){
+    out.innerHTML='<div style="font-family:Georgia,serif;font-size:.85rem;line-height:1.9;color:var(--muted)">A connection error occurred. Please try again.</div>';
+  }
+}
+</script>
+
+<!-- USAGE PILL -->
+<div class="usage-pill" id="usage-pill">
+  <svg width="13" height="13" style="color:#d4b870"><use href="#icon-star"/></svg>
+  <strong id="usage-count">5</strong> free readings left
+</div>
+
+<!-- GATE MODAL -->
+<div class="gate-overlay" id="gate-overlay">
+  <div class="gate-box">
+    <button class="gate-close" onclick="closeGate()" aria-label="Close">×</button>
+    <div class="gate-icon"><svg><use href="#icon-star"/></svg></div>
+    <div id="gate-form-view">
+      <h3>You've used your 5<br>free readings</h3>
+      <p>We're soon launching <strong>Academy Membership</strong> — unlimited access to all tools and courses. Leave your email and we'll notify you first, with a special launch offer.</p>
+      <input type="email" class="gate-input" id="gate-email" placeholder="Your email" dir="ltr">
+      <button class="gate-btn" onclick="submitLead()">Notify Me at Launch</button>
+      <div class="gate-small">No spam · One update only when membership opens</div>
+      <div class="gate-code-toggle" onclick="toggleCodeField()">Have an access code?</div>
+      <div class="gate-code-wrap" id="gate-code-wrap">
+        <input type="text" class="gate-input" id="gate-code" placeholder="Enter access code" style="margin-top:.6rem">
+        <button class="gate-btn" onclick="submitCode()" style="background:var(--earth)">Activate Access</button>
+      </div>
+    </div>
+    <div class="gate-success" id="gate-success">
+      ✦<br>Thank you! We'll be in touch soon<br>with a special launch offer.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
