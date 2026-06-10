@@ -21,11 +21,11 @@ html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--text);font-family:'Georgia',serif;direction:ltr;font-weight:300}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
+nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,1);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--dark);letter-spacing:.26em;text-transform:uppercase;cursor:pointer}
 .nav-links{display:flex;gap:1.8rem}
-.nl{font-family:'Jost',sans-serif;font-size:.9rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:400;cursor:pointer;background:none;border:none;transition:color .2s;padding:.25rem 0;position:relative}
+.nl{font-family:'Jost',sans-serif;font-size:.85rem;color:var(--dark);letter-spacing:.1em;text-transform:uppercase;font-weight:500;cursor:pointer;background:none;border:none;transition:color .2s;padding:.25rem 0;position:relative}
 .nl:hover,.nl.active{color:var(--dark)}
 .nl.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--earth)}
 .nl:focus-visible{outline:2px solid var(--earth);outline-offset:3px;border-radius:2px}
