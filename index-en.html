@@ -25,10 +25,10 @@ nav{position:sticky;top:0;z-index:100;background:#ffffff;border-bottom:1.5px sol
 .nav-inner{max-width:1200px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#2d1e10 !important;letter-spacing:.26em;text-transform:uppercase;cursor:pointer}
 .nav-links{display:flex;gap:1.4rem}
-.nl{font-family:'Jost',sans-serif;font-size:.82rem;color:#2d1e10 !important;letter-spacing:.06em;text-transform:uppercase;font-weight:600;cursor:pointer;background:none;border:none;transition:color .2s;padding:.25rem 0;position:relative}
-.nl:hover,.nl.active{color:var(--dark)}
-.nl.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--earth)}
-.nl:focus-visible{outline:2px solid var(--earth);outline-offset:3px;border-radius:2px}
+.nav-btn{font-family:'Jost',sans-serif;font-size:.82rem;color:#2d1e10;letter-spacing:.06em;text-transform:uppercase;font-weight:600;cursor:pointer;background:none;border:none;transition:color .2s;padding:.25rem 0;position:relative}
+.nav-btn:hover,.nav-btn.active{color:var(--earth)}
+.nav-btn.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1.5px;background:var(--earth)}
+.nav-btn:focus-visible{outline:2px solid var(--earth);outline-offset:3px;border-radius:2px}
 
 /* SECTIONS */
 .sec{display:none;animation:fu .4s ease}
@@ -504,7 +504,7 @@ html,body{max-width:100%;overflow-x:hidden}
   /* nav */
   .nav-inner{padding:.7rem 1rem}
   .nav-links{gap:.8rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
-  .nl{font-size:.42rem}
+  .nav-btn{font-size:.72rem}
 
   /* hero */
   .hero-cnt{padding:0 1.2rem 3rem}
@@ -611,15 +611,15 @@ html,body{max-width:100%;overflow-x:hidden}
   <div class="nav-inner">
     <div class="logo" onclick="show('home')">The Mystical Academy</div>
     <div class="nav-links">
-      <button class="nl active" onclick="show('home')">Home</button>
-      <button class="nl" onclick="show('tools')">Tools</button>
-      <button class="nl" onclick="show('academy')">Academy</button>
-      <button class="nl" onclick="show('research')">Research</button>
-      <button class="nl" onclick="show('knowledge')">Knowledge</button>
-      <button class="nl" onclick="show('about')">About</button>
-      <button class="nl" onclick="show('journal')">My Journal</button>
-      <button class="nl" onclick="show('pricing')">Membership</button>
-      <button class="nl" onclick="show('contact')">Contact</button>
+      <button class="nav-btn active" onclick="show('home')">Home</button>
+      <button class="nav-btn" onclick="show('tools')">Tools</button>
+      <button class="nav-btn" onclick="show('academy')">Academy</button>
+      <button class="nav-btn" onclick="show('research')">Research</button>
+      <button class="nav-btn" onclick="show('knowledge')">Knowledge</button>
+      <button class="nav-btn" onclick="show('about')">About</button>
+      <button class="nav-btn" onclick="show('journal')">My Journal</button>
+      <button class="nav-btn" onclick="show('pricing')">Membership</button>
+      <button class="nav-btn" onclick="show('contact')">Contact</button>
     </div>
   </div>
 </nav>
@@ -1094,10 +1094,10 @@ function show(id){
   const target=document.getElementById('sec-'+id);
   if(!target)return;
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nl').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   target.classList.add('active');
   const i=SECS.indexOf(id);
-  const navs=document.querySelectorAll('.nl');
+  const navs=document.querySelectorAll('.nav-btn');
   if(i>-1&&navs[i])navs[i].classList.add('active');
   try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
   if(id==='journal')try{renderJournal();}catch(_){}
