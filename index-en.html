@@ -1728,7 +1728,7 @@ async function ai(prompt,outId,boxId){
     const res=await fetch('/api/claude',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:1000})
+      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})
     });
     if(!res.ok){
       out.innerHTML='<div style="font-family:Georgia,serif;font-size:.85rem;line-height:1.9;color:var(--muted)">Service temporarily unavailable. Please try again in a moment.</div>';
