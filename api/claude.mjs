@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (!apiKey) return res.status(500).json({ error: "ANTHROPIC_API_KEY not configured" });
 
   try {
-    const { messages, system, max_tokens = 1000 } = req.body;
+    const { messages, system, max_tokens = 2000 } = req.body;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
