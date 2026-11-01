@@ -413,6 +413,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .gate-close:hover{color:var(--dark)}
 .gate-success{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--earth);line-height:1.6;display:none}
 .gate-small{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.06em;margin-top:1rem;line-height:1.7}
+.gate-small a{color:var(--earth);text-decoration:underline}
+.gate-error{display:none;font-family:'Jost',sans-serif;font-size:.78rem;line-height:1.6;color:#e2a08a;background:rgba(226,160,138,.09);border:1px solid rgba(226,160,138,.3);border-radius:8px;padding:.6rem .7rem;margin-top:.8rem}
 
 .mod-locked .mod-arrow{opacity:.6;color:var(--muted2)}
 .mod-locked:hover .mod-arrow{opacity:1;color:var(--earth)}
@@ -1741,18 +1743,77 @@ function spawnShootingStar(){
   setTimeout(spawnShootingStar,(Math.random()*5000+4000));
 }
 
+/* שליחת ליד לשרת. מחזיר true רק אם השרת אישר קליטה (200).
+   אין להציג "נרשמת בהצלחה" על סמך העובדה שהבקשה יצאה — זו הייתה
+   התקלה שגרמה לאובדן הרשמות במשך חודשים בלי שאיש ידע. */
+async function sendLead(email,source){
+  try{
+    const res=await fetch('/api/lead',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,source:source||'gate'})
+    });
+    if(res.ok)return true;
+    console.error('Lead rejected by server:',res.status,await res.text().catch(()=>''));
+    return false;
+  }catch(err){
+    console.error('Lead request failed:',err);
+    return false;
+  }
+}
+
+/* הרשמות שנכשלו נשמרות מקומית ומנוסות שוב בכניסה הבאה,
+   כדי שתקלה זמנית בשרת המייל לא תמחק ליד. */
+function queueLead(email,source){
+  try{
+    const q=JSON.parse(localStorage.getItem('ma_lead_queue')||'[]');
+    if(!q.some(x=>x.email===email))q.push({email,source:source||'gate',at:Date.now()});
+    localStorage.setItem('ma_lead_queue',JSON.stringify(q.slice(-20)));
+  }catch(_){}
+}
+async function flushLeadQueue(){
+  let q;
+  try{q=JSON.parse(localStorage.getItem('ma_lead_queue')||'[]');}catch(_){return;}
+  if(!q.length)return;
+  const left=[];
+  for(const item of q){
+    const ok=await sendLead(item.email,(item.source||'gate')+'-retry');
+    if(!ok)left.push(item);
+  }
+  try{localStorage.setItem('ma_lead_queue',JSON.stringify(left));}catch(_){}
+}
+
 async function submitLead(){
   const email=document.getElementById('gate-email').value.trim();
   if(!email||!email.includes('@')){alert('נא להזין אימייל תקין');return;}
   const btn=document.querySelector('#gate-form-view .gate-btn');
+  const label=btn?btn.textContent:'';
   if(btn){btn.disabled=true;btn.textContent='שולח...';}
+
+  const ok=await sendLead(email,'gate');
+
+  if(!ok){
+    queueLead(email,'gate');
+    if(btn){btn.disabled=false;btn.textContent=label||'הרשמה';}
+    const err=document.getElementById('gate-error');
+    if(err){
+      err.textContent='לא הצלחנו להשלים את ההרשמה כרגע. נסה שוב בעוד רגע.';
+      err.style.display='block';
+    }else{
+      alert('לא הצלחנו להשלים את ההרשמה כרגע. נסה שוב בעוד רגע.');
+    }
+    return;
+  }
+
   try{localStorage.setItem('ma_lead','1');localStorage.setItem('ma_lead_email',email);}catch(_){}
-  try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,source:'gate'})});}catch(_){}
+  const err=document.getElementById('gate-error');
+  if(err)err.style.display='none';
   document.getElementById('gate-form-view').style.display='none';
   document.getElementById('gate-success').style.display='block';
   updateUsagePill();
   setTimeout(closeGate,2500);
 }
+try{flushLeadQueue();}catch(_){}
 try{updateUsagePill();}catch(e){console.warn(e);}
 
 function openWaitlist(){
@@ -1819,7 +1880,8 @@ async function ai(prompt,outId,boxId){
       <p>בקרוב נפתח את <strong>חבר האקדמיה</strong> — גישה ללא הגבלה לכל הכלים והקורסים. השאר אימייל ונעדכן אותך ראשון, עם הטבת השקה מיוחדת.</p>
       <input type="email" class="gate-input" id="gate-email" placeholder="האימייל שלך" dir="ltr">
       <button class="gate-btn" onclick="submitLead()">עדכנו אותי בהשקה</button>
-      <div class="gate-small">ללא ספאם · נשלח עדכון אחד בלבד כשהמנוי ייפתח<br>בהרשמה אתה מסכים לקבל עדכונים. אנו שומרים על פרטיותך ולעולם לא משתפים את האימייל שלך.</div>
+      <div class="gate-error" id="gate-error" role="alert"></div>
+      <div class="gate-small">ללא ספאם · נשלח עדכון אחד בלבד כשהמנוי ייפתח<br>בהרשמה אתה מסכים לקבל עדכונים. האימייל נשמר אצלנו בלבד ואינו משותף עם צד שלישי. <a href="/privacy.html" target="_blank" rel="noopener">מדיניות הפרטיות</a></div>
       <div class="gate-code-toggle" onclick="toggleCodeField()">יש לך קוד גישה?</div>
       <div class="gate-code-wrap" id="gate-code-wrap">
         <input type="text" class="gate-input" id="gate-code" placeholder="הזן קוד גישה" style="margin-top:.6rem">
