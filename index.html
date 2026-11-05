@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1a1008">
+<meta name="theme-color" content="#120c1a">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,18 +18,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&family=Noto+Serif+Hebrew:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+/* פלטה כהה.
+   שמות המשתנים נשמרו כפי שהיו כדי לא לגעת במאות שימושים בגיליון,
+   אבל המשמעות התהפכה: --cream הוא עכשיו רקע הלילה, ו---dark הוא
+   צבע ה"דיו" הבהיר שנכתב עליו. שלושה מקומות השתמשו ב---dark/--dark2
+   כרקע ולא כצבע טקסט (footer, .btn-dark, .gate-btn) — הם מקבלים
+   ערך מפורש משלהם למטה. */
 :root{
-  --cream:#f5f0e8;--cream2:#ede7da;
-  --earth:#8a6a40;--earth2:#6a4e28;
-  --dark:#2d1e10;--dark2:#1a1008;
-  --text:#3d2c18;--muted:#8a7060;--muted2:#b8a090;
-  --border:rgba(138,106,64,.14);--border2:rgba(138,106,64,.25);
+  --cream:#120c1a;--cream2:#1a1226;   /* רקע הגוף / רקע משני */
+  --earth:#c9a765;--earth2:#e0c188;   /* זהב מואר, כדי שייקרא על כהה */
+  --dark:#ece4d6;--dark2:#dccdb6;     /* התהפכו: צבע הטקסט החזק */
+  --ink:#17101f;                      /* לטקסט על גבי כפתור זהב */
+  --text:#ece4d6;--muted:#a8988a;--muted2:#8a7a70;
+  --border:rgba(201,167,101,.18);--border2:rgba(201,167,101,.32);
 }
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--text);font-family:'Noto Serif Hebrew',serif;direction:rtl;font-weight:300}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
+nav{position:sticky;top:0;z-index:100;background:rgba(18,12,26,.94);backdrop-filter:blur(12px);border-bottom:.5px solid var(--border)}
 .nav-inner{max-width:1200px;margin:0 auto;padding:.85rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--dark);letter-spacing:.26em;text-transform:uppercase;cursor:pointer}
 .nav-links{display:flex;gap:1.8rem}
@@ -58,7 +65,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 @keyframes shoot{0%{opacity:0;transform:translate(0,0) scale(.5)}10%{opacity:1;transform:translate(-36px,25px) scale(1)}90%{opacity:1}100%{opacity:0;transform:translate(-360px,252px) scale(.85)}}
 .hero-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,184,112,.6),transparent);animation:float var(--fdur,12s) ease-in-out infinite;opacity:0;z-index:1}
 @keyframes float{0%{opacity:0;transform:translateY(20px) translateX(0)}25%{opacity:.7}50%{opacity:.9;transform:translateY(-30px) translateX(15px)}75%{opacity:.5}100%{opacity:0;transform:translateY(-70px) translateX(-10px)}}
-.hero-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(18,10,4,.82) 0%,rgba(18,10,4,.42) 40%,rgba(18,10,4,.1) 75%,transparent 100%)}
+.hero-ov{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(18,12,26,.9) 0%,rgba(18,12,26,.35) 45%,rgba(18,12,26,.08) 78%,transparent 100%)}
 .hero-cnt{position:relative;z-index:3;max-width:1200px;margin:0 auto;padding:0 2.5rem 4.5rem;width:100%}
 .hero-eye{font-family:'Jost',sans-serif;font-size:.75rem;color:rgba(245,240,232,.5);letter-spacing:.36em;text-transform:uppercase;font-weight:200;margin-bottom:.8rem}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,4.8rem);color:rgba(245,240,232,.94);font-weight:300;line-height:1.12;letter-spacing:.01em;margin-bottom:1.2rem;max-width:700px}
@@ -88,7 +95,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .pg-item{position:relative;overflow:hidden;cursor:pointer}
 .pg-item img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease;display:block}
 .pg-item:hover img{transform:scale(1.06)}
-.pg-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,6,2,.86) 0%,rgba(12,6,2,.15) 55%,transparent 100%)}
+.pg-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,12,26,.9) 0%,rgba(18,12,26,.1) 60%,transparent 100%)}
 .pg-label{position:absolute;bottom:0;right:0;left:0;padding:1.2rem 1rem}
 .pg-sub{font-family:'Jost',sans-serif;font-size:.62rem;color:rgba(245,240,232,.48);letter-spacing:.22em;text-transform:uppercase;font-weight:200;margin-bottom:.35rem}
 .pg-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#f5f0e8;font-weight:300;line-height:1.25}
@@ -112,7 +119,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .closing-photo{position:relative;height:340px;overflow:hidden;background:#0a0612}
 .closing-stars{position:absolute;inset:0;z-index:1;pointer-events:none}
 .closing-photo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
-.closing-ov{position:absolute;inset:0;z-index:2;background:rgba(15,8,3,.42);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:1.2rem}
+.closing-ov{position:absolute;inset:0;z-index:2;background:rgba(18,12,26,.5);display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:1.2rem}
 .closing-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.4rem,2.5vw,2rem);color:rgba(245,240,232,.88);font-weight:300;max-width:600px;padding:0 2rem;line-height:1.55}
 
 /* TOOLS */
@@ -240,10 +247,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .chip:hover,.chip.active{border-color:var(--earth);color:var(--earth);background:rgba(138,106,64,.06)}
 
 /* AI RESULT */
-.ai-res{display:none;margin-top:2rem;border-top:.5px solid var(--border);padding-top:2rem}
+.ai-res{display:none;margin-top:2rem;border:.5px solid var(--border);border-radius:12px;background:#201830;padding:1.6rem 1.5rem}
 .ai-label{font-family:'Jost',sans-serif;font-size:.70rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;color:var(--muted2);margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
 .ai-label::after{content:'';flex:1;height:.5px;background:var(--border)}
-.ai-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--dark);line-height:1.95;font-weight:300;white-space:pre-wrap}
+.ai-text{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#f2ebdf;line-height:1.95;font-weight:300;white-space:pre-wrap}
+.ai-streaming::after{content:'';display:inline-block;width:2px;height:1em;margin-right:2px;vertical-align:-.15em;background:var(--earth);animation:caret 1s step-end infinite}
+@keyframes caret{0%,100%{opacity:1}50%{opacity:0}}
 .ldots{display:flex;gap:5px;padding:.5rem 0}
 .ld{width:5px;height:5px;background:var(--earth);animation:lda 1.3s ease-in-out infinite}
 .ld:nth-child(2){animation-delay:.22s}.ld:nth-child(3){animation-delay:.44s}
@@ -254,8 +263,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .btn:hover{background:rgba(138,106,64,.07);border-color:var(--earth)}
 .btn:focus-visible{outline:2px solid var(--earth);outline-offset:3px}
 .btn:disabled{opacity:.35;cursor:default;pointer-events:none}
-.btn-dark{background:var(--dark2);border-color:var(--dark2);color:rgba(245,240,232,.75)}
-.btn-dark:hover{background:var(--dark);border-color:var(--dark)}
+.btn-dark{background:var(--earth);border-color:var(--earth);color:var(--ink)}
+.btn-dark:hover{background:var(--earth2);border-color:var(--earth2)}
 
 /* ACADEMY */
 .academy-wrap{max-width:1200px;margin:0 auto;padding:4.5rem 2.5rem}
@@ -264,10 +273,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .ftab.active{color:var(--dark);border-bottom-color:var(--earth)}
 .course-list{display:flex;flex-direction:column}
 .course-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
-.ccard{border:.5px solid var(--border);border-radius:12px;padding:1.6rem 1.5rem;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);background:linear-gradient(155deg,#faf6ee,#f2ece0);position:relative;overflow:hidden;display:block}
+.ccard{border:.5px solid var(--border);border-radius:12px;padding:1.6rem 1.5rem;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);background:linear-gradient(155deg,#1e1529,#160f20);position:relative;overflow:hidden;display:block}
 .ccard::before{content:'';position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle at top right,rgba(138,106,64,.08),transparent 70%);pointer-events:none}
 .ccard:hover{border-color:rgba(138,106,64,.5);transform:translateY(-3px);box-shadow:0 12px 30px rgba(45,30,16,.1)}
-.ccard.open{border-color:var(--earth);background:linear-gradient(155deg,#faf6ee,#ede5d6)}
+.ccard.open{border-color:var(--earth);background:linear-gradient(155deg,#241a31,#1a1226)}
 .cc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
 .cc-icon-wrap{width:46px;height:46px;border-radius:11px;background:linear-gradient(145deg,rgba(138,106,64,.12),rgba(138,106,64,.04));border:.5px solid rgba(138,106,64,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:1rem}
 .cc-icon-wrap svg{width:22px;height:22px;color:var(--earth)}
@@ -338,7 +347,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(245,240,232,.96);backdrop-
 .form-suc{background:rgba(60,120,80,.07);border:.5px solid rgba(60,120,80,.25);padding:.9rem 1.1rem;font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.14em;color:#4a8060;display:none;margin-top:.9rem;font-weight:300}
 
 /* FOOTER */
-footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
+footer{background:#1c1428;padding:4rem 0 2rem;margin-top:5rem}
 .foot-inner{max-width:1200px;margin:0 auto;padding:0 2.5rem}
 .foot-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:.5px solid rgba(245,240,232,.07);margin-bottom:2rem}
 .foot-logo{font-family:'Cormorant Garamond',serif;font-size:.92rem;color:rgba(245,240,232,.65);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem}
@@ -407,8 +416,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .gate-box p{font-family:'Noto Serif Hebrew',serif;font-size:.78rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.6rem}
 .gate-input{width:100%;background:var(--cream2);border:.5px solid var(--border2);padding:.8rem 1rem;font-family:'Noto Serif Hebrew',serif;font-size:.9rem;color:var(--dark);outline:none;border-radius:8px;margin-bottom:.9rem;text-align:center;transition:border-color .2s}
 .gate-input:focus{border-color:var(--earth)}
-.gate-btn{width:100%;font-family:'Jost',sans-serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;background:var(--dark2);border:none;color:rgba(245,240,232,.85);padding:.85rem;cursor:pointer;transition:all .25s;border-radius:8px}
-.gate-btn:hover{background:var(--dark)}
+.gate-btn{width:100%;font-family:'Jost',sans-serif;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;background:var(--earth);border:none;color:var(--ink);padding:.85rem;cursor:pointer;transition:all .25s;border-radius:8px}
+.gate-btn:hover{background:var(--earth2)}
 .gate-close{position:absolute;top:1rem;left:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--muted2);cursor:pointer;line-height:1;transition:color .2s}
 .gate-close:hover{color:var(--dark)}
 .gate-success{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--earth);line-height:1.6;display:none}
@@ -424,8 +433,8 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
 .price-card{background:var(--cream2);border:.5px solid var(--border);border-radius:14px;padding:2.2rem 1.8rem;position:relative;display:flex;flex-direction:column;transition:all .3s cubic-bezier(.4,0,.2,1)}
 .price-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(45,30,16,.1)}
-.price-card.featured{border-color:rgba(200,160,70,.6);background:linear-gradient(165deg,#faf6ee,#f2ece0);box-shadow:0 10px 30px rgba(138,106,64,.12)}
-.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--earth);color:#f5f0e8;font-family:'Jost',sans-serif;font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;padding:.32rem .9rem;border-radius:20px;white-space:nowrap}
+.price-card.featured{border-color:rgba(200,160,70,.6);background:linear-gradient(165deg,#241a31,#1a1226);box-shadow:0 10px 34px rgba(0,0,0,.5)}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--earth);color:var(--ink);font-family:'Jost',sans-serif;font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;font-weight:400;padding:.32rem .9rem;border-radius:20px;white-space:nowrap}
 .price-name{font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:300;color:var(--muted2);margin-bottom:1rem}
 .price-amount{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--dark);font-weight:300;line-height:1}
 .price-amount span{font-size:.9rem;color:var(--muted2)}
@@ -443,7 +452,7 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 /* === MOON PHASE === */
 .moon-strip{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:1200px;margin:0 auto;padding:3rem 2.5rem;border-bottom:.5px solid var(--border)}
 .moon-visual{display:flex;align-items:center;justify-content:center}
-.moon-disc{width:90px;height:90px;border-radius:50%;background:#f5f0e8;box-shadow:inset 0 0 0 1px rgba(138,106,64,.3),0 0 40px rgba(212,184,112,.25);position:relative;overflow:hidden;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 70% 65%,rgba(138,106,64,.08),transparent 30%)}
+.moon-disc{width:90px;height:90px;border-radius:50%;background:#efe7d8;box-shadow:inset 0 0 0 1px rgba(201,167,101,.35),0 0 48px rgba(212,184,112,.3);position:relative;overflow:hidden;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 70% 65%,rgba(138,106,64,.08),transparent 30%)}
 .moon-shadow{position:absolute;top:0;height:100%;background:#1a1208;border-radius:50%;transition:all .5s}
 .moon-label{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--muted2);letter-spacing:.24em;text-transform:uppercase;font-weight:300;margin-bottom:.5rem}
 .moon-phase{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--dark);font-weight:300;margin-bottom:.5rem}
@@ -465,9 +474,9 @@ footer{background:var(--dark2);padding:4rem 0 2rem;margin-top:5rem}
 
 /* === SUBTLE PAGE BACKGROUNDS === */
 .tools-wrap,.academy-wrap,.res-wrap,.know-wrap,.about-wrap,.contact-wrap{position:relative}
-#sec-tools,#sec-academy,#sec-journal{background:linear-gradient(180deg,#f7f2e9 0%,#f3ede2 100%)}
-#sec-research,#sec-knowledge{background:linear-gradient(180deg,#f5f0e8 0%,#ede7da 100%)}
-#sec-about,#sec-pricing,#sec-contact{background:linear-gradient(180deg,#f7f2e9 0%,#f0e9dc 100%)}
+#sec-tools,#sec-academy,#sec-journal{background:linear-gradient(180deg,#140e1e 0%,#1a1226 100%)}
+#sec-research,#sec-knowledge{background:linear-gradient(180deg,#120c1a 0%,#1a1226 100%)}
+#sec-about,#sec-pricing,#sec-contact{background:linear-gradient(180deg,#140e1e 0%,#1d1529 100%)}
 .tools-wrap::before,.academy-wrap::before{content:'';position:absolute;top:0;right:0;width:280px;height:280px;background:radial-gradient(circle,rgba(138,106,64,.05),transparent 70%);pointer-events:none;z-index:0}
 
 /* gradient tiles */
@@ -1232,7 +1241,7 @@ async function doTarot(){
   if(sel.length!==lN)return;
   const nm=sel.map(i=>ALL[i].name).join(', ');
   const lm={1:'קלף יחיד',3:'שלישיה עבר/הווה/עתיד',5:'חמישה קלפים',10:'הצלב הקלטי'};
-  await ai(`קורא טארוט מנוסה, Rider-Waite-Smith. פריסה: ${lm[lN]}. קלפים: ${nm}. פרשנות מעמיקה בעברית — סמליות, מיקום, מסר. כ-320 מילה.`,'tout','tres');
+  await ai(`קורא טארוט מנוסה, Rider-Waite-Smith. פריסה: ${lm[lN]}. קלפים: ${nm}. פרשנות מעמיקה בעברית — סמליות, מיקום, מסר. כ-320 מילה.`,'tout','tres',1400);
 }
 
 // ZODIAC
@@ -1240,8 +1249,8 @@ const ZOD=[{n:'טלה',e:'♈',d:'21/3–19/4'},{n:'שור',e:'♉',d:'20/4–20
 let selSign='';
 try{(()=>{const g=document.getElementById('zg');ZOD.forEach(z=>{const d=document.createElement('div');d.className='zc';d.innerHTML=`<div class="ze">${z.e}</div><div class="zn">${z.n}</div><div class="zd">${z.d}</div>`;d.onclick=()=>{document.querySelectorAll('.zc').forEach(c=>c.classList.remove('sel'));d.classList.add('sel');selSign=z.n;document.getElementById('hbtn').disabled=false;};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
 function setAT(btn,tab){document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('at-daily').style.display=tab==='daily'?'block':'none';document.getElementById('at-natal').style.display=tab==='natal'?'block':'none';}
-async function doHoro(){if(!selSign)return;await ai(`אסטרולוג מנוסה. הורוסקופ יומי לסימן ${selSign} לתאריך ${new Date().toLocaleDateString('he-IL')}. אהבה, קריירה, בריאות, מסר. כ-260 מילה בעברית.`,'hout','hres');}
-async function doNatal(){const d=document.getElementById('nd').value,t=document.getElementById('nt').value,c=document.getElementById('nc').value;if(!d||!c){alert('נא למלא תאריך ועיר');return;}await ai(`אסטרולוג לפי Kepler College. לידה: ${d}${t?', '+t:''}, ${c}. סימן שמש, ניתוח נטאלי. הבהר שמדויק דורש Swiss Ephemeris. כ-280 מילה.`,'nout','nres');}
+async function doHoro(){if(!selSign)return;await ai(`אסטרולוג מנוסה. הורוסקופ יומי לסימן ${selSign} לתאריך ${new Date().toLocaleDateString('he-IL')}. אהבה, קריירה, בריאות, מסר. כ-260 מילה בעברית.`,'hout','hres',1200);}
+async function doNatal(){const d=document.getElementById('nd').value,t=document.getElementById('nt').value,c=document.getElementById('nc').value;if(!d||!c){alert('נא למלא תאריך ועיר');return;}await ai(`אסטרולוג לפי Kepler College. לידה: ${d}${t?', '+t:''}, ${c}. סימן שמש, ניתוח נטאלי. הבהר שמדויק דורש Swiss Ephemeris. כ-280 מילה.`,'nout','nres',1300);}
 
 // NUMEROLOGY
 const PY={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
@@ -1259,7 +1268,7 @@ async function doNum(){
   const nm=document.getElementById('nname').value,dt=document.getElementById('ndate').value,q=document.getElementById('nq').value;
   if(!nm&&!dt){alert('נא למלא שם או תאריך');return;}
   const lf=document.getElementById('nv-life').textContent;
-  await ai(`נומרולוג פיתגוראי.${nm?'\nשם: '+nm:''}${dt?'\nתאריך: '+dt:''}\nמסלול חיים: ${lf}${[11,22,33].includes(+lf)?' (מאסטר!)':''}\n${q?'שאלה: '+q:''}\nפרשנות עמוקה בעברית, כ-280 מילה.`,'numout','numres');
+  await ai(`נומרולוג פיתגוראי.${nm?'\nשם: '+nm:''}${dt?'\nתאריך: '+dt:''}\nמסלול חיים: ${lf}${[11,22,33].includes(+lf)?' (מאסטר!)':''}\n${q?'שאלה: '+q:''}\nפרשנות עמוקה בעברית, כ-280 מילה.`,'numout','numres',1300);
 }
 
 // DREAM VOICE INPUT (Web Speech API, he-IL)
@@ -1304,7 +1313,7 @@ function ps(btn,s){document.querySelectorAll('[onclick^="ps"]').forEach(c=>c.cla
 async function doDream(){
   const dream=document.getElementById('din').value.trim();if(!dream){alert('נא לתאר את החלום');return;}
   const sc={jung:'Carl Jung — ארכיטיפים, לא-מודע קולקטיבי.',freud:'Sigmund Freud — תוכן גלוי/סמוי, משאלות.',hall:'Hall & Domhoff — רציפות הגרה אמפירית.',spiritual:'פרשנות רוחנית-אינטואיטיבית — החלום כמסר נשמתי, סמלים כהכוונה פנימית, חיבור בין-מודעותי. שלב חוכמה מסורות רוחניות (קבלה, שמאניזם) באופן מכבד ולא דוגמטי.'};
-  await ai(`פרשן חלומות מאסכולת ${sc[selSchool]}\nחלום: "${dream}"${selMood?'\nמצב רוח: '+selMood:''}\nפרשנות עמוקה, 280-320 מילה בעברית.`,'dout','dres');
+  await ai(`פרשן חלומות מאסכולת ${sc[selSchool]}\nחלום: "${dream}"${selMood?'\nמצב רוח: '+selMood:''}\nפרשנות עמוקה, 280-320 מילה בעברית.`,'dout','dres',1500);
 }
 
 // ACADEMY
@@ -1354,14 +1363,14 @@ async function learnC(i,e){
 מבנה הקורס:
 ${modList}
 
-השיעור צריך לכלול: (1) פתיחה מעוררת השראה על מהות התחום; (2) רקע היסטורי קצר על ${c.s}; (3) הסבר מה התלמיד ילמד וירכוש; (4) תרגיל מעשי ראשון שאפשר לעשות כבר היום; (5) המלצה כיצד להמשיך. כ-400 מילה, סגנון חם ומקצועי.`,'cout','cres');
+השיעור צריך לכלול: (1) פתיחה מעוררת השראה על מהות התחום; (2) רקע היסטורי קצר על ${c.s}; (3) הסבר מה התלמיד ילמד וירכוש; (4) תרגיל מעשי ראשון שאפשר לעשות כבר היום; (5) המלצה כיצד להמשיך. כ-400 מילה, סגנון חם ומקצועי.`,'cout','cres',2200);
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
 async function learnModule(courseIdx,modIdx){
   const c=COURSES[courseIdx];const mod=c.m[modIdx];
   if(modIdx>=2 && !isSubscribed()){openCourseGate();return;}
   document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
-  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתח, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres');
+  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתח, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres',1800);
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
 }
 
@@ -1372,7 +1381,7 @@ const RES=[
   {t:'חיים קודמים',p:'+200%',r:'ברזיל, הודו',w:.60},{t:'רשומות אקאשיות',p:'+180%',r:'ארה"ב, קנדה',w:.55},
   {t:'נומרולוגיה',p:'+155%',r:'הודו, ישראל',w:.48},{t:'כתיבה אוטומטית',p:'+130%',r:'אירופה',w:.42}
 ];
-try{(()=>{const g=document.getElementById('rl');RES.forEach((r,i)=>{const d=document.createElement('div');d.className='rc';d.innerHTML=`<div class="rc-idx">0${i+1}</div><div><div class="rc-topic">${r.t}</div><div class="rc-region">🌍 ${r.r}</div></div><div class="rc-right"><div class="rc-pct">${r.p}</div><div class="rc-bar"><div class="rc-fill" style="width:${r.w*100}%"></div></div></div>`;d.onclick=()=>{document.getElementById('rlbl').textContent=r.t;ai(`חוקר מיסטיקה. הסבר צמיחת ${r.t} ב-${r.p}, ${r.r}. מסורת, גורמים, מוסדות. כ-300 מילה.`,'rout','rres');};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+try{(()=>{const g=document.getElementById('rl');RES.forEach((r,i)=>{const d=document.createElement('div');d.className='rc';d.innerHTML=`<div class="rc-idx">0${i+1}</div><div><div class="rc-topic">${r.t}</div><div class="rc-region">🌍 ${r.r}</div></div><div class="rc-right"><div class="rc-pct">${r.p}</div><div class="rc-bar"><div class="rc-fill" style="width:${r.w*100}%"></div></div></div>`;d.onclick=()=>{document.getElementById('rlbl').textContent=r.t;ai(`חוקר מיסטיקה. הסבר צמיחת ${r.t} ב-${r.p}, ${r.r}. מסורת, גורמים, מוסדות. כ-300 מילה.`,'rout','rres',1300);};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
 
 // KNOWLEDGE
 const ARTS=[
@@ -1383,7 +1392,7 @@ const ARTS=[
   {cat:'חלומות',t:'יונג מול פרויד',d:'שתי אסכולות לפרשנות חלומות'},
   {cat:'רשומות',t:'הרשומות האקאשיות',d:'מהן וכיצד ניגשים אליהן'}
 ];
-try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=document.createElement('div');d.className='art';d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">קרא מאמר →</span>`;d.onclick=()=>{document.getElementById('arlbl').textContent=a.t;ai(`מאמר מקיף על "${a.t}" (${a.cat}). ${a.d}. מבוא, היסטוריה, עקרונות, יישומים. כ-400 מילה.`,'arout','arres');try{document.getElementById('arres').scrollIntoView({behavior:'smooth'})}catch(_){};};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
+try{(()=>{const g=document.getElementById('artg');ARTS.forEach(a=>{const d=document.createElement('div');d.className='art';d.innerHTML=`<div class="art-cat">${a.cat}</div><div class="art-title">${a.t}</div><div class="art-desc">${a.d}</div><span class="art-read">קרא מאמר →</span>`;d.onclick=()=>{document.getElementById('arlbl').textContent=a.t;ai(`מאמר מקיף על "${a.t}" (${a.cat}). ${a.d}. מבוא, היסטוריה, עקרונות, יישומים. כ-400 מילה.`,'arout','arres',1900);try{document.getElementById('arres').scrollIntoView({behavior:'smooth'})}catch(_){};};g.appendChild(d);});})();}catch(e){console.warn("iife:",e);}
 
 // CONTACT
 function submitC(){const n=document.getElementById('cn').value,e=document.getElementById('ce').value;if(!n||!e){alert('נא למלא שם ואימייל');return;}document.getElementById('csuc').style.display='block';}
@@ -1419,7 +1428,7 @@ async function doChakra(){
   const prompt=selChakra
     ? `מומחה לצ'אקרות במסורת הוודית-יוגית האותנטית. נתח את צ'אקרת ה${selChakra}.${q?' המצב הנוכחי: '+q:''} כלול: משמעות הצ'אקרה, סימני איזון וחוסר איזון, ותרגיל מעשי אחד לאיזון (נשימה/מדיטציה/תנועה). הדגש שזו מסורת רוחנית ולא תחליף לטיפול רפואי. כ-300 מילה בעברית.`
     : `מומחה לצ'אקרות במסורת הוודית-יוגית. תן סקירה של מערכת 7 הצ'אקרות.${q?' המצב הנוכחי: '+q:''} לכל צ'אקרה: שם, מיקום, תחום. סיים בהמלצה לתרגיל איזון כללי. כ-350 מילה בעברית.`;
-  await ai(prompt,'chakra-out','chakra-res');
+  await ai(prompt,'chakra-out','chakra-res',1500);
 }
 
 // CRYSTALS
@@ -1428,7 +1437,7 @@ function pcr(btn){document.querySelectorAll('#tp-crystals .chip').forEach(c=>c.c
 async function doCrystal(){
   if(!selCrystalGoal){alert('נא לבחור מטרת ריפוי');return;}
   const q=document.getElementById('crystal-q').value;
-  await ai(`מומחה לריפוי בגבישים במסורת Crystal Academy of Advanced Healing Arts. מטרה: ${selCrystalGoal}.${q?' שאלה: '+q:''} המלץ על 3-4 גבישים מתאימים — לכל אחד: שם, צבע, תכונות, ואיך להשתמש בו. הדגש שזו פרקטיקה רוחנית משלימה. כ-320 מילה בעברית.`,'crystal-out','crystal-res');
+  await ai(`מומחה לריפוי בגבישים במסורת Crystal Academy of Advanced Healing Arts. מטרה: ${selCrystalGoal}.${q?' שאלה: '+q:''} המלץ על 3-4 גבישים מתאימים — לכל אחד: שם, צבע, תכונות, ואיך להשתמש בו. הדגש שזו פרקטיקה רוחנית משלימה. כ-320 מילה בעברית.`,'crystal-out','crystal-res',1500);
 }
 
 // MEDITATION
@@ -1442,7 +1451,7 @@ function pmed(btn,type){
 }
 async function doMeditation(){
   if(!medIntent){alert('נא לבחור כוונה');return;}
-  await ai(`מנחה מדיטציה מנוסה. צור מדיטציה מודרכת בעברית. כוונה: ${medIntent}. משך: ${medTime}. כתוב את הסקריפט המלא להקראה — פתיחה, גוף המדיטציה עם הוראות נשימה והדמיה, וסיום עדין. סגנון רגוע, גוף שני. התאם את האורך ל-${medTime}.`,'med-out','med-res');
+  await ai(`מנחה מדיטציה מנוסה. צור מדיטציה מודרכת בעברית. כוונה: ${medIntent}. משך: ${medTime}. כתוב את הסקריפט המלא להקראה — פתיחה, גוף המדיטציה עם הוראות נשימה והדמיה, וסיום עדין. סגנון רגוע, גוף שני. התאם את האורך ל-${medTime}.`,'med-out','med-res',2400);
 }
 
 // FREEMIUM GATE
@@ -1532,7 +1541,7 @@ async function doSoulMap(){
 4. אבן המזל/קריסטל המומלץ
 5. קלף הטארוט המייצג את הנשמה
 6. מסר אישי מסכם קצר ומעורר השראה
-פתח ב"מפת הנשמה של [שם]" וסדר בבירור. כ-350 מילה.`,'sm-out','sm-res');
+פתח ב"מפת הנשמה של [שם]" וסדר בבירור. כ-350 מילה.`,'sm-out','sm-res',1700);
 }
 
 // ORACLE
@@ -1540,7 +1549,7 @@ async function doOracle(){
   const q=document.getElementById('oracle-q').value.trim();
   if(!q){alert('נא להזין שאלה');return;}
   await ai(`אתה אורקל מיסטי עתיק וחכם. מישהו שואל אותך: "${q}"
-השב במסר אורקל קצר, פיוטי ומסתורי — לא תשובה ישירה אלא הכוונה חכמה שמעוררת מחשבה. 2-4 משפטים בלבד, בסגנון נבואי-רוחני בעברית. סיים בשורת חוכמה אחת מודגשת.`,'oracle-out','oracle-res');
+השב במסר אורקל קצר, פיוטי ומסתורי — לא תשובה ישירה אלא הכוונה חכמה שמעוררת מחשבה. 2-4 משפטים בלבד, בסגנון נבואי-רוחני בעברית. סיים בשורת חוכמה אחת מודגשת.`,'oracle-out','oracle-res',1300);
 }
 
 // COMPATIBILITY
@@ -1555,7 +1564,7 @@ async function doCompat(){
   await ai(`אתה מומחה לתאימות רוחנית. נתח תאימות ${compatType} בין שני אנשים לפי אסטרולוגיה ונומרולוגיה.
 אדם 1: ${n1||'הראשון'}, נולד ${d1}
 אדם 2: ${n2||'השני'}, נולד ${d2}
-כלול: מזלות שניהם וכיצד הם מתחברים, מספרי מסלול החיים והדינמיקה ביניהם, ציון תאימות כללי (באחוזים), נקודות חוזק, אתגרים אפשריים, וטיפ לחיזוק הקשר. כ-320 מילה בעברית, חיובי ומאוזן.`,'cp-out','cp-res');
+כלול: מזלות שניהם וכיצד הם מתחברים, מספרי מסלול החיים והדינמיקה ביניהם, ציון תאימות כללי (באחוזים), נקודות חוזק, אתגרים אפשריים, וטיפ לחיזוק הקשר. כ-320 מילה בעברית, חיובי ומאוזן.`,'cp-out','cp-res',1700);
 }
 
 // MOON PHASE
@@ -1835,32 +1844,92 @@ function openCourseGate(){
   if(o)o.classList.add('show');
 }
 
-async function ai(prompt,outId,boxId){
+/* קורא זרם SSE של Anthropic ומדווח על כל תוספת טקסט.
+   מחזיר את הטקסט המלא; זורק שגיאה אם הזרם נקטע או החזיר אירוע שגיאה. */
+async function readAiStream(res,onText){
+  const reader=res.body.getReader();
+  const dec=new TextDecoder();
+  let buf='',text='';
+  while(true){
+    const {done,value}=await reader.read();
+    if(done)break;
+    buf+=dec.decode(value,{stream:true});
+    const lines=buf.split('\n');
+    buf=lines.pop();
+    for(const line of lines){
+      if(line.indexOf('data:')!==0)continue;
+      const raw=line.slice(5).trim();
+      if(!raw||raw==='[DONE]')continue;
+      let ev;
+      try{ev=JSON.parse(raw);}catch(_){continue;}
+      if(ev.type==='error')throw new Error('stream error');
+      if(ev.type==='content_block_delta'&&ev.delta&&typeof ev.delta.text==='string'){
+        text+=ev.delta.text;
+        onText(text);
+      }
+    }
+  }
+  return text.trim();
+}
+
+/* קריאה לא-זורמת — נתיב הגיבוי. נשאר כי יש סביבות (פרוקסי ארגוני,
+   דפדפן ישן) שבהן SSE לא עובר, ועדיף תשובה איטית מאשר שום תשובה. */
+async function aiFallback(prompt,maxTokens){
+  const res=await fetch('/api/claude',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:maxTokens})
+  });
+  if(!res.ok)throw new Error('fallback http '+res.status);
+  const data=await res.json();
+  return (data.content||[]).map(b=>b.text||'').join('').trim();
+}
+
+async function ai(prompt,outId,boxId,maxTokens){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
   if(!box||!out)return;
   const st=useState();
   if(st==='signup'){openSignupGate();return;}
   if(st==='subscribe'){openSubscribeGate();return;}
+  const cap=maxTokens||1600;
   box.style.display='block';
+  out.classList.remove('ai-streaming');
   out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
   try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(_){}
+
+  let text='',streamed=false;
   try{
-    const res=await fetch('/api/claude',{
+    const res=await fetch('/api/claude-stream',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})
+      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:cap})
     });
-    if(!res.ok){
+    const ct=res.headers.get('content-type')||'';
+    if(res.ok&&res.body&&ct.indexOf('text/event-stream')!==-1){
+      streamed=true;
+      out.classList.add('ai-streaming');
+      text=await readAiStream(res,function(sofar){out.textContent=sofar;});
+    }
+  }catch(err){
+    console.warn('AI stream failed, falling back:',err);
+    text='';
+  }
+  out.classList.remove('ai-streaming');
+
+  if(!text){
+    // הזרימה לא הצליחה (או הופסקה באמצע) — מנסים את הנתיב הרגיל
+    if(streamed)out.innerHTML='<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>';
+    try{
+      text=await aiFallback(prompt,cap);
+    }catch(err){
+      console.error('AI request failed:',err);
       out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">השירות אינו זמין כעת. נסה שוב בעוד רגע.</div>';
       return;
     }
-    const data=await res.json();
-    const text=(data.content||[]).map(b=>b.text||'').join('').trim();
-    out.textContent=text||'לא התקבלה תשובה. נסה שוב.';
-    if(text){recordUse();addResultActions(out,boxId,text);}
-  }catch(e){
-    out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">אירעה שגיאה בחיבור. אנא נסה שוב.</div>';
   }
+
+  out.textContent=text||'לא התקבלה תשובה. נסה שוב.';
+  if(text){recordUse();addResultActions(out,boxId,text);}
 }
 </script>
 
