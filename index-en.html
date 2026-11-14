@@ -557,6 +557,20 @@ html,body{max-width:100%;overflow-x:hidden}
   .pg-item{min-height:130px}
   .zg{grid-template-columns:repeat(2,1fr)}
 }
+
+/* lesson navigation */
+.lesson-nav{display:none;margin-top:1.6rem;padding-top:1.2rem;border-top:.5px solid rgba(200,160,70,.2)}
+.lesson-nav.show{display:block}
+.ln-row{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+.ln-btn{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.08em;background:transparent;border:.5px solid var(--earth);color:var(--earth);padding:.55rem 1.1rem;border-radius:8px;cursor:pointer;transition:all .2s}
+.ln-btn:hover:not(:disabled){background:var(--earth);color:var(--ink)}
+.ln-btn:disabled{opacity:.3;cursor:default}
+.ln-pos{font-family:'Jost',sans-serif;font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-align:center}
+.ln-list{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.ln-chip{font-family:'Jost',sans-serif;font-size:.68rem;background:transparent;border:.5px solid rgba(200,160,70,.25);color:var(--muted);padding:.35rem .7rem;border-radius:20px;cursor:pointer;transition:all .2s}
+.ln-chip:hover{border-color:var(--earth);color:var(--earth)}
+.ln-chip.cur{background:var(--earth);border-color:var(--earth);color:var(--ink)}
+@media(max-width:600px){.ln-btn{padding:.5rem .7rem;font-size:.66rem}}
 </style>
 </head>
 <body>
@@ -909,7 +923,7 @@ html,body{max-width:100%;overflow-x:hidden}
     <button class="ftab" onclick="fc(this,'a')">Advanced</button>
   </div>
   <div class="course-list" id="cl"></div>
-  <div class="ai-res" role="region" aria-live="polite" id="cres" style="margin-top:2.5rem"><div class="ai-label" id="clbl">AI Guide</div><div class="ai-text" id="cout"></div></div>
+  <div class="ai-res" role="region" aria-live="polite" id="cres" style="margin-top:2.5rem"><div class="ai-label" id="clbl">AI Guide</div><div class="ai-text" id="cout"></div><div class="lesson-nav" id="cnav"></div></div>
 </div>
 </div>
 
@@ -1276,7 +1290,7 @@ function buildC(f='all'){
       </div>
       <div class="cc-toggle">Course Details <svg aria-hidden="true"><use href="#icon-chevron-down"/></svg></div>
       <div class="cc-mods">
-        <div>${c.m.map((m,j)=>`<div class="mod mod-clickable${j>=2?' mod-locked':''}" onclick="learnModule(${COURSES.indexOf(c)},${j});event.stopPropagation()"><span class="mn">${j+1}.</span><span>${m}</span><span class="mod-arrow">${j>=2?'🔒 Member':'Learn Free →'}</span></div>`).join('')}</div>
+        <div>${c.m.map((m,j)=>`<div class="mod mod-clickable${j>=2&&!isSubscribed()?' mod-locked':''}" onclick="learnModule(${COURSES.indexOf(c)},${j});event.stopPropagation()"><span class="mn">${j+1}.</span><span>${m}</span><span class="mod-arrow">${j>=2&&!isSubscribed()?'🔒 Member':'Learn Free →'}</span></div>`).join('')}</div>
         <button class="btn" style="margin-top:1rem;font-size:.44rem;padding:.55rem 1.3rem" onclick="learnC(${COURSES.indexOf(c)},event)">Learn with AI →</button>
       </div>`;
     d.onclick=(e)=>{if(e.target.tagName==='BUTTON'||e.target.closest('button'))return;d.classList.toggle('open');d.querySelector('.cc-mods').style.display=d.classList.contains('open')?'block':'none';};
@@ -1287,7 +1301,7 @@ function buildC(f='all'){
 try{buildC();}catch(e){console.warn(e);}
 function fc(btn,f){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildC(f);}
 async function learnC(i,e){
-  e.stopPropagation();const c=COURSES[i];
+  if(e)e.stopPropagation();const c=COURSES[i];curLesson={c:i,m:-1};renderLessonNav();
   document.getElementById('clbl').textContent=c.t+' — Introduction';
   const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join('\n');
   await ai(`You are an experienced teacher of ${c.t}, in the teaching style of ${c.s}. Write a comprehensive and engaging introductory lesson in English for this course.
@@ -1300,6 +1314,7 @@ The lesson should include: (1) An inspiring opening about the essence of the fie
 async function learnModule(courseIdx,modIdx){
   const c=COURSES[courseIdx];const mod=c.m[modIdx];
   if(modIdx>=2 && !isSubscribed()){openCourseGate();return;}
+  curLesson={c:courseIdx,m:modIdx};renderLessonNav();
   document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
   await ai(`Experienced teacher of ${c.t} (in the style of ${c.s}). Teach the module "${mod}" (module ${modIdx+1} of the course) in depth. Include: a thorough explanation of the topic, key concepts, a concrete practical exercise, and a tip from an experienced teacher. About 350 words in English, warm and practical style.`,'cout','cres');
   try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
@@ -1385,6 +1400,35 @@ async function doMeditation(){
   await ai(`Experienced meditation guide. Create a guided meditation in English. Intention: ${medIntent}. Duration: ${medTime}. Write the full script for reading aloud — opening, body with breathing and visualization instructions, and a gentle closing. Calm tone, second person. Adjust length for ${medTime}.`,'med-out','med-res');
 }
 
+
+// LESSON NAVIGATION
+let curLesson=null;
+function goLesson(ci,m){if(m<0)learnC(ci);else learnModule(ci,m);}
+function renderLessonNav(){
+  const nav=document.getElementById('cnav');if(!nav||!curLesson)return;
+  const ci=curLesson.c,c=COURSES[ci],n=c.m.length,m=curLesson.m;
+  const sub=isSubscribed();
+  const pos=m<0?'Introduction':'Lesson {a} of {b}'.replace('{a}',m+1).replace('{b}',n);
+  const hasNext=m<n-1;
+  const chips=[`<button class="ln-chip${m<0?' cur':''}" onclick="goLesson(${ci},-1)">Intro</button>`]
+    .concat(c.m.map((t,j)=>`<button class="ln-chip${j===m?' cur':''}" onclick="goLesson(${ci},${j})">${j>=2&&!sub?'🔒 ':''}${j+1}. ${t}</button>`)).join('');
+  nav.innerHTML=`<div class="ln-row">
+    <button class="ln-btn" ${m<0?'disabled':''} onclick="goLesson(${ci},${m-1})">← Previous</button>
+    <span class="ln-pos">${pos}</span>
+    <button class="ln-btn" ${hasNext?'':'disabled'} onclick="goLesson(${ci},${m+1})">${hasNext?'Next →':'Course complete ✦'}</button>
+  </div><div class="ln-list">${chips}</div>`;
+  nav.classList.add('show');
+}
+function refreshLocks(){
+  const sub=isSubscribed();
+  document.querySelectorAll('#cl .mod-clickable').forEach(el=>{
+    const j=parseInt((el.querySelector('.mn')||{}).textContent,10)-1;if(isNaN(j)||j<2)return;
+    el.classList.toggle('mod-locked',!sub);
+    const a=el.querySelector('.mod-arrow');if(a)a.textContent=sub?'Learn Free →':'🔒 Member';
+  });
+  if(curLesson)renderLessonNav();
+}
+
 // FREEMIUM GATE
 const FREE_BEFORE_SIGNUP=1;
 const FREE_TOTAL=5;
@@ -1445,7 +1489,7 @@ function openSubscribeGate(){
   if(o)o.classList.add('show');
 }
 function openGate(){openSubscribeGate();}
-function closeGate(){const o=document.getElementById('gate-overlay');if(o)o.classList.remove('show');}
+function closeGate(){try{refreshLocks();}catch(_){}const o=document.getElementById('gate-overlay');if(o)o.classList.remove('show');}
 function toggleCodeField(){const w=document.getElementById('gate-code-wrap');if(w)w.classList.toggle('show');}
 function submitCode(){
   const code=document.getElementById('gate-code').value;
