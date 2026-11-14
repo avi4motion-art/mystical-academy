@@ -600,6 +600,25 @@ html,body{max-width:100%;overflow-x:hidden}
 .ln-chip:hover{border-color:var(--earth);color:var(--earth)}
 .ln-chip.cur{background:var(--earth);border-color:var(--earth);color:var(--ink)}
 @media(max-width:600px){.ln-btn{padding:.5rem .7rem;font-size:.66rem}}
+.ai-text .md-h1,.ai-text .md-h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:#e6c98a;font-weight:500;margin:1.1rem 0 .35rem;line-height:1.5}
+.ai-text .md-h3{font-size:1.12rem;color:#e6c98a;font-weight:500;margin:.9rem 0 .3rem;line-height:1.5}
+.ai-text strong{color:#f7e7c4;font-weight:600}
+.ai-text .md-li{display:block;padding-right:.6rem;margin:.15rem 0}
+.ai-text>.md-h1:first-child,.ai-text>.md-h2:first-child{margin-top:0}
+.ai-text .md-hr{border:none;border-top:.5px solid rgba(200,160,70,.25);margin:.6rem 0}
+.ln-chip.done{border-color:rgba(140,200,140,.45);color:#b8dcb0}
+.ln-chip.cur.done{color:var(--ink)}
+.ln-pos small{font-size:.62rem;opacity:.75}
+.pr-box{border:.5px solid rgba(200,160,70,.25);border-radius:12px;padding:1rem 1.1rem;margin-bottom:1.2rem;background:rgba(200,160,70,.04)}
+.pr-head{display:flex;justify-content:space-between;font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.1em;color:var(--earth)}
+.pr-cnt{color:#f2ebdf}
+.pr-dots{display:flex;gap:.35rem;flex-wrap:wrap;margin:.7rem 0}
+.pr-dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(200,160,70,.5)}
+.pr-dot.on{background:var(--earth);border-color:var(--earth)}
+.pr-msg{font-family:'Noto Serif Hebrew',serif;font-size:.8rem;color:var(--muted);line-height:1.8;margin-bottom:.8rem}
+.pr-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.ln-btn.pr-main{background:var(--earth);color:var(--ink)}
+.ln-regen{display:block;margin:1rem auto 0;background:none;border:none;font-family:'Jost',sans-serif;font-size:.66rem;color:var(--muted2);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -1369,24 +1388,70 @@ function buildC(f='all'){
 }
 try{buildC();}catch(e){console.warn(e);}
 function fc(btn,f){document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildC(f);}
-async function learnC(i,e){
+const LV_TARGET={b:5,i:7,a:10};
+function lessonKey(ci,m){return 'ma_lesson_'+ci+'_'+m;}
+function getProg(ci){try{return JSON.parse(localStorage.getItem('ma_prog_'+ci)||'{}');}catch(_){return {};}}
+function setProg(ci,p){try{localStorage.setItem('ma_prog_'+ci,JSON.stringify(p));}catch(_){}}
+function lessonTarget(ci,m){const p=getProg(ci)[m];return (p&&p.target)||LV_TARGET[COURSES[ci].lv]||5;}
+function extractTarget(text){const mm=(text||'').match(/PRACTICE_SESSIONS:\s*(\d+)/);return mm?Math.min(Math.max(parseInt(mm[1],10),2),21):0;}
+function showCachedLesson(ci,m){
+  let t='';try{t=localStorage.getItem(lessonKey(ci,m))||'';}catch(_){}
+  if(!t)return false;
+  const box=document.getElementById('cres'),out=document.getElementById('cout');
+  box.style.display='block';out.innerHTML=mdToHtml(t);
+  try{addResultActions(out,'cres',t);}catch(_){}
+  return true;
+}
+async function runLesson(ci,m,prompt,force){
+  if(!force&&showCachedLesson(ci,m)){renderLessonNav();try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}return;}
+  const text=await ai(prompt,'cout','cres',3800);
+  if(text){
+    try{localStorage.setItem(lessonKey(ci,m),text);}catch(_){}
+    const t=extractTarget(text);
+    if(t&&m>=0){const p=getProg(ci);p[m]=Object.assign({sessions:[]},p[m],{target:t});setProg(ci,p);}
+  }
+  renderLessonNav();
+}
+const LESSON_STYLE=`כתוב בעברית, בפנייה ניטרלית מגדרית (לשון רבים או "את/ה"). השתמש בכותרות Markdown (##) ובהדגשות. סגנון של מורה מנוסה וחם — מעשי ומדויק, לא כללי. אל תבטיח תוצאות; הצג זאת כמסורת ופרקטיקה רוחנית.`;
+async function learnC(i,e,force){
   if(e)e.stopPropagation();const c=COURSES[i];curLesson={c:i,m:-1};renderLessonNav();
   document.getElementById('clbl').textContent=c.t+' — שיעור מבוא';
   const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join('\n');
-  await ai(`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. כתוב שיעור מבוא מקיף ומרתק בעברית לקורס.
+  await runLesson(i,-1,`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. כתוב שיעור פתיחה מקיף לקורס (רמה: ${LVH[c.lv]}).
 מבנה הקורס:
 ${modList}
 
-השיעור צריך לכלול: (1) פתיחה מעוררת השראה על מהות התחום; (2) רקע היסטורי קצר על ${c.s}; (3) הסבר מה התלמיד ילמד וירכוש; (4) תרגיל מעשי ראשון שאפשר לעשות כבר היום; (5) המלצה כיצד להמשיך. כ-400 מילה, סגנון חם ומקצועי.`,'cout','cres',2200);
-  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+חלקים חובה, כל אחד תחת כותרת ##:
+1. מהות התחום — פתיחה מעוררת השראה וברורה.
+2. רקע ומסורת — ${c.s} ומה ייחודי בגישה.
+3. מפת הקורס — משפט-שניים על כל אחד מהשיעורים ולמה הם בסדר הזה.
+4. תוכנית לימוד מומלצת — קצב (כמה פעמים בשבוע, כמה דקות), כמה זמן בערך לוקח כל שיעור, ומשך הקורס כולו בשבועות.
+5. איך לתרגל נכון — מקום, זמן ביום, יומן תרגול, מה לעשות כשלא "קורה" כלום.
+6. הכנה לשיעור 1 — תרגיל פשוט להיום (10 דקות) עם שלבים ממוספרים.
+כ-900 מילה. ${LESSON_STYLE}`,force);
 }
-async function learnModule(courseIdx,modIdx){
+async function learnModule(courseIdx,modIdx,force){
   const c=COURSES[courseIdx];const mod=c.m[modIdx];
   if(modIdx>=2 && !isSubscribed()){openCourseGate();return;}
   curLesson={c:courseIdx,m:modIdx};renderLessonNav();
   document.getElementById('clbl').textContent=`${c.t} — ${mod}`;
-  await ai(`מורה מנוסה ל${c.t} (בסגנון ${c.s}). למד לעומק את המודול "${mod}" (מודול ${modIdx+1} מתוך הקורס). כלול: הסבר מעמיק של הנושא, מושגי מפתח, תרגיל מעשי קונקרטי, וטיפ ממורה מנוסה. כ-350 מילה בעברית, סגנון חם ומעשי.`,'cout','cres',1800);
-  try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+  const prev=modIdx>0?c.m[modIdx-1]:'שיעור המבוא';
+  const next=modIdx<c.m.length-1?c.m[modIdx+1]:'סיום הקורס';
+  const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join(', ');
+  await runLesson(courseIdx,modIdx,`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. כתוב את שיעור ${modIdx+1} מתוך ${c.m.length}: "${mod}" (רמה: ${LVH[c.lv]}).
+מבנה הקורס כולו: ${modList}. השיעור הקודם: "${prev}". השיעור הבא: "${next}".
+
+חלקים חובה, כל אחד תחת כותרת ##:
+1. מטרת השיעור — מה תדעו ותוכלו לעשות בסופו (3 נקודות).
+2. ההסבר המלא — הנושא לעומק, מחולק לתתי-נושאים (###), עם דוגמאות קונקרטיות. זה לב השיעור — לפחות 40% מהאורך.
+3. מושגי מפתח — 4-6 מושגים עם הסבר קצר.
+4. תרגיל מעשי — שלבים ממוספרים: הכנה, ביצוע, סגירה. ציין משך בדקות.
+5. תוכנית תרגול — כמה פעמים בשבוע, כמה דקות כל פעם, ובמשך כמה ימים, ואיך התרגול מתפתח מפעם לפעם (מה משנים בתרגול 1 לעומת התרגול האחרון).
+6. טעויות נפוצות — 3-4, ואיך להימנע מהן.
+7. שאלות ליומן — 3 שאלות לכתוב אחרי כל תרגול.
+8. מוכנים לשיעור הבא? — 3-4 סימנים מדידים שמראים שאפשר להתקדם ל"${next}", ומה לעשות אם עדיין לא.
+כ-1000 מילה. ${LESSON_STYLE}
+בשורה האחרונה של התשובה, ובה בלבד, כתוב בדיוק: PRACTICE_SESSIONS: N — כאשר N הוא מספר מפגשי התרגול המומלץ לפני מעבר לשיעור הבא (מספר שלם בין 3 ל-14).`,force);
 }
 
 // RESEARCH
@@ -1472,20 +1537,56 @@ async function doMeditation(){
 
 // LESSON NAVIGATION
 let curLesson=null;
-function goLesson(ci,m){if(m<0)learnC(ci);else learnModule(ci,m);}
+function goLesson(ci,m,force){if(m<0)learnC(ci,null,force);else learnModule(ci,m,force);}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function logPractice(){
+  if(!curLesson||curLesson.m<0)return;const {c:ci,m}=curLesson;const p=getProg(ci);
+  const e=p[m]=Object.assign({sessions:[]},p[m]);const t=todayStr();
+  if(e.sessions.indexOf(t)===-1)e.sessions.push(t);
+  if(e.sessions.length>=lessonTarget(ci,m))e.done=true;
+  setProg(ci,p);renderLessonNav();
+}
+function undoPractice(){
+  if(!curLesson||curLesson.m<0)return;const {c:ci,m}=curLesson;const p=getProg(ci);const e=p[m];if(!e)return;
+  e.sessions=e.sessions.filter(x=>x!==todayStr());if(e.sessions.length<lessonTarget(ci,m))e.done=false;setProg(ci,p);renderLessonNav();
+}
+function toggleDone(){
+  if(!curLesson||curLesson.m<0)return;const {c:ci,m}=curLesson;const p=getProg(ci);
+  const e=p[m]=Object.assign({sessions:[]},p[m]);e.done=!e.done;setProg(ci,p);renderLessonNav();
+}
+function regenLesson(){if(curLesson&&confirmRegen())goLesson(curLesson.c,curLesson.m,true);}
+function confirmRegen(){const b=document.getElementById('ln-regen');if(b&&b.dataset.armed!=='1'){b.dataset.armed='1';b.textContent='לחצו שוב לאישור — השיעור הנוכחי יוחלף';setTimeout(()=>{b.dataset.armed='';b.textContent='↻ כתוב את השיעור מחדש';},4000);return false;}return true;}
 function renderLessonNav(){
   const nav=document.getElementById('cnav');if(!nav||!curLesson)return;
   const ci=curLesson.c,c=COURSES[ci],n=c.m.length,m=curLesson.m;
-  const sub=isSubscribed();
-  const pos=m<0?'שיעור מבוא':'שיעור {a} מתוך {b}'.replace('{a}',m+1).replace('{b}',n);
+  const sub=isSubscribed();const prog=getProg(ci);
+  const doneCount=c.m.filter((_,j)=>prog[j]&&prog[j].done).length;
+  const pos=m<0?'שיעור מבוא':`שיעור ${m+1} מתוך ${n}`;
   const hasNext=m<n-1;
   const chips=[`<button class="ln-chip${m<0?' cur':''}" onclick="goLesson(${ci},-1)">מבוא</button>`]
-    .concat(c.m.map((t,j)=>`<button class="ln-chip${j===m?' cur':''}" onclick="goLesson(${ci},${j})">${j>=2&&!sub?'🔒 ':''}${j+1}. ${t}</button>`)).join('');
-  nav.innerHTML=`<div class="ln-row">
+    .concat(c.m.map((t,j)=>{const d=prog[j]&&prog[j].done;return `<button class="ln-chip${j===m?' cur':''}${d?' done':''}" onclick="goLesson(${ci},${j})">${j>=2&&!sub?'🔒 ':''}${d?'✓ ':''}${j+1}. ${t}</button>`;})).join('');
+  let practice='';
+  if(m>=0){
+    const e=prog[m]||{sessions:[]};const tgt=lessonTarget(ci,m);const cnt=e.sessions.length;
+    const today=e.sessions.indexOf(todayStr())!==-1;
+    const dots=Array.from({length:tgt},(_,k)=>`<span class="pr-dot${k<cnt?' on':''}"></span>`).join('');
+    const msg=e.done?'השיעור הושלם — אפשר להמשיך לשיעור הבא ✦':cnt>=tgt?'הגעתם ליעד התרגול. בדקו את "מוכנים לשיעור הבא?" בסוף השיעור.':`מומלץ ${tgt} מפגשי תרגול לפני המעבר לשיעור הבא (תרגול אחד ליום).`;
+    practice=`<div class="pr-box">
+      <div class="pr-head"><span>יומן תרגול</span><span class="pr-cnt">${cnt} / ${tgt}</span></div>
+      <div class="pr-dots">${dots}</div>
+      <div class="pr-msg">${msg}</div>
+      <div class="pr-actions">
+        ${today?`<button class="ln-btn" onclick="undoPractice()">✓ תרגלתם היום · בטל</button>`:`<button class="ln-btn pr-main" onclick="logPractice()">✓ תרגלתי היום</button>`}
+        <button class="ln-btn" onclick="toggleDone()">${e.done?'סמן כלא הושלם':'סיימתי את השיעור'}</button>
+      </div>
+    </div>`;
+  }
+  nav.innerHTML=`${practice}<div class="ln-row">
     <button class="ln-btn" ${m<0?'disabled':''} onclick="goLesson(${ci},${m-1})">→ השיעור הקודם</button>
-    <span class="ln-pos">${pos}</span>
-    <button class="ln-btn" ${hasNext?'':'disabled'} onclick="goLesson(${ci},${m+1})">${hasNext?'השיעור הבא ←':'סיימת את הקורס ✦'}</button>
-  </div><div class="ln-list">${chips}</div>`;
+    <span class="ln-pos">${pos}<br><small>${doneCount}/${n} שיעורים הושלמו</small></span>
+    <button class="ln-btn" ${hasNext?'':'disabled'} onclick="goLesson(${ci},${m+1})">${hasNext?'השיעור הבא ←':'סיימתם את הקורס ✦'}</button>
+  </div><div class="ln-list">${chips}</div>
+  <button class="ln-regen" id="ln-regen" onclick="regenLesson()">↻ כתוב את השיעור מחדש</button>`;
   nav.classList.add('show');
 }
 function refreshLocks(){
@@ -1929,6 +2030,23 @@ async function aiFallback(prompt,maxTokens){
   return (data.content||[]).map(b=>b.text||'').join('').trim();
 }
 
+/* ממיר Markdown בסיסי לתצוגה — קודם מבריח HTML כדי שלא תוזרק תגית */
+function mdToHtml(t){
+  const esc=t.replace(/\n?PRACTICE_SESSIONS:\s*\d+\s*$/,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return esc
+    .replace(/^#{3,} (.+)$/gm,'<h4 class="md-h3">$1</h4>')
+    .replace(/^## (.+)$/gm,'<h3 class="md-h2">$1</h3>')
+    .replace(/^# (.+)$/gm,'<h3 class="md-h1">$1</h3>')
+    .replace(/^---+$/gm,'<hr class="md-hr">')
+    .replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
+    .replace(/^\s*[-•*] (.+)$/gm,'<span class="md-li">• $1</span>')
+    .replace(/\n{3,}/g,'\n\n')
+    .replace(/\n+(<(?:h3|h4|hr|span class="md-li"))/g,'$1')
+    .replace(/(<\/h3>|<\/h4>|<hr class="md-hr">|<\/span>)\n+/g,'$1')
+    .replace(/^\s+/,'');
+}
+
 async function ai(prompt,outId,boxId,maxTokens){
   const box=document.getElementById(boxId),out=document.getElementById(outId);
   if(!box||!out)return;
@@ -1952,7 +2070,7 @@ async function ai(prompt,outId,boxId,maxTokens){
     if(res.ok&&res.body&&ct.indexOf('text/event-stream')!==-1){
       streamed=true;
       out.classList.add('ai-streaming');
-      text=await readAiStream(res,function(sofar){out.textContent=sofar;});
+      text=await readAiStream(res,function(sofar){out.innerHTML=mdToHtml(sofar);});
     }
   }catch(err){
     console.warn('AI stream failed, falling back:',err);
@@ -1972,8 +2090,9 @@ async function ai(prompt,outId,boxId,maxTokens){
     }
   }
 
-  out.textContent=text||'לא התקבלה תשובה. נסה שוב.';
+  if(text)out.innerHTML=mdToHtml(text);else out.textContent='לא התקבלה תשובה. נסה שוב.';
   if(text){recordUse();addResultActions(out,boxId,text);}
+  return text;
 }
 </script>
 
