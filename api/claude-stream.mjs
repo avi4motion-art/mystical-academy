@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "messages required" });
   }
   // תקרה קשיחה, כדי ששדה מהלקוח לא יוכל להזמין תשובה ענקית
-  const cap = Math.min(Math.max(parseInt(max_tokens, 10) || 1600, 200), 2400);
+  const cap = Math.min(Math.max(parseInt(max_tokens, 10) || 1600, 200), 4000);
 
   let upstream;
   try {
