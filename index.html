@@ -1402,14 +1402,41 @@ function showCachedLesson(ci,m){
   try{addResultActions(out,'cres',t);}catch(_){}
   return true;
 }
+async function streamPart(prompt,el,cap){
+  let text='',streamed=false;
+  try{
+    const res=await fetch('/api/claude-stream',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:cap})});
+    const ct=res.headers.get('content-type')||'';
+    if(res.ok&&res.body&&ct.indexOf('text/event-stream')!==-1){
+      streamed=true;text=await readAiStream(res,function(sofar){el.innerHTML=mdToHtml(sofar);});
+    }
+  }catch(err){console.warn('part stream failed:',err);text='';}
+  if(!text){try{text=await aiFallback(prompt,cap);}catch(err){console.error(err);text='';}}
+  return text;
+}
 async function runLesson(ci,m,prompt,force){
   if(!force&&showCachedLesson(ci,m)){renderLessonNav();try{document.getElementById('cres').scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}return;}
-  const text=await ai(prompt,'cout','cres',3800);
-  if(text){
-    try{localStorage.setItem(lessonKey(ci,m),text);}catch(_){}
-    const t=extractTarget(text);
-    if(t&&m>=0){const p=getProg(ci);p[m]=Object.assign({sessions:[]},p[m],{target:t});setProg(ci,p);}
+  const parts=Array.isArray(prompt)?prompt:[prompt];
+  const st=useState();
+  if(st==='signup'){openSignupGate();return;}
+  if(st==='subscribe'){openSubscribeGate();return;}
+  const box=document.getElementById('cres'),out=document.getElementById('cout');
+  box.style.display='block';
+  const old=box.querySelector('.result-actions');if(old)old.remove();
+  out.innerHTML=parts.map((_,k)=>`<div class="lesson-part" id="lp${k}">${k===0?'<div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div>':''}</div>`).join('');
+  try{box.scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+  const texts=await Promise.all(parts.map((p,k)=>streamPart(p,document.getElementById('lp'+k),4000)));
+  if(texts.some(t=>!t)){
+    out.innerHTML='<div style="font-family:\'Noto Serif Hebrew\',serif;font-size:.85rem;line-height:1.9;color:var(--muted)">חלק מהשיעור לא נטען. נסו שוב בעוד רגע (כפתור "כתוב את השיעור מחדש").</div>';
+    renderLessonNav();return;
   }
+  const target=texts.map(extractTarget).find(Boolean)||0;
+  const full=texts.map(t=>t.replace(/\n?PRACTICE_SESSIONS:\s*\d+\s*$/,'').trim()).join('\n\n')+(target?'\n\nPRACTICE_SESSIONS: '+target:'');
+  out.innerHTML=mdToHtml(full);
+  recordUse();try{addResultActions(out,'cres',full);}catch(_){}
+  try{localStorage.setItem(lessonKey(ci,m),full);}catch(_){}
+  if(target&&m>=0){const p=getProg(ci);p[m]=Object.assign({sessions:[]},p[m],{target});setProg(ci,p);}
   renderLessonNav();
 }
 const LESSON_STYLE=`כתוב בעברית, בפנייה ניטרלית מגדרית (לשון רבים או "את/ה"). השתמש בכותרות Markdown (##) ובהדגשות. סגנון של מורה מנוסה וחם — מעשי ומדויק, לא כללי. אל תבטיח תוצאות; הצג זאת כמסורת ופרקטיקה רוחנית.`;
@@ -1428,7 +1455,7 @@ ${modList}
 4. תוכנית לימוד מומלצת — קצב (כמה פעמים בשבוע, כמה דקות), כמה זמן בערך לוקח כל שיעור, ומשך הקורס כולו בשבועות.
 5. איך לתרגל נכון — מקום, זמן ביום, יומן תרגול, מה לעשות כשלא "קורה" כלום.
 6. הכנה לשיעור 1 — תרגיל פשוט להיום (10 דקות) עם שלבים ממוספרים.
-כ-900 מילה. ${LESSON_STYLE}`,force);
+כ-650 מילה, ממוקד. ${LESSON_STYLE}`,force);
 }
 async function learnModule(courseIdx,modIdx,force){
   const c=COURSES[courseIdx];const mod=c.m[modIdx];
@@ -1438,20 +1465,28 @@ async function learnModule(courseIdx,modIdx,force){
   const prev=modIdx>0?c.m[modIdx-1]:'שיעור המבוא';
   const next=modIdx<c.m.length-1?c.m[modIdx+1]:'סיום הקורס';
   const modList=c.m.map((m,j)=>`${j+1}. ${m}`).join(', ');
-  await runLesson(courseIdx,modIdx,`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. כתוב את שיעור ${modIdx+1} מתוך ${c.m.length}: "${mod}" (רמה: ${LVH[c.lv]}).
+  const ctx=`אתה מורה מנוסה ל${c.t}, בסגנון ההוראה של ${c.s}. השיעור: שיעור ${modIdx+1} מתוך ${c.m.length} — "${mod}" (רמה: ${LVH[c.lv]}).
 מבנה הקורס כולו: ${modList}. השיעור הקודם: "${prev}". השיעור הבא: "${next}".
+השיעור נכתב בשני חלקים נפרדים שיוצגו ברצף; אתה כותב רק את החלק שמתואר להלן.`;
+  const partA=`${ctx}
 
-חלקים חובה, כל אחד תחת כותרת ##:
+חלק א' של השיעור. התחל בכותרת # שיעור ${modIdx+1}: ${mod}. אחר כך, כל חלק תחת כותרת ##:
 1. מטרת השיעור — מה תדעו ותוכלו לעשות בסופו (3 נקודות).
-2. ההסבר המלא — הנושא לעומק, מחולק לתתי-נושאים (###), עם דוגמאות קונקרטיות. זה לב השיעור — לפחות 40% מהאורך.
+2. ההסבר המלא — הנושא לעומק, מחולק לתתי-נושאים (###), עם דוגמאות קונקרטיות. זה לב השיעור.
 3. מושגי מפתח — 4-6 מושגים עם הסבר קצר.
-4. תרגיל מעשי — שלבים ממוספרים: הכנה, ביצוע, סגירה. ציין משך בדקות.
-5. תוכנית תרגול — כמה פעמים בשבוע, כמה דקות כל פעם, ובמשך כמה ימים, ואיך התרגול מתפתח מפעם לפעם (מה משנים בתרגול 1 לעומת התרגול האחרון).
-6. טעויות נפוצות — 3-4, ואיך להימנע מהן.
-7. שאלות ליומן — 3 שאלות לכתוב אחרי כל תרגול.
-8. מוכנים לשיעור הבא? — 3-4 סימנים מדידים שמראים שאפשר להתקדם ל"${next}", ומה לעשות אם עדיין לא.
-כ-1000 מילה. ${LESSON_STYLE}
-בשורה האחרונה של התשובה, ובה בלבד, כתוב בדיוק: PRACTICE_SESSIONS: N — כאשר N הוא מספר מפגשי התרגול המומלץ לפני מעבר לשיעור הבא (מספר שלם בין 3 ל-14).`,force);
+4. תרגיל מעשי — שם לתרגיל, ושלבים ממוספרים: הכנה, ביצוע, סגירה. ציין משך בדקות.
+5. תוכנית תרגול — כמה פעמים בשבוע, כמה דקות, במשך כמה ימים, ואיך התרגיל מתפתח מהתרגול הראשון לאחרון (שלבים לפי ימים).
+כ-650 מילה. אל תכתוב סיכום או מעבר לשיעור הבא — זה בחלק ב'. ${LESSON_STYLE}
+בשורה האחרונה, ובה בלבד, כתוב בדיוק: PRACTICE_SESSIONS: N — מספר מפגשי התרגול שקבעת בתוכנית (שלם, 3-14).`;
+  const partB=`${ctx}
+
+חלק ב' (החלק המסכם) של השיעור. חלק א' כבר כיסה מטרות, הסבר, מושגים, תרגיל מעשי ותוכנית תרגול — אל תחזור עליהם ואל תכתוב כותרת ראשית לשיעור. כתוב רק, כל חלק תחת כותרת ##:
+1. טעויות נפוצות — 3-4 טעויות אופייניות בנושא "${mod}", ואיך להימנע מכל אחת.
+2. שאלות ליומן — 3-4 שאלות לכתוב אחרי כל תרגול.
+3. מוכנים לשיעור הבא? — 3-4 סימנים מדידים שמראים שאפשר להתקדם ל"${next}", ומה לעשות אם עדיין לא (כמה ימי תרגול להוסיף, מה לשנות).
+4. מילה ממורה — פסקה קצרה ומעודדת לסיום.
+כ-350 מילה. ${LESSON_STYLE}`;
+  await runLesson(courseIdx,modIdx,[partA,partB],force);
 }
 
 // RESEARCH
